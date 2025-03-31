@@ -4,6 +4,7 @@ import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
 import SECRET_KEY from "@/app/lib/config";
 import { cookies } from "next/headers";
+
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         const cookiestore = await cookies();

@@ -1,7 +1,8 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phonenumber" TEXT NOT NULL DEFAULT '',
@@ -13,6 +14,7 @@ CREATE TABLE "User" (
 CREATE TABLE "Admin" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
+    "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "phonenumber" TEXT NOT NULL,
@@ -22,7 +24,7 @@ CREATE TABLE "Admin" (
 
 -- CreateTable
 CREATE TABLE "jobschema" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "descreption" TEXT NOT NULL,
     "joblink" TEXT NOT NULL,
@@ -33,8 +35,8 @@ CREATE TABLE "jobschema" (
 
 -- CreateTable
 CREATE TABLE "_UserTojobschema" (
-    "A" INTEGER NOT NULL,
-    "B" INTEGER NOT NULL,
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL,
 
     CONSTRAINT "_UserTojobschema_AB_pkey" PRIMARY KEY ("A","B")
 );
