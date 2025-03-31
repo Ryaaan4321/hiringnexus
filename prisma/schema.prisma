@@ -8,23 +8,25 @@ datasource db {
 }
 
 model User {
-  id              Int    @id @default(autoincrement())
+  id              String    @id @default(uuid())
   name            String
+  username        String
   email           String @unique
   password        String
   phonenumber     String @default("")
   alreadyapplied  jobschema[]
 }
 model Admin{
-  id              String @id 
+  id              String @id @default(uuid())
   name            String
+  username        String
   email           String @unique
   password        String
   phonenumber     String 
   postedjobs      jobschema[]
 }
 model jobschema{
-  id              Int @id @default(autoincrement())
+  id              String @id @default(uuid())
   title           String
   descreption     String
   joblink         String
