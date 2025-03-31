@@ -5,7 +5,7 @@ export async function middleware(req: NextRequest) {
     console.log("middleware got called");
     const token = req.cookies.get("access_token")?.value;
     if (!token) {
-        return NextResponse.json({ msg: "No token provided" }, { status: 401 });
+        return NextResponse.json({ msg: "token is not provided" }, { status: 401 });
     }
 
     const response = await fetch("http://localhost:3000/api/admin/auth", {

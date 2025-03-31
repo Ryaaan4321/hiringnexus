@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         }
         const isvaliduser = await bcrypt.compare(body.password, isadmin.password);
         if (!isvaliduser) {
-            return NextResponse.json({ msg: "unauthorized admin" }, { status: 401 });
+            return NextResponse.json({ msg: "bkl admin" }, { status: 401 });
         }
         const { password, ...adminwithoutpassword } = isadmin;
         const token = jwt.sign(
