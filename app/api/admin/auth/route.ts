@@ -13,7 +13,7 @@ export async function POST(req: Request) {
         const body = await req.json();
         const token = body.token;
         if (!token) return NextResponse.json({ msg: "no token" }, { status: 401 });
-
+        // console.log("token from the auth fucc  = ",token);
         const { payload } = await jwtVerify<AdminPayload>(token, new TextEncoder().encode(SECRET_KEY));
         const findadmin = await client.admin.findFirst({
             where: { email: payload.email }

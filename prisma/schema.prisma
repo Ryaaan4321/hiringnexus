@@ -30,7 +30,7 @@ model jobschema{
   title           String
   descreption     String
   joblink         String
-  adminid         String
-  postedby        Admin @relation(fields: [adminid],references: [id])
+  postedby    Admin   @relation(fields: [postedbyId], references: [id])
+  postedbyId  String
   appliedusers    User[]
 }
