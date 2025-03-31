@@ -8,8 +8,27 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  email    String
-  password String
+  id              Int    @id @default(autoincrement())
+  name            String
+  email           String @unique
+  password        String
+  phonenumber     String @default("")
+  alreadyapplied  jobschema[]
+}
+model Admin{
+  id              String @id 
+  name            String
+  email           String @unique
+  password        String
+  phonenumber     String 
+  postedjobs      jobschema[]
+}
+model jobschema{
+  id              Int @id @default(autoincrement())
+  title           String
+  descreption     String
+  joblink         String
+  adminid         String
+  postedby        Admin @relation(fields: [adminid],references: [id])
+  appliedusers    User[]
 }
