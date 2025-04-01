@@ -40,3 +40,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
         return NextResponse.json({ msg: e.message }, { status: 500 });
     }
 }
+// export async function GET(){
+//     try{
+//         const response=await client.jobschema.findMany();
+//         return NextResponse.json({response})
+//     }catch(e){
+//         console.log(e);
+//         return NextResponse.json(e);
+//     }
+// }
