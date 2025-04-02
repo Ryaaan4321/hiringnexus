@@ -17,10 +17,10 @@ export default function Header() {
 //   const activeTab = getActiveTab();
 
   return (
-    <header className="flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 font-sans">
+    <header className=" flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 font-sans">
       {/* Left section - User name */}
-      <div className="flex items-center">
-        <span className=" text-slate-950 text-9xl">Hiring Nexus</span>
+      <div className="container flex ">
+        <span className=" text-slate-950 md:text-8xl   sm:text-4xl sm:whitespace-nowrap sm:overflow-hidden sm:text-ellipsis iphone_se">Fccsss Fccsss</span>
       </div>
       
       {/* Middle section - Navigation */}

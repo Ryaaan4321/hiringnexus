@@ -112,6 +112,16 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
+@media screen and (max-width: 768px) and (min-width: 375px) {
+  .iphone_se {
+    background-color: brown;
+    font-size: 32px; /* Equivalent to text-4xl in Tailwind */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 
 @layer base {
   * {
