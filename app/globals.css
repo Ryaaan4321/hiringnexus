@@ -114,8 +114,7 @@
 }
 @media screen and (max-width: 768px) and (min-width: 375px) {
   .iphone_se {
-    background-color: brown;
-    font-size: 32px; /* Equivalent to text-4xl in Tailwind */
+    font-size: 50px; /* Equivalent to text-4xl in Tailwind */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

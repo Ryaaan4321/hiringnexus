@@ -27,25 +27,25 @@ export default function Header() {
       <nav className="flex gap-8">
         <Link 
           href="/dashboard" 
-          className={`transition-colors text-slate-600 text-3xl`}
+          className={`transition-colors text-slate-600 text-3xl font-light`}
         >
           Overview
         </Link>
         <Link 
           href="/customers" 
-          className={`transition-colors text-slate-600 text-3xl`}
+          className={`transition-colors text-slate-600 text-3xl font-light`}
         >
           Customers
         </Link>
         <Link 
           href="/products" 
-          className={`transition-colors text-slate-600 text-3xl`}
+          className={`transition-colors text-slate-600 text-3xl font-light`}
         >
           Products
         </Link>
         <Link 
           href="/settings" 
-          className={`transition-colors text-slate-600 text-3xl`}
+          className={`transition-colors text-slate-600 text-3xl font-light`}
         >
           Settings
         </Link>
