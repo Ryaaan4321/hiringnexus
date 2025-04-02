@@ -1,6 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
 import jobinterface, { getalljobs } from "./lib/actions";
+import Header from "./components/Header";
+import { Button } from "@/components/ui/button";
 export default function Home() {
   const [jobs, setJobs] = useState<jobinterface[]>([]);
   const [err, seterr] = useState("")
@@ -18,6 +20,7 @@ export default function Home() {
   }, [])
   return (
     <>
+    <Header/>
       <div>
         <h1>Job Posting</h1>
         {err && <p style={{ color: "red" }}>{err}</p>}
@@ -27,6 +30,7 @@ export default function Home() {
               <h1>{job.title}</h1>
               <p>{job.descreption}</p>
               <a href={job.joblink}>Apply here</a>
+              <Button>Button</Button>
             </div>
           ))
         ) : (
@@ -36,3 +40,12 @@ export default function Home() {
     </>
   );
 }
+
+
+/* color options that i have 
+Neutral
+Gray
+Zinc
+Stone
+Slate
+*/
