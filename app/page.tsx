@@ -20,7 +20,7 @@ export default function Home() {
   }, [])
   return (
     <>
-    <Header/>
+      <Header />
       <div>
         <h1>Job Posting</h1>
         {err && <p style={{ color: "red" }}>{err}</p>}
@@ -30,9 +30,11 @@ export default function Home() {
               <h1>{job.title}</h1>
               <p>{job.descreption}</p>
               <a href={job.joblink}>Apply here</a>
-              {/* <h2>{job.postedby}</h2> */}
-              {/* <h1>{job.postedbyId}</h1> */}
               <h2>{job.postedby.name}</h2>
+              {job.jobTypes.map((type: { name: string }) => (
+                <h1 key={type.name}>{type.name}</h1>
+              ))}
+
               <Button>Button</Button>
             </div>
           ))
