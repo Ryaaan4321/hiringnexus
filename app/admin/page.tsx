@@ -1,7 +1,7 @@
 "use react"
-import DashBoard from '@/components/dashboard/page'
+
 export default function Page(){
     return (
-        <DashBoard/>
+        <h1>new new page</h1>
     )
 }

@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import jobinterface, { getalljobs } from "./lib/actions";
 import Header from "./components/Header";
-import { Button } from "@/components/ui/button";
 export default function Home() {
   const [jobs, setJobs] = useState<jobinterface[]>([]);
   const [err, seterr] = useState("")
@@ -30,12 +29,11 @@ export default function Home() {
               <h1>{job.title}</h1>
               <p>{job.descreption}</p>
               <a href={job.joblink}>Apply here</a>
-              <h2>{job.postedby.name}</h2>
+              <h2>posted by = {job.postedby.name}</h2>
               {job.jobTypes.map((type: { name: string }) => (
-                <h1 key={type.name}>{type.name}</h1>
+                <h1  key={type.name}>{type.name}</h1>
               ))}
 
-              <Button>Button</Button>
             </div>
           ))
         ) : (
