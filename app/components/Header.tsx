@@ -16,7 +16,7 @@ export default function Header() {
     <header className=" flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 font-sans">
       {/* Left section - User name */}
       <div className="container flex">
-        <span className=" text-slate-900 md:text-8xl   sm:text-4xl sm:whitespace-nowrap sm:overflow-hidden sm:text-ellipsis iphone_se">Hiring Nexus</span>
+        <span className=" text-slate-900 md:text-8xl   sm:text-4xl sm:whitespace-nowrap sm:overflow-hidden sm:text-ellipsis iphone_se">HiringNexus</span>
       </div>
 
       {/* Middle section - Navigation */}
@@ -31,7 +31,7 @@ export default function Header() {
           href="/customers"
           className={`transition-colors text-slate-600 text-3xl font-light`}
         >
-          Customers
+          Users
         </Link>
         <Link
           href="/products"

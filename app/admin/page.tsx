@@ -1,7 +1,14 @@
 "use react"
 
-export default function Page(){
+import Header from "../components/Header"
+import Sidebar from "../components/Sidebar"
+
+export default function Page() {
+    console.log("admin  got called")
     return (
-        <h1>new new page</h1>
+        <div>
+            <Header/>
+            <Sidebar />
+        </div>
     )
 }
