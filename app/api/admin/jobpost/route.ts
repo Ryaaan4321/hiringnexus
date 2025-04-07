@@ -19,22 +19,37 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const { payload } = await jwtVerify<AdminPayload>(token, new TextEncoder().encode(SECRET_KEY));
         const adminId = payload.id;
         const body = await req.json();
-        const admin=await client.admin.findUnique({where:{
-            id:adminId
-        }})
-        if(!admin){
-            return NextResponse.json({msg:"admin not found from the token"},{status:404});
+        const admin = await client.admin.findUnique({
+            where: {
+                id: adminId
+            }
+        })
+        if (!admin) {
+            return NextResponse.json({ msg: "admin not found from the token" }, { status: 404 });
         }
-        console.log("admin id = ",admin.id)
+        console.log("admin id = ", admin.id)
+        const jobtypestoconnect = body.jobTypes.map((type: string) => ({ name: type }));
         const newJob = await client.jobschema.create({
             data: {
                 title: body.title,
                 descreption: body.descreption,
                 joblink: body.joblink,
-                postedby: { connect: { id: admin.id } }  
+                postedby: { connect: { id: admin.id } },
+                jobTypes: {
+                    connect:jobtypestoconnect
+                }
+            },
+            include: {
+                postedby: {
+                    select:{
+                        name:true
+                    }
+                },
+                jobTypes: true
             }
         });
-        return NextResponse.json({newJob},{status:201})
+        console.log("job type  = ", body.jobTypes)
+        return NextResponse.json({ newJob }, { status: 201 })
     } catch (e: any) {
         console.log(e);
         return NextResponse.json({ msg: e.message }, { status: 500 });

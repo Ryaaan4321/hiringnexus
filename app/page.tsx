@@ -30,6 +30,9 @@ export default function Home() {
               <h1>{job.title}</h1>
               <p>{job.descreption}</p>
               <a href={job.joblink}>Apply here</a>
+              {/* <h2>{job.postedby}</h2> */}
+              {/* <h1>{job.postedbyId}</h1> */}
+              <h2>{job.postedby.name}</h2>
               <Button>Button</Button>
             </div>
           ))

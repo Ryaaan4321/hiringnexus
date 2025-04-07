@@ -14,7 +14,10 @@ export default interface jobinterface{
     title:string,
     descreption :string,
     joblink :string,
-    postedbyId:string
+    postedbyId:string,
+    postedby:{
+        name:string
+    }
 }
 
 export async function getalljobs():Promise<jobinterface[]> {
@@ -25,7 +28,12 @@ export async function getalljobs():Promise<jobinterface[]> {
                 title:true,
                 descreption:true,
                 joblink:true,
-                postedbyId:true
+                postedbyId:true,
+                postedby:{
+                    select:{
+                        name:true
+                    }
+                }
             }
         });// to get the all the jobs in the type of the array i have used the
         // the jobinerface 

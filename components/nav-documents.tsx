@@ -27,18 +27,19 @@ import {
 
 export function NavDocuments({
   items,
+  name,
 }: {
   items: {
     name: string
     url: string
     icon: Icon
-  }[]
+  }[],name:string
 }) {
   const { isMobile } = useSidebar()
 
   return (
     <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroup name="Job Listings" className="bg-gray-100">
+      <SidebarGroup name="fisting" className="bg-gray-100">
       </SidebarGroup>
       <SidebarMenu>
         {items.map((item) => (
@@ -81,30 +82,9 @@ export function NavDocuments({
         ))}
         <SidebarMenuItem>
           <SidebarMenuButton className="text-sidebar-foreground/70">
-            {/* <IconDots className="text-sidebar-foreground/70" />
-            <span>More</span> */}
           </SidebarMenuButton>
         </SidebarMenuItem>
       </SidebarMenu>
-      {/* <SidebarGroupLabel>Job Managment</SidebarGroupLabel>
-      <SidebarMenu>
-        {items.map((item) => (
-          <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton asChild>
-              <a href={item.url}>
-                <item.icon />
-                <span>{item.name}</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        ))}
-        <SidebarMenuItem> */}
-      {/* this is creating the space in the user managment and the job management bug-1 */}
-      {/* <SidebarMenuButton className="text-sidebar-foreground/70">
-          </SidebarMenuButton> */}
-
-      {/* </SidebarMenuItem>
-      </SidebarMenu> */}
     </SidebarGroup>
   )
 }
