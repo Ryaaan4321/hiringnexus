@@ -112,6 +112,7 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
+
 /* this si the css of the sidebar component from the shadcn  */
 @layer base {
   :root {
@@ -150,6 +151,29 @@
 @media screen and (max-width: 768px) and (min-width: 375px) {
   .hideelm {
     display: none;
+  }
+}
+
+.hidehamburger {
+  display: block;
+  background-color: blue;
+}
+
+.hidesidebar {
+  display: none;
+}
+
+@media screen and (min-width:500px) {
+  .hidesidebar {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 500px) {
+  .hidehamburger {
+    display: none;
+    background-color: red;
+
   }
 }
 
