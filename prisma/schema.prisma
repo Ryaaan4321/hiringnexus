@@ -42,4 +42,5 @@ model jobschema {
   postedby     Admin     @relation(fields: [postedbyId], references: [id])
   appliedusers User[]    @relation("UserTojobschema")
   jobTypes     jobtype[] @relation("jobtypesforjobs")
+  companyname  String 
 }

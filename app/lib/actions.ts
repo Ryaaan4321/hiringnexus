@@ -18,6 +18,7 @@ export default interface jobinterface {
     postedby: {
         name: string
     },
+    companyname:string,
     jobTypes: {
         name: string
     }[]
@@ -37,6 +38,7 @@ export async function getalljobs(): Promise<jobinterface[]> {
                         name: true
                     }
                 },
+                companyname:true,
                 jobTypes: {
                     select: {
                         name: true

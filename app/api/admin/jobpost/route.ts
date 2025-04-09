@@ -37,7 +37,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 postedby: { connect: { id: admin.id } },
                 jobTypes: {
                     connect:jobtypestoconnect
-                }
+                },
+                companyname:body.companyname
             },
             include: {
                 postedby: {

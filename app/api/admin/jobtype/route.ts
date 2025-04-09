@@ -4,7 +4,7 @@ export async function POST() {
     try {
         const response = await client.jobtype.createMany({
             data: [
-                { name: "FullTime" },
+                { name: "Fulltime" },
                 { name: "Internship" },
                 { name: "Remote" },
                 { name: "Contract" },
