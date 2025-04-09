@@ -176,6 +176,14 @@
 
   }
 }
+.card{
+  display: block
+}
+@media screen and (min-width:375px ) and (max-width:500px){
+  .card{
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
 
 @layer base {
   * {

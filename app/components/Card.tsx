@@ -3,7 +3,7 @@ import jobinterface from "../lib/actions";
 
 export default function Card({ job }: { job: jobinterface[] }) {
     return (
-        <div className="grid grid-cols-4 gap-1">
+        <div className="grid grid-cols-4 gap-1 card">
             {job.map((item, index) => (
                 <div
                     key={index}
@@ -11,7 +11,7 @@ export default function Card({ job }: { job: jobinterface[] }) {
                 >
                     <div className="flex items-center gap-3 p-4">
                         <div className="w-10 h-10 bg-black text-white flex items-center justify-center rounded-lg text-sm font-semibold">
-                            {item.title?.[0] || "C"}
+                            {item.title?.[0] || "H"}
                         </div>
                         <div>
                             <div className="text-sm font-semibold text-gray-900">
@@ -24,15 +24,15 @@ export default function Card({ job }: { job: jobinterface[] }) {
                     </div>
 
                     <div className="border-t px-4 py-3 text-sm text-gray-700">
-                        <div className="flex space-x-1">
+                        <div className="flex space-x-1 items-center">
                             <div className="text-zinc-800 font-semibold text-xl">Company Name :</div>
                             <div>{item.companyname}</div>
                         </div>
-                        <div className="flex space-x-1">
+                        <div className="flex space-x-1 items-center">
                             <div className="text-zinc-800 font-semibold text-xl">
                                 Posted By:
                             </div>
-                            <div className="text-sm font-medium font-gray-600">{item.postedby.name}</div>
+                            <div className="text-xl font-medium font-gray-600">{item.postedby.name}</div>
                         </div>
                     </div>
                     <div className="border-t px-4 py-3 text-sm text-gray-700 flex flex-wrap gap-2">
