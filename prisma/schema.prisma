@@ -44,3 +44,4 @@ model jobschema {
   jobTypes     jobtype[] @relation("jobtypesforjobs")
   companyname  String 
 }
+// add the expereicnce  of th user also in the user table like college student ,fresher,senior 

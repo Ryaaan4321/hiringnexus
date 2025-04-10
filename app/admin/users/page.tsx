@@ -1,7 +1,8 @@
 "use client"
+import UserTable from "@/app/components/UserTable"
 
 export default function Page(){
     return (
-        <div>Hmlo hmlo from the users of the page</div>
+        <UserTable/>
     )
 }

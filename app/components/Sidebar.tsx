@@ -8,7 +8,7 @@ import { MdReport } from "react-icons/md";
 
 export default function Sidebar() {
     return (
-        <aside className="w-64 bg-neutral-50 p-4 h-screen hidesidebar">
+        <aside className="w-64 bg-neutral-50 p-4 h-screen hidesidebar sticky top-10 left-0">
             <div className="flex items-center cursor-pointer space-x-0.5 ">
                 <div className="font-semibold text-2xl text-blue-950">Create a new Job</div>
                 <IoMdAddCircle size={20} className="text-slate-900 " />
