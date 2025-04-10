@@ -3,26 +3,15 @@ import client from '@/app/db'
 import SECRET_KEY from './config'
 import { jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
-
+import userinterface from '../api/user/signup/route'
+import jobinterface from '../api/admin/jobpost/route'
 
 interface AdminPayload extends JWTPayload {
     id: string,
     email: string
 }
-export default interface jobinterface {
-    id: string,
-    title: string,
-    descreption: string,
-    joblink: string,
-    postedbyId: string,
-    postedby: {
-        name: string
-    },
-    companyname:string,
-    jobTypes: {
-        name: string
-    }[]
-}
+
+
 
 export async function getalljobs(): Promise<jobinterface[]> {
     try {
@@ -52,6 +41,26 @@ export async function getalljobs(): Promise<jobinterface[]> {
         console.log(e.message);
         return [];
     }
+}
+export async function getallusers():Promise<userinterface[]> {
+    try{
+        const users:userinterface[]=await client.user.findMany({
+            select:{
+                id:true,
+                name:true,
+                username:true,
+                email:true,
+                phonenumber:true,
+                profession:true
+
+            }
+        })
+        return users;
+    }catch(e:any){
+        console.log(e.message);
+        return [];
+    }
+    
 }
 // to get the all the jobs in the type of the array i have used the
 // the jobinterface

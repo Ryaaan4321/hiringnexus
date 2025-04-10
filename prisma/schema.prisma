@@ -14,6 +14,7 @@ model User {
   email          String      @unique
   password       String
   phonenumber    String      @default("")
+  profession     String
   alreadyapplied jobschema[] @relation("UserTojobschema")
 }
 

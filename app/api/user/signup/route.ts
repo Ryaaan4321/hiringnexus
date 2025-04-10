@@ -4,6 +4,14 @@ import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
 import SECRET_KEY from "@/app/lib/config";
+export default interface userinterface {
+    id: string,
+    name: string,
+    username: string,
+    email: string,
+    phonenumber: string,
+    profession: string
+}
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
@@ -11,18 +19,19 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const hashedpassword = await bcrypt.hashSync(body.password, 10);
         const response = await client.user.create({
             data: {
-                id:uuidv4(),
+                id: uuidv4(),
                 name: body.name,
                 email: body.email,
                 password: hashedpassword,
                 phonenumber: body.phonenumber,
-                username:body.username
+                username: body.username,
+                profession: body.profession
             }
         })
         const token = jwt.sign({ id: response.id, email: response.email }, SECRET_KEY, { expiresIn: "1h" });
-        console.log(SECRET_KEY);
-        return NextResponse.json({ response,token }, { status: 201 })
-    } catch (e:any) {
+        // console.log(SECRET_KEY);
+        return NextResponse.json({ response, token }, { status: 201 })
+    } catch (e: any) {
         console.log(e);
         return NextResponse.json({ msg: e.message || "error in the user signup func" }, { status: 500 });
 

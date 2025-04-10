@@ -7,6 +7,20 @@ interface AdminPayload extends JWTPayload {
     id: string;  // to extract the admin id from here 
     email: string;
 }
+export default interface jobinterface {
+    id: string,
+    title: string,
+    descreption: string,
+    joblink: string,
+    postedbyId: string,
+    postedby: {
+        name: string
+    },
+    companyname:string,
+    jobTypes: {
+        name: string
+    }[]
+};
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
