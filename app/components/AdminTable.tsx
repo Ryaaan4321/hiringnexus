@@ -3,23 +3,39 @@ import { adminwithjobcountinterface } from '../lib/actions'
 
 export default function AdminTable({ admins }: { admins: adminwithjobcountinterface[] }) {
     return (
-        <div className="p-4 overflow-x-auto ">
-            <table className="min-w-full text-sm text-left text-white">
-                <thead className=" uppercase text-xs text-black">
+        <div className="p-4 overflow-x-auto">
+            <table className="min-w-full divide-y divide-gray-200">
+                <thead className="bg-gray-50">
                     <tr>
-                        <th scope="col" className="px-6 py-3 text-blue-900 font-semibold text-2xl">Username</th>
-                        <th scope="col" className="px-6 py-3  text-blue-900 font-semibold text-2xl">Email</th>
-                        <th scope="col" className="px-6 py-3  text-blue-900 font-semibold text-2xl">Profession</th>
-                        <th scope="col" className="px-6 py-3  text-blue-900 font-semibold text-2xl overflow-hidden">Jobs</th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Username
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Email
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Profession
+                        </th>
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Jobs
+                        </th>
                     </tr>
                 </thead>
-                <tbody className="cursor-pointer">
-                    {admins.map((item, index) => (
-                        <tr key={index} className="border-b text-black ">
-                            <td className="px-6 py-4 font-medium text-2xl">{item.username}</td>
-                            <td className="px-6 py-4 font-medium text-2xl text-zinc-600">{item.email}</td>
-                            <td className="px-6 py-4 font-medium text-2xl text-zinc-600">{/* profession field here */}</td>
-                            <td className="px-6 py-4 font-medium text-2xl text-green-900">{item.jobcount}</td>
+                <tbody className="bg-white divide-y divide-gray-200">
+                    {admins.map((item) => (
+                        <tr key={item.id} className="hover:bg-gray-50">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                {item.username}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {item.email}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {/* Add profession data here */}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {item.jobcount}
+                            </td>
                         </tr>
                     ))}
                 </tbody>
