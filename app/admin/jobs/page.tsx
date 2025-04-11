@@ -7,7 +7,7 @@ export default function Page() {
     const [jobs, setJobs] = useState<jobinterface[]>([]);
     const [err, seterr] = useState("")
     useEffect(() => {
-        async function fetch() {
+        async function fetchjobs() {
             try {
                 const data = await getalljobs();
                 // console.log("data = ", data)
@@ -16,7 +16,7 @@ export default function Page() {
                 seterr(e.message);
             }
         }
-        fetch()
+        fetchjobs()
         console.log("type of the jobs = ", typeof (jobs))
     }, [])
     console.log("jobs   = ", jobs)

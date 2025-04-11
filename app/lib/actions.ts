@@ -17,7 +17,36 @@ export default interface admininterface {
     email: string,
 }
 export interface adminwithjobcountinterface extends admininterface {
-    jobCount: number;
+    jobcount: number;
+}
+export async function getalladmins(): Promise<adminwithjobcountinterface[]> {
+    try {
+        const admins = await client.admin.findMany({
+            select: {
+                id: true,
+                username: true,
+                email: true,
+                
+            }
+        });
+        const adminWithJobCounts = await Promise.all(
+            admins.map(async (admin) => {
+                const jobcount = await client.jobschema.count({
+                    where: {
+                        postedbyId: admin.id
+                    }
+                });
+                return {
+                    ...admin,
+                    jobcount
+                };
+            })
+        );
+        return adminWithJobCounts;
+    } catch (e: any) {
+        console.log(e.message);
+        return [];
+    }
 }
 
 export async function getalljobs(): Promise<jobinterface[]> {
@@ -70,32 +99,3 @@ export async function getallusers(): Promise<userinterface[]> {
 }
 
 // to get the all the jobs in the type of the array i have used the the jobinterface
-
-export async function getalladmins(): Promise<adminwithjobcountinterface[]> {
-    try {
-        const admins = await client.admin.findMany({
-            select: {
-                id: true,
-                username: true,
-                email: true
-            }
-        });
-        const adminWithJobCounts = await Promise.all(
-            admins.map(async (admin) => {
-                const jobCount = await client.jobschema.count({
-                    where: {
-                        postedbyId: admin.id
-                    }
-                });
-                return {
-                    ...admin,
-                    jobCount
-                };
-            })
-        );
-        return adminWithJobCounts;
-    } catch (e: any) {
-        console.log(e.message);
-        return [];
-    }
-}
