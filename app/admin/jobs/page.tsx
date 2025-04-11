@@ -10,7 +10,7 @@ export default function Page() {
         async function fetch() {
             try {
                 const data = await getalljobs();
-                console.log("data = ", data)
+                // console.log("data = ", data)
                 setJobs(data);
             } catch (e: any) {
                 seterr(e.message);
