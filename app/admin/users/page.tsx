@@ -8,7 +8,7 @@ export default function Page(){
     const [users,setUsers]=useState<userinterface[]>([]);
     const [err,setErr]=useState("");
     useEffect(()=>{
-        async function fetchdata(){
+        async function fetchusers(){
             try{
                 const data=await getallusers();
                 console.log("data = ",data);
@@ -18,7 +18,7 @@ export default function Page(){
                 setErr(e.message);
             }
         }
-        fetchdata();
+        fetchusers();
     },[])
     return (
         <UserTable users={users}/>
