@@ -7,6 +7,7 @@ interface AdminPayload extends JWTPayload {
     id: string;  // to extract the admin id from here 
     email: string;
 }
+
 export default interface jobinterface {
     id: string,
     title: string,

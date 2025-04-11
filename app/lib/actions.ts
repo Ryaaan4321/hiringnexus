@@ -5,15 +5,20 @@ import { jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
 import userinterface from '../api/user/signup/route'
 import jobinterface from '../api/admin/jobpost/route'
-import admininterface from '../api/admin/signup/route'
-import { GiTrumpet } from 'react-icons/gi'
+
 
 interface AdminPayload extends JWTPayload {
     id: string,
     email: string
 }
-
-
+export default interface admininterface {
+    id: string,
+    username: string,
+    email: string,
+}
+export interface adminwithjobcountinterface extends admininterface {
+    jobCount: number;
+}
 
 export async function getalljobs(): Promise<jobinterface[]> {
     try {
@@ -29,7 +34,7 @@ export async function getalljobs(): Promise<jobinterface[]> {
                         name: true
                     }
                 },
-                companyname:true,
+                companyname: true,
                 jobTypes: {
                     select: {
                         name: true
@@ -44,42 +49,52 @@ export async function getalljobs(): Promise<jobinterface[]> {
         return [];
     }
 }
-export async function getallusers():Promise<userinterface[]> {
-    try{
-        const users:userinterface[]=await client.user.findMany({
-            select:{
-                id:true,
-                name:true,
-                username:true,
-                email:true,
-                phonenumber:true,
-                profession:true
-
+export async function getallusers(): Promise<userinterface[]> {
+    try {
+        const users: userinterface[] = await client.user.findMany({
+            select: {
+                id: true,
+                name: true,
+                username: true,
+                email: true,
+                phonenumber: true,
+                profession: true
             }
         })
         return users;
-    }catch(e:any){
+    } catch (e: any) {
         console.log(e.message);
         return [];
     }
-    
+
 }
 
 // to get the all the jobs in the type of the array i have used the the jobinterface
 
-export async function getalladmins():Promise<admininterface[]>{
-    try{
-        const admins:admininterface[]=await client.admin.findMany({
-            select:{
-                id:true,
-                username:true,
-                email:true,
-                postedjobs:true
-
+export async function getalladmins(): Promise<adminwithjobcountinterface[]> {
+    try {
+        const admins = await client.admin.findMany({
+            select: {
+                id: true,
+                username: true,
+                email: true
             }
-        })
-        return admins;
-    }catch(e:any){
+        });
+        const adminWithJobCounts = await Promise.all(
+            admins.map(async (admin) => {
+                const jobCount = await client.jobschema.count({
+                    where: {
+                        postedbyId: admin.id
+                    }
+                });
+                return {
+                    ...admin,
+                    jobCount
+                };
+            })
+        );
+        return adminWithJobCounts;
+    } catch (e: any) {
         console.log(e.message);
         return [];
     }

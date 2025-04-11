@@ -4,12 +4,6 @@ import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
 import SECRET_KEY from "@/app/lib/config";
-export default interface admininterface{
-    id:string,
-    username:string,
-    email:string,
-    postedjobs:[]
-}
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
