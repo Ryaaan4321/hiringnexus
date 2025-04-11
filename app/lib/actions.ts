@@ -5,6 +5,8 @@ import { jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
 import userinterface from '../api/user/signup/route'
 import jobinterface from '../api/admin/jobpost/route'
+import admininterface from '../api/admin/signup/route'
+import { GiTrumpet } from 'react-icons/gi'
 
 interface AdminPayload extends JWTPayload {
     id: string,
@@ -62,5 +64,23 @@ export async function getallusers():Promise<userinterface[]> {
     }
     
 }
-// to get the all the jobs in the type of the array i have used the
-// the jobinterface
+
+// to get the all the jobs in the type of the array i have used the the jobinterface
+
+export async function getalladmins():Promise<admininterface[]>{
+    try{
+        const admins:admininterface[]=await client.admin.findMany({
+            select:{
+                id:true,
+                username:true,
+                email:true,
+                postedjobs:true
+
+            }
+        })
+        return admins;
+    }catch(e:any){
+        console.log(e.message);
+        return [];
+    }
+}
