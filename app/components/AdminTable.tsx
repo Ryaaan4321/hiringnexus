@@ -3,7 +3,7 @@ import { adminwithjobcountinterface } from '../lib/actions'
 
 export default function AdminTable({ admins }: { admins: adminwithjobcountinterface[] }) {
     return (
-        <div className="p-4 overflow-x-auto">
+        <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                     <tr>

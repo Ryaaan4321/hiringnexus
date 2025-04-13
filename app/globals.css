@@ -2,6 +2,7 @@
 @import "@radix-ui/themes/styles.css";
 @import "tw-animate-css";
 
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -138,6 +139,38 @@
   }
 }
 
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #F8FAFC;
+  color: #0F172A;
+  margin: 0;
+  padding: 0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  /* margin:0; */
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th {
+  background-color: #F1F5F9;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: #334155;
+  border-bottom: 1px solid #CBD5E1;
+}
+
+td {
+  padding: 1rem;
+  border-bottom: 1px solid #E2E8F0;
+  color: #475569;
+}
+
+
 @media screen and (max-width: 768px) and (min-width: 375px) {
   .iphone_se {
     font-size: 37px;
@@ -174,35 +207,40 @@
 
   }
 }
-.card{
-  
-}
-@media screen and (min-width:375px ) and (max-width:500px){
-  .card{
+
+.card {}
+
+@media screen and (min-width:375px) and (max-width:500px) {
+  .card {
     grid-template-columns: repeat(1, 1fr);
   }
 }
+
 @media screen and (min-width: 501px) and (max-width: 770px) {
   .body {
     background-color: red;
   }
+
   .card {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
     width: 100vw;
     margin-left: 4px;
   }
+
   .hidesidebar {
     display: none;
   }
 }
-@media screen and (min-width:771px) and (max-width:1100px){
-  .card{
+
+@media screen and (min-width:771px) and (max-width:1100px) {
+  .card {
     display: grid;
-    grid-template-columns: repeat(2,2fr);
-    width:100vw;
+    grid-template-columns: repeat(2, 2fr);
+    width: 100vw;
   }
-  .hidesidebar{
+
+  .hidesidebar {
     display: none;
   }
 }

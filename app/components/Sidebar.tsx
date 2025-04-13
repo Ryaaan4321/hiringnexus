@@ -16,19 +16,19 @@ export default function Sidebar() {
             <div className="mt-2">
                 <nav className="mt-3">
                     <ul className="space-y-12">
-                        <li className="font-medium  text-3xl flex  items-center space-x-1">
+                        <li className="font-medium  text-3xl flex  items-center space-x-1 sidebar-item">
                             <Link href='/admin/jobs'>Jobs</Link>
                             <FaShoppingBag />
                         </li>
-                        <li className="font-medium  text-3xl flex  items-center space-x-1">
+                        <li className="font-medium  text-3xl flex  items-center space-x-1 sidebar-item">
                             <Link href='/admin/users'>Users</Link>
                             <IoPersonSharp />
                         </li>
-                        <li className="font-medium  text-3xl flex  items-center space-x-1">
+                        <li className="font-medium  text-3xl flex  items-center space-x-1 sidebar-item">
                             <Link href='/admin/adminlist'>Admin List</Link>
                             <MdAdminPanelSettings/>
                         </li>
-                        <li className="font-medium  text-3xl flex  items-center space-x-1">
+                        <li className="font-medium  text-3xl flex  items-center space-x-1 sidebar-item">
                             <Link href='/admin/hr'>HR</Link>
                             <GiHumanTarget/>
                         </li>

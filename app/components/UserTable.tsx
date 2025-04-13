@@ -4,28 +4,43 @@ import userinterface from "../api/user/signup/route";
 
 export default function UserTable({users}:{users:userinterface[]}) {
     return (
-        <div className="p-4 overflow-x-auto ">
-            <table className="min-w-full text-sm text-left text-white">
-                <thead className=" uppercase text-xs text-black">
-                    <tr>
-                        <th scope="col" className="px-6 py-3 text-blue-900 font-semibold text-2xl">Username</th>
-                        <th scope="col" className="px-6 py-3  text-blue-900 font-semibold text-2xl">Email</th>
-                        <th scope="col" className="px-6 py-3  text-blue-900 font-semibold text-2xl">Profession</th>
-                        <th scope="col" className="px-6 py-3  text-blue-900 font-semibold text-2xl overflow-hidden">Jobs</th>
+        <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+                <tr>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Username
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Email
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Profession
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Jobs
+                    </th>
+                </tr>
+            </thead>
+            <tbody className="bg-white divide-y divide-gray-200 cursor-pointer">
+                {users.map((item) => (
+                    <tr key={item.id} className="hover:bg-gray-50">
+                        <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            {item.username}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {item.email}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {item.profession}
+                        </td>
+                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            {}
+                        </td>
                     </tr>
-                </thead>
-                <tbody className="cursor-pointer">
-                    {users.map((item, index) => (
-                        <tr key={index} className="border-b text-black ">
-                            <td className="px-6 py-4 font-medium text-2xl">{item.username}</td>
-                            <td className="px-6 py-4 font-medium text-2xl text-zinc-600">{item.email}</td>
-                            <td className="px-6 py-4 font-medium text-2xl text-zinc-600">{item.profession}</td>
-                            <td className="px-6 py-4 font-medium text-2xl text-green-900">{2}</td>
-                            {/* render the number of the jobs user has applied in the place where 2 is written */}
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    );
+                ))}
+            </tbody>
+        </table>
+    </div>
+);
 }

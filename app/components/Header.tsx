@@ -13,7 +13,7 @@ export default function Header() {
   //   const activeTab = getActiveTab();
 
   return (
-    <header className=" flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 sticky ">
+    <header className=" flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 sticky">
       {/* Left section - User name */}
       <div className="container flex">
         <span className=" text-slate-900 md:text-8xl   sm:text-4xl sm:whitespace-nowrap sm:overflow-hidden sm:text-ellipsis iphone_se">HiringNexus</span>
