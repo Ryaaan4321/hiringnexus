@@ -1,9 +1,11 @@
 "use client"
 
+import Auth from "@/app/components/Auth"
+
 export default function Page(){
     return (
         <div>
-            hmlo hmlo from the signin
+            <Auth/>
         </div>
     )
 }

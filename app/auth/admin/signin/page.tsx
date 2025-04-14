@@ -1,8 +1,11 @@
 "use client"
+
+import Auth from "@/app/components/Auth"
+
 export default function Page() {
     return (
         <div>
-            new signin page from the admin section
+            <Auth/>
         </div>
     )
 }

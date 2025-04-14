@@ -1,8 +1,8 @@
 "use client"
-import Signup from "@/app/components/Signup";
+import Auth from "@/app/components/Auth";
 
 export default function Page() {
     return (
-        <div><Signup /></div>
+        <div><Auth /></div>
     )
 }
