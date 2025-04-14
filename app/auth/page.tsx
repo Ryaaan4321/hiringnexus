@@ -1,7 +1,9 @@
+import Signup from "../components/Signup";
+
 export default  function Page(){
     return (
         <div>
-            hmlo hmlo from the auth page
+           <Signup/>
         </div>
     )
 }

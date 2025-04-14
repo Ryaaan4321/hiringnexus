@@ -25,6 +25,7 @@ export default interface jobinterface {
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
+        console.log("this job posting fucntion got called");
         const token = req.cookies.get("access_token")?.value;
         if (!token) {
             return NextResponse.json({ msg: "token  is missing" }, {
