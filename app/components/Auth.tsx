@@ -1,55 +1,58 @@
-"use client"
+"use client";
 import { FaGoogle, FaGithub } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 
 function Auth() {
     const path = usePathname();
     const router = useRouter();
-
-    const role = path.includes('/admin') ? 'admin' : 'user';
-    const isSignup = path.includes('/signup');
-
+    const role = path.includes("/admin") ? "admin" : "user";
+    const isSignup = path.includes("/signup");
     const handleRedirect = () => {
-        const target = isSignup ? 'signin' : 'signup';
+        const target = isSignup ? "signin" : "signup";
         router.push(`/auth/${role}/${target}`);
     };
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 space-y-4">
-                <h1 className="text-xl font-semibold text-center">Welcome Anon to HirngNexus</h1>
-                {isSignup ? (
-                    <h4 className="font-semibold text-center">Create a New Account</h4>
-                ) : (
-                    <h4 className="font-semibold text-center">Welcome Again Anon..!</h4>
+                <h1 className="text-xl font-semibold text-center">
+                    Welcome Anon to HirngNexus
+                </h1>
+                <h4 className="font-semibold text-center">
+                    {isSignup ? "Create a New Account" : "Welcome Again Anon..!"}
+                </h4>
+                {role === "admin" ? null : (
+                    <div className="flex justify-center space-x-6 text-2xl text-gray-600">
+                        <button
+                            type="button"
+                            className="cursor-pointer"
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                await signIn("google", { callbackUrl: "/dashboard" });
+                            }}
+                        >
+                            <FaGoogle />
+                        </button>
+                        <button
+                            type="button"
+                            className="cursor-pointer"
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                await signIn("github", { callbackUrl: "/dashboard" });
+                            }}
+                        >
+                            <FaGithub />
+                        </button>
+                    </div>
                 )}
-
-                <div className="flex justify-center space-x-6 text-2xl text-gray-600">
-                    <button
-                        className="cursor-pointer"
-                        onClick={async () => {
-                            await signIn('google')
-                        }}><FaGoogle /></button>
-                    <button
-                        className="cursor-pointer"
-                        onClick={async () => {
-                            await signIn('github')
-                        }
-                        }
-                    >
-                        <FaGithub />
-                    </button>
-                </div>
 
                 {isSignup && (
                     <p className="text-sm text-gray-500 text-center">
                         We recommend you to make an account with GitHub
                     </p>
                 )}
-
                 <form className="space-y-4">
-                    {path.includes('/admin/signup') && (
+                    {path.includes("/admin/signup") && (
                         <input
                             type="text"
                             name="specailid"
@@ -74,6 +77,7 @@ function Auth() {
                             />
                         </>
                     )}
+
                     <input
                         type="email"
                         name="email"
@@ -86,6 +90,7 @@ function Auth() {
                         placeholder="Password"
                         className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
                     />
+
                     {isSignup && (
                         <>
                             <input
@@ -95,7 +100,10 @@ function Auth() {
                                 className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
                             />
                             <div>
-                                <label htmlFor="profession" className="text-sm text-gray-500 block mb-1">
+                                <label
+                                    htmlFor="profession"
+                                    className="text-sm text-gray-500 block mb-1"
+                                >
                                     Select your profession
                                 </label>
                                 <select
@@ -104,7 +112,9 @@ function Auth() {
                                     className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl bg-white focus:outline-none focus:ring-2"
                                     defaultValue=""
                                 >
-                                    <option value="" disabled>Select your profession</option>
+                                    <option value="" disabled>
+                                        Select your profession
+                                    </option>
                                     <option value="fresher">Fresher</option>
                                     <option value="student">Student</option>
                                     <option value="senior">Senior</option>
@@ -123,7 +133,9 @@ function Auth() {
 
                 <div className="text-center">
                     <span className="text-gray-600 text-sm">
-                        {isSignup ? "Already have an account?" : "Don't have an account?"}
+                        {isSignup
+                            ? "Already have an account?"
+                            : "Don't have an account?"}
                     </span>
                     <button
                         className="text-blue-600 font-semibold ml-1 hover:underline cursor-pointer"

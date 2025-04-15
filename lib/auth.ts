@@ -1,5 +1,8 @@
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
+import client from '@/app/db';
+import { redirect } from "next/dist/server/api-utils";
+import { url } from "inspector";
 
 export const NEXT_AUTH_CONFIG = {
     providers: [
@@ -16,18 +19,37 @@ export const NEXT_AUTH_CONFIG = {
     callbacks: {
         jwt: async ({ user, token }: any) => {
             if (user) {
-                token.uid = user.id;
+                let dbuser = await client.user.findUnique({
+                    where: { email: user.email }
+                });
+                if (!dbuser) {
+                    dbuser = await client.user.create({
+                        data: {
+                            name: user.name || "No Name",
+                            username: `user_${Math.random().toString(36).substring(7)}`,
+                            email: user.email,
+                            password: "******",
+                            phonenumber: "999999999",
+                            profession: "enter your profession"
+                        }
+                    });
+                }
+                token.uid = dbuser.id;
             }
             return token;
         },
-        session: ({ session, token, user }: any) => {
+        session: ({ session, token }: any) => {
             if (session.user) {
-                session.user.id = token.uid
+                session.user.id = token.uid;
             }
-            return session
+            return session;
+        },
+        redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
+            return `${baseUrl}/users`;
         }
+
     },
     pages: {
-        signIn: '/signin',
+        signIn: 'auth/user/signin',
     }
-}
+};
