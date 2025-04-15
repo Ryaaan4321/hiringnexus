@@ -33,7 +33,7 @@ function Auth() {
                         >
                             <FaGoogle />
                         </button>
-                        <button
+                        {/* <button
                             type="button"
                             className="cursor-pointer"
                             onClick={async (e) => {
@@ -42,7 +42,7 @@ function Auth() {
                             }}
                         >
                             <FaGithub />
-                        </button>
+                        </button> */}
                     </div>
                 )}
 

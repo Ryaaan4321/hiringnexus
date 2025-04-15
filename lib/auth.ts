@@ -6,10 +6,10 @@ import { url } from "inspector";
 
 export const NEXT_AUTH_CONFIG = {
     providers: [
-        GitHubProvider({
-            clientId: process.env.GITHUB_ID ?? "",
-            clientSecret: process.env.GITHUB_SECRET ?? ""
-        }),
+        // GitHubProvider({
+        //     clientId: process.env.GITHUB_ID ?? "",
+        //     clientSecret: process.env.GITHUB_SECRET ?? ""
+        // }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID ?? "",
             clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? ""
