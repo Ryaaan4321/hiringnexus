@@ -73,13 +73,31 @@ function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
                         Clear All
                     </button>
                 </div>
-                <div className='flex space-x-1 items-center'>
+                {/* <div className='flex space-x-1 items-center'>
                     <div className='text-2xl font-semibold'>Profile</div>
                     <div className='bg-blue-950 text-white rounded m-1 p-1 text-xl'>H</div>
-                </div>
+                </div> */}
+                <div className="mt-6 p-4 rounded-2xl bg-gray-100 shadow-sm flex items-center gap-4">
+                    <div className="h-12 w-12 rounded bg-blue-950 flex items-center justify-center text-white text-lg font-semibold">
+                        N
+                    </div>
+                    <div>
+                        <h2 className="text-sm font-semibold text-gray-800">Nitin</h2>
+                        <p className="text-xs text-gray-500 inline">Frontend Developer</p>
+                    </div>
+                    <div className="ml-auto text-gray-400 hover:text-gray-600 cursor-pointer">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-5 w-5"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v.01M12 12v.01M12 18v.01" />
+                        </svg>
+                    </div>
+               </div>
             </div>
-
-
         </>
     );
 }

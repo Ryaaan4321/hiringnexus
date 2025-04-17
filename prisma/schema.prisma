@@ -28,10 +28,11 @@ model Admin {
   postedjobs  jobschema[]
 }
 
-model jobtype {
-  id   String      @id @default(uuid())
-  name String      @unique
-  jobs jobschema[] @relation("jobtypesforjobs")
+enum JobType {
+  FULLTIME
+  REMOTE
+  INTERNSHIP
+  CONTRACT
 }
 
 model jobschema {
@@ -42,7 +43,10 @@ model jobschema {
   postedbyId   String
   postedby     Admin     @relation(fields: [postedbyId], references: [id])
   appliedusers User[]    @relation("UserTojobschema")
-  jobTypes     jobtype[] @relation("jobtypesforjobs")
+  jobTypes     JobType[] 
   companyname  String 
+  experience   Int
+  salary       Int
+  timestamps   DateTime  @default(now())
 }
-// add the expereicnce  of th user also in the user table like college student ,fresher,senior 
+// add the expereicnce  of th user also in the user table like college student ,fresher,senior   
