@@ -33,16 +33,6 @@ function Auth() {
                         >
                             <FaGoogle />
                         </button>
-                        {/* <button
-                            type="button"
-                            className="cursor-pointer"
-                            onClick={async (e) => {
-                                e.preventDefault();
-                                await signIn("github", { callbackUrl: "/dashboard" });
-                            }}
-                        >
-                            <FaGithub />
-                        </button> */}
                     </div>
                 )}
 
