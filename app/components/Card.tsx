@@ -30,25 +30,38 @@ export default function Card({ job }: { job: jobinterface[] }) {
                                 <div>{item.companyname}</div>
                             </div>
                             <div className="flex space-x-1 items-center">
-                                <div className="text-zinc-800 font-semibold text-xl">
+                                <div className="text-zinc-800 text-sm font-sm ">
                                     Posted By:
                                 </div>
-                                <div className="text-xl font-medium font-gray-600">{item.postedby.name}</div>
+                                <div className="text-sm  font-medium font-gray-600">{item.postedby.name}</div>
                             </div>
+                            <div className="flex space-x-1 items-center">
+                                <div className="text-zinc-800 text-sm font-sm ">
+                                    Experience
+                                </div>
+                                <div className="text-sm font-medium font-gray-600">{item.experience} year</div>
+                            </div>
+                            <div className="flex space-x-1 items-center">
+                                <div className="text-zinc-800 text-sm font-sm ">
+                                    Salary:
+                                </div>
+                                <div className="text-sm text-green-600 font-medium font-gray-600">{item.salary}</div>
+                            </div>
+
                         </div>
                         <div className="border-t px-4 py-3 text-sm text-gray-700 flex flex-wrap gap-2">
                             {item.jobTypes.map((type, index) => (
                                 <span
                                     key={index}
                                     className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs font-medium"
-                                ><div> {type.name}</div>
+                                ><div> {type}</div>
 
                                 </span>
                             ))}
                         </div>
                         <div className="border-t px-4 py-3">
                             <a
-                                href={item.joblink || "https://github.com"}
+                                href={item.joblink || "https://github.com/Ryaaan4321/hiringnexus"}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-sm text-blue-600 hover:underline inline-flex items-center"

@@ -4,24 +4,24 @@ import { FormEvent } from "react"
 export default function JobForm() {
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const token=localStorage.getItem("access_token");
-        console.log("token = ",token)
+        const token = localStorage.getItem("access_token");
+        console.log("token = ", token)
         const formdata = new FormData(event.currentTarget);
         try {
             const response = await fetch("https://localhost:3000/api/admin/jobpost", {
                 method: 'POST',
-                body:JSON.stringify(formdata),
-                headers:{
-                    Authhorization:`access_token ${token}`
+                body: JSON.stringify(formdata),
+                headers: {
+                    Authhorization: `access_token ${token}`
                 }
             });
             if (!response.ok) {
                 // console.log("check the inputs");
-                console.log("fromt eh reponse is not ok = ",response.json())
+                console.log("fromt eh reponse is not ok = ", response.json())
             }
             const result = await response.json();
             console.log(result);
-        } catch (e:any) {
+        } catch (e: any) {
             console.log(e.message);
         }
     }
@@ -43,7 +43,7 @@ export default function JobForm() {
                     type="submit"
                     className="px-6 py-3 text-xl rounded-2xl bg-slate-900 text-white cursor-pointer shadow-md"
                 >
-                Submit
+                    Submit
                 </button>
             </div>
 
