@@ -1,6 +1,5 @@
 "use server"
 import client from '@/app/db'
-import SECRET_KEY from './config'
 import { jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
 import userinterface from '../api/user/signup/route'
@@ -64,11 +63,9 @@ export async function getalljobs(): Promise<jobinterface[]> {
                     }
                 },
                 companyname: true,
-                jobTypes: {
-                    select: {
-                        name: true
-                    }
-                }
+                jobTypes: true,
+                experience:true,
+                salary:true,  
             }
         });
         console.log("type of the jobs from the actioon  = ", jobs);
