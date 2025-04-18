@@ -3,7 +3,6 @@ import client from '@/app/db'
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
-import SECRET_KEY from "@/app/lib/config";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
@@ -19,8 +18,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 username: body.username
             }
         })
-        const token = jwt.sign({ id: response.id, email: response.email }, SECRET_KEY, { expiresIn: "1h" });
-        console.log(SECRET_KEY);
+        if (!process.env.SECRET_KEY) throw new Error("SECRET_KEY is not defined");
+        const token = jwt.sign({ id: response.id, email: response.email }, process.env.SECRET_KEY, { expiresIn: "1h" });
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {
         console.log(e);

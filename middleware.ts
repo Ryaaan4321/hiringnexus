@@ -4,7 +4,7 @@ import { validateToken } from "./app/lib/utils";
 
 export async function middleware(req: NextRequest) {
   const token = req.cookies.get("access_token")?.value;
-  console.log("token from middleware = ",token)
+  // console.log("token from middleware = ",token)
   if (!token) {
     return NextResponse.json({ msg: "token is not provided" }, { status: 401 });
   }

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import client from '@/app/db'
-import SECRET_KEY from "@/app/lib/config";
 import { jwtVerify, JWTPayload } from "jose";
 
 interface AdminPayload extends JWTPayload {
@@ -20,7 +19,6 @@ export default interface jobinterface {
     companyname:string,
     experience:number,
     salary:number,
-    // timestamps:Date,
     jobTypes:string
 };
 
@@ -33,7 +31,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 status: 401
             })
         };
-        const { payload } = await jwtVerify<AdminPayload>(token, new TextEncoder().encode(SECRET_KEY));
+        const { payload } = await jwtVerify<AdminPayload>(token, new TextEncoder().encode(process.env.SECRET_KEY));
         const adminId = payload.id;
         const body = await req.json();
         const admin = await client.admin.findUnique({
@@ -44,8 +42,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         if (!admin) {
             return NextResponse.json({ msg: "admin not found from the token" }, { status: 404 });
         }
-        // console.log("admin id = ", admin.id)
-        // const jobtypestoconnect = body.jobTypes.map((type: string) => ({ name: type }));
         const newJob = await client.jobschema.create({
             data: {
                 title: body.title,
@@ -67,7 +63,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 
             }
         });
-        console.log("job type  = ", body.jobTypes)
         return NextResponse.json({ newJob }, { status: 201 })
     } catch (e: any) {
         console.log("error message = ",e.message);

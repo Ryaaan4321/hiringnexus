@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import client from '@/app/db'
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
-import SECRET_KEY from "@/app/lib/config";
 import { cookies } from "next/headers";
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
@@ -21,9 +20,10 @@ export async function POST(req: NextRequest, res: NextResponse) {
             return NextResponse.json({ msg: "unauthorized user" }, { status: 401 });
         }
         const { password, ...userwithoutpassword } = isuser;
+        if (!process.env.SECRET_KEY) throw new Error("SECRET_KEY is not defined");
         const token = jwt.sign(
             { id: isuser.id, email: isuser.email },
-            SECRET_KEY,
+            process.env.SECRET_KEY,
             { expiresIn: "1h" }
         );
         cookiestore.set("access_token", token, {

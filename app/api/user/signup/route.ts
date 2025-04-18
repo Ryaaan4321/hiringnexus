@@ -3,7 +3,6 @@ import client from '@/app/db'
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
-import SECRET_KEY from "@/app/lib/config";
 export default interface userinterface {
     id: string,
     name: string,
@@ -28,8 +27,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 profession: body.profession
             }
         })
-        const token = jwt.sign({ id: response.id, email: response.email }, SECRET_KEY, { expiresIn: "1h" });
-        // console.log(SECRET_KEY);
+        if (!process.env.SECRET_KEY) throw new Error("SECRET_KEY is not defined");
+        console.log("process from the user signin = ",process.env.SECRET_KEY);
+        const token = jwt.sign({ id: response.id, email: response.email },process.env.SECRET_KEY , { expiresIn: "1h" });
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {
         console.log(e);
