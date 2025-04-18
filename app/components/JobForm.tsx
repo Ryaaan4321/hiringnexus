@@ -38,6 +38,8 @@ export default function JobForm() {
                 <option value="Contract">Contract</option>
             </select>
             <input type="text" name="companyname" placeholder="Company Name" required />
+            <input type="number" name="experience" placeholder="Experience" required />
+            <input type="number" name="salary" placeholder="salary" required />
             <div className="flex justify-center my-10">
                 <button
                     type="submit"
