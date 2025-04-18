@@ -21,15 +21,12 @@ export default interface jobinterface {
     experience:number,
     salary:number,
     // timestamps:Date,
-    jobTypes: {
-        name: string
-    }
+    jobTypes:string
 };
 
 export async function POST(req: NextRequest, res: NextResponse) {
     console.log("this fucc got calllleddddd");
     try {
-        console.log("this job posting fucntion got called");
         const token = req.cookies.get("access_token")?.value;
         if (!token) {
             return NextResponse.json({ msg: "token  is missing" }, {
@@ -47,7 +44,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         if (!admin) {
             return NextResponse.json({ msg: "admin not found from the token" }, { status: 404 });
         }
-        console.log("admin id = ", admin.id)
+        // console.log("admin id = ", admin.id)
         // const jobtypestoconnect = body.jobTypes.map((type: string) => ({ name: type }));
         const newJob = await client.jobschema.create({
             data: {
@@ -55,7 +52,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 descreption: body.descreption,
                 joblink: body.joblink,
                 postedby: { connect: { id: admin.id } },
-                jobTypes:body.jobTypes,
+                jobTypes:body.jobTypes ,
                 experience:body.experience,
                 salary:body.salary,
                 // timestamps:body.timestamp,
