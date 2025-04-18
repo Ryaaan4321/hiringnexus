@@ -23,10 +23,11 @@ export default interface jobinterface {
     // timestamps:Date,
     jobTypes: {
         name: string
-    }[]
+    }
 };
 
 export async function POST(req: NextRequest, res: NextResponse) {
+    console.log("this fucc got calllleddddd");
     try {
         console.log("this job posting fucntion got called");
         const token = req.cookies.get("access_token")?.value;
@@ -47,16 +48,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
             return NextResponse.json({ msg: "admin not found from the token" }, { status: 404 });
         }
         console.log("admin id = ", admin.id)
-        const jobtypestoconnect = body.jobTypes.map((type: string) => ({ name: type }));
+        // const jobtypestoconnect = body.jobTypes.map((type: string) => ({ name: type }));
         const newJob = await client.jobschema.create({
             data: {
                 title: body.title,
                 descreption: body.descreption,
                 joblink: body.joblink,
                 postedby: { connect: { id: admin.id } },
-                jobTypes: {
-                    connect:jobtypestoconnect
-                },
+                jobTypes:body.jobTypes,
                 experience:body.experience,
                 salary:body.salary,
                 // timestamps:body.timestamp,
@@ -68,13 +67,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
                         name:true
                     }
                 },
-                jobTypes: true
+                
             }
         });
         console.log("job type  = ", body.jobTypes)
         return NextResponse.json({ newJob }, { status: 201 })
     } catch (e: any) {
-        console.log(e);
+        console.log("error message = ",e.message);
         return NextResponse.json({ msg: e.message }, { status: 500 });
     }
 }
