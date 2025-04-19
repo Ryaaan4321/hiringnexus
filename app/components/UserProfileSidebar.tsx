@@ -1,25 +1,20 @@
 export default function UserProfileSidebar() {
     return (
         <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between absolute left-0 top-1">
-            <div className="flex flex-col gap-6"> {/* Added gap between sections */}
-                {/* Avatar + Name */}
-                <div className="flex flex-col items-center">
+            <div className="flex flex-col gap-6"> 
+               <div className="flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center bg-black text-white rounded-full text-lg font-bold mb-2">
                         H
                     </div>
                     <h2 className="text-xl font-semibold">Lalu</h2>
                     <p className="text-gray-600">Frontend Developer</p>
                 </div>
-
-                {/* Bio */}
                 <div className="text-sm text-gray-700 text-center break-words">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolor iste quibusdam, libero suscipit ut soluta,
                     placeat voluptatibus ipsum, molestiae repellat veritatis! Dolorum, corrupti. Lorem ipsum dolor sit, amet
                     consectetur adipisicing elit. Ipsam impedit ipsum eligendi iusto deleniti provident quas! Pariatur in distinctio
                     quod delectus quasi nulla molestiae ab!
                 </div>
-
-                {/* Applied Jobs Section */}
                 <div>
                     <h1 className="font-semibold text-blue-950 mb-3">Jobs You Have Applied Recently</h1>
                     <div className="space-y-2">
@@ -46,8 +41,6 @@ export default function UserProfileSidebar() {
                     </div>
                 </div>
             </div>
-
-            {/* Skills */}
             <div>
                 <h3 className="text-xl font-semibold mb-3">Skills</h3>
                 <div className="flex flex-wrap gap-2">
