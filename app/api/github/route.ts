@@ -1,4 +1,3 @@
-// utils/github.ts
 export interface GitHubProfile {
     avatar_url: string;
     name: string;

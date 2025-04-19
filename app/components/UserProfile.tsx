@@ -1,8 +1,8 @@
 // app/profile/page.tsx
 "use client"
 
+import GithubProfileComponent from "./GithubProfileComponent";
 import UserBasicInfo from "./UserBasicInfo";
-import UserGithubDetails from "./UserGithubDetails";
 import UserProfileSidebar from "./UserProfileSidebar";
 import { useState, useEffect } from "react";
 
@@ -48,20 +48,12 @@ export default function UserProfile() {
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row gap-6">
-                {/* Sidebar - fixed width */}
                 <div className="w-full lg:w-80 flex-none">
                     <UserProfileSidebar />
                 </div>
-
-                {/* Main content area */}
                 <div className="flex-1 space-y-6">
-                    <UserBasicInfo />
-
-                    {loading && (
-                        <div className="bg-white rounded-lg shadow-md p-6">
-                            Loading GitHub data...
-                        </div>
-                    )}
+                    {/* <UserBasicInfo /> */}
+                    <div><GithubProfileComponent /></div>
 
                     {error && (
                         <div className="bg-white rounded-lg shadow-md p-6 text-red-500">
@@ -69,12 +61,7 @@ export default function UserProfile() {
                         </div>
                     )}
 
-                    {githubData && (
-                        <UserGithubDetails
-                            profile={githubData.profile}
-                            repositories={githubData.repositories}
-                        />
-                    )}
+
                 </div>
             </div>
         </div>
