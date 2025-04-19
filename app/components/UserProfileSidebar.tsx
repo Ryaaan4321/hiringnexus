@@ -41,6 +41,7 @@ export default function UserProfileSidebar() {
                     </div>
                 </div>
             </div>
+
             <div>
                 <h3 className="text-xl font-semibold mb-3">Skills</h3>
                 <div className="flex flex-wrap gap-2">

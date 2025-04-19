@@ -2,7 +2,7 @@
 
 export default function UserBasicInfo() {
     return (
-        <div className="w-full bg-white rounded-xl shadow-md p-6 absolute top-1">
+        <div className="w-auto bg-white rounded-xl shadow-md p-6 mt-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Basic Information</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 <InfoItem label="AGE" value="28 years" />

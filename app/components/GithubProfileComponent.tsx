@@ -1,7 +1,4 @@
 "use client";
-import { useState, useEffect } from "react";
-import { getUserRepositories, getGithubProfile } from "../api/github/route";
-import { GitHubRepository, GitHubProfile } from "../api/github/route";
 import { FaStar, FaCodeBranch } from "react-icons/fa";
 
 
@@ -22,43 +19,7 @@ const getLanguageColor = (language: string | null): string => {
     return languageColors[language || ""] || "#000000";
 };
 
-function GithubProfileComponent() {
-    const [profile, setProfile] = useState<GitHubProfile | null>(null);
-    const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
-    const [err, setErr] = useState("");
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const profileData = await getGithubProfile();
-                const repoData = await getUserRepositories();
-                setProfile(profileData);
-                setRepositories(repoData);
-            } catch (e: any) {
-                setErr(e.message);
-            }
-        }
-        fetchData();
-    }, []);
-
-    if (err) {
-        return <div>Error: {err}</div>;
-    }
-
-    if (!profile) {
-        return <div>Loading profile...</div>;
-    }
-
-    return (
-        <div>
-            <div><RenderGithubProfile profile={profile} /></div>
-            <div><RenderGithubRepositories repositories={repositories} /></div>
-        </div>
-    );
-}
-
-export default GithubProfileComponent;
-
-function RenderGithubProfile({ profile }: { profile: any }) {
+export function RenderGithubProfile({ profile }: { profile: any }) {
     return (
         <div className="max-w-xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-6">
             <div className="flex items-center gap-4 mb-4">
@@ -104,7 +65,7 @@ function RenderGithubProfile({ profile }: { profile: any }) {
 
 
 
-function RenderGithubRepositories({ repositories }: { repositories: any }) {
+export function RenderGithubRepositories({ repositories }: { repositories: any }) {
     return (
         <div className="max-w-7xl mx-auto mt-10 px-4">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">Repositories</h2>
