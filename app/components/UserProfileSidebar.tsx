@@ -1,6 +1,6 @@
 export default function UserProfileSidebar() {
     return (
-        <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between absolute left-0 top-1">
+        <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between absolute left-5 mt-6">
             <div className="flex flex-col gap-6"> 
                <div className="flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center bg-black text-white rounded-full text-lg font-bold mb-2">
