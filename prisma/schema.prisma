@@ -13,11 +13,10 @@ model User {
   username       String
   email          String      @unique
   password       String
-  phonenumber    String      @default("")
+  phonenumber    String ?     @default("")
   profession     String
   alreadyapplied jobschema[] @relation("UserTojobschema")
 }
-
 model Admin {
   id          String      @id @default(uuid())
   name        String
@@ -27,14 +26,12 @@ model Admin {
   phonenumber String
   postedjobs  jobschema[]
 }
-
 enum JobType {
   FULLTIME
   REMOTE
   INTERNSHIP
   CONTRACT
 }
-
 model jobschema {
   id           String    @id @default(uuid())
   title        String
