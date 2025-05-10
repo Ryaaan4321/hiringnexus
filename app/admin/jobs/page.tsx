@@ -1,8 +1,8 @@
 "use client"
 import { useEffect, useState } from "react";
-import  { getalljobs } from "@/app/lib/actions";
+import  { getalljobs } from "@/lib/actions";
 import jobinterface from "@/app/api/admin/jobpost/route";
-import Card from "@/app/components/Card"
+import Card from "@/components/Card"
 export default function Page() {
     const [jobs, setJobs] = useState<jobinterface[]>([]);
     const [err, seterr] = useState("")

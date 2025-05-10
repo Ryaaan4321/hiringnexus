@@ -3,16 +3,19 @@
 import { useState, useEffect } from "react";
 import UserBasicInfo from "./UserBasicInfo";
 import UserProfileSidebar from "./UserProfileSidebar";
-import { getUserRepositories, getGithubProfile } from "../api/github/route";
-import { GitHubRepository, GitHubProfile } from "../api/github/route";
+import { getUserRepositories, getGithubProfile } from "../app/api/github/route";
+import { GitHubRepository, GitHubProfile } from "../app/api/github/route";
 import { RenderGithubProfile, RenderGithubRepositories } from "./GithubProfileComponent";
 
 export default function UserProfile() {
+    const [username,setusername]=useState("");
     const [error, setError] = useState<string | null>(null);
     const [profile, setProfile] = useState<GitHubProfile | null>(null);
     const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
+    const [loading,setloading]=useState(0);
 
     useEffect(() => {
+        setloading(1);
         async function fetchData() {
             try {
                 const profileData = await getGithubProfile();
@@ -42,7 +45,7 @@ export default function UserProfile() {
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
 
-                <div className="w-full sm:w-64 flex-none">
+                <div className="w-full sm:w-64 flex-none relative">
                     <UserProfileSidebar />
                 </div>
                 <div className="flex-1">

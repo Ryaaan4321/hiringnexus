@@ -1,6 +1,6 @@
 "use client"
-import UserTable from "@/app/components/UserTable"
-import { getallusers } from "@/app/lib/actions"
+import UserTable from "@/components/UserTable"
+import { getallusers } from "@/lib/actions"
 import userinterface from "@/app/api/user/signup/route"
 import { useEffect, useState } from "react"
 

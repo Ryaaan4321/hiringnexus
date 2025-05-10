@@ -1,5 +1,5 @@
 "use client"
-import jobinterface from "../api/admin/jobpost/route";
+import jobinterface from "../app/api/admin/jobpost/route";
 
 export default function Card({ job }: { job: jobinterface[] }) {
     return (

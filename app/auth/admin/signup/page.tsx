@@ -1,5 +1,5 @@
 "use client"
-import Auth from "@/app/components/Auth";
+import Auth from "@/components/Auth";
 
 export default function Page() {
     return (

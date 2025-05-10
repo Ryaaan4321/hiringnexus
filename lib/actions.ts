@@ -2,8 +2,8 @@
 import client from '@/app/db'
 import { jwtVerify, JWTPayload } from 'jose'
 import { cookies } from 'next/headers'
-import userinterface from '../api/user/signup/route'
-import jobinterface from '../api/admin/jobpost/route'
+import userinterface from '../app/api/user/signup/route'
+import jobinterface from '../app/api/admin/jobpost/route'
 
 
 interface AdminPayload extends JWTPayload {

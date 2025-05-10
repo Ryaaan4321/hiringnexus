@@ -1,6 +1,4 @@
 "use client";
-import { FaStar, FaCodeBranch } from "react-icons/fa";
-
 
 const getLanguageColor = (language: string | null): string => {
     const languageColors: { [key: string]: string } = {
@@ -20,6 +18,7 @@ const getLanguageColor = (language: string | null): string => {
 };
 
 export function RenderGithubProfile({ profile }: { profile: any }) {
+    console.log("profiel data type = ",typeof(profile));
     return (
         <div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">
             <div className="flex items-center gap-4 mb-4">
@@ -56,14 +55,12 @@ export function RenderGithubProfile({ profile }: { profile: any }) {
                     rel="noopener noreferrer"
                     className="inline-block px-4 py-2 text-white bg-black rounded-lg text-sm font-semibold hover:bg-gray-800 transition"
                 >
-                    Shot to the Github
+                    Stock the GIThub
                 </a>
             </div>
         </div>
     );
 }
-
-
 
 export function RenderGithubRepositories({ repositories }: { repositories: any }) {
     return (
@@ -90,7 +87,7 @@ export function RenderGithubRepositories({ repositories }: { repositories: any }
                         </div>
 
                         <div className="flex justify-between items-center mt-6 text-sm text-gray-600">
-                            <div className="flex gap-3 items-center">
+                            {/* <div className="flex gap-3 items-center">
                                 <div className="flex items-center gap-1">
                                     <FaStar className="text-yellow-400" />
                                     <span>{repo.stargazers_count}</span>
@@ -99,7 +96,7 @@ export function RenderGithubRepositories({ repositories }: { repositories: any }
                                     <FaCodeBranch className="text-purple-500" />
                                     <span>{repo.forks_count}</span>
                                 </div>
-                            </div>
+                            </div> */}
 
                             <div className="flex items-center gap-2">
                                 <span
@@ -114,6 +111,10 @@ export function RenderGithubRepositories({ repositories }: { repositories: any }
             </ul>
         </div>
     );
+}
+
+function getGithubUsername(){
+   
 }
 
 

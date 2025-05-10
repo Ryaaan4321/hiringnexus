@@ -1,4 +1,4 @@
-import Signup from "../components/Auth";
+import Signup from "../../components/Auth";
 
 export default  function Page(){
     return (

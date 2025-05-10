@@ -1,5 +1,5 @@
 import { jwtVerify } from "jose";
-import SECRET_KEY from "@/app/lib/config";
+import SECRET_KEY from "@/lib/config";
 
 
 // function to validate the token of the middleware
