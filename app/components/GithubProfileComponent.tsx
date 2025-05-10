@@ -21,7 +21,7 @@ const getLanguageColor = (language: string | null): string => {
 
 export function RenderGithubProfile({ profile }: { profile: any }) {
     return (
-        <div className="max-w-xl mx-auto p-6 bg-white shadow-lg rounded-2xl mt-6">
+        <div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">
             <div className="flex items-center gap-4 mb-4">
                 <img
                     src={profile.avatar_url}
@@ -34,7 +34,7 @@ export function RenderGithubProfile({ profile }: { profile: any }) {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm  text-gray-700 mb-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm text-gray-700 mb-4">
                 <div className="bg-gray-100 p-3 rounded-lg">
                     <p className="text-blue-900">Followers</p>
                     <p className="text-lg font-semibold text-black">{profile.followers}</p>
@@ -70,7 +70,7 @@ export function RenderGithubRepositories({ repositories }: { repositories: any }
         <div className="max-w-7xl mx-auto mt-10 px-4">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">Repositories</h2>
             <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                {repositories.map((repo: any) => (
+                {repositories.slice(0, 6).map((repo: any) => (
                     <li
                         key={repo.id}
                         className="bg-white border border-gray-200 rounded-2xl p-6 shadow-sm hover:shadow-lg transition duration-300 flex flex-col justify-between"
