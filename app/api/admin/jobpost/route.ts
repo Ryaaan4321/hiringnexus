@@ -51,7 +51,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 jobTypes:body.jobTypes ,
                 experience:body.experience,
                 salary:body.salary,
-                // timestamps:body.timestamp,
                 companyname:body.companyname
             },
             include: {
