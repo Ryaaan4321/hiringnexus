@@ -32,7 +32,7 @@ export default function Auth() {
             [e.target.name]: e.target.value
         }));
     };
-     async function handleSubmit(e: any) {
+    async function handleSubmit(e: any) {
         console.log("handlesubmit called");
         e.preventDefault();
         try {
@@ -50,7 +50,7 @@ export default function Auth() {
             } else {
                 console.log("we fucced up");
             }
-        } catch (e:any) {
+        } catch (e: any) {
             console.log("error from the singup try catch:", e.message);
         }
     };

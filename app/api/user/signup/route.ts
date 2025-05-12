@@ -3,14 +3,7 @@ import client from '@/app/db'
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
-export default interface userinterface {
-    id: string,
-    name: string,
-    username: string,
-    email: string,
-    phonenumber: string,
-    profession: string
-}
+import userinterface from "@/interfaces/user";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
