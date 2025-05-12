@@ -29,6 +29,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         })
         if (!process.env.SECRET_KEY) throw new Error("SECRET_KEY is not defined");
         console.log("process from the user signin = ",process.env.SECRET_KEY);
+        console.log("response from the frontend = ",response);
         const token = jwt.sign({ id: response.id, email: response.email },process.env.SECRET_KEY , { expiresIn: "1h" });
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {

@@ -1,26 +1,70 @@
 "use client";
-import { FaGoogle, FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { usePathname, useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 
-function Auth() {
+export default function Auth() {
+    const [formdata, setFormData] = useState({
+        name: "",
+        email: "",
+        password: "",
+        phonenumber: "",
+        username: "",
+        profession: ""
+    });
+
     const path = usePathname();
     const router = useRouter();
+
     const role = path.includes("/admin") ? "admin" : "user";
     const isSignup = path.includes("/signup");
+
     const handleRedirect = () => {
+        console.log("handleredirect called");
         const target = isSignup ? "signin" : "signup";
         router.push(`/auth/${role}/${target}`);
     };
+
+    const handleChange = (e: any) => {
+        setFormData(prev => ({
+            ...prev,
+            [e.target.name]: e.target.value
+        }));
+    };
+     async function handleSubmit(e: any) {
+        console.log("handlesubmit called");
+        e.preventDefault();
+        try {
+            const res = await fetch("/api/user/signup", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(formdata),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                localStorage.setItem("token", data.token);
+                router.push("/");
+            } else {
+                console.log("we fucced up");
+            }
+        } catch (e:any) {
+            console.log("error from the singup try catch:", e.message);
+        }
+    };
+
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 space-y-4">
                 <h1 className="text-xl font-semibold text-center">
-                    Welcome Anon to HirngNexus
+                    Welcome Anon to HiringNexus
                 </h1>
                 <h4 className="font-semibold text-center">
                     {isSignup ? "Create a New Account" : "Welcome Again Anon..!"}
                 </h4>
+
                 {role === "admin" ? null : (
                     <div className="flex justify-center space-x-6 text-2xl text-gray-600">
                         <button
@@ -35,19 +79,19 @@ function Auth() {
                         </button>
                     </div>
                 )}
-
                 {isSignup && (
                     <p className="text-sm text-gray-500 text-center">
                         We recommend you to make an account with GitHub
                     </p>
                 )}
-                <form className="space-y-4">
+                <form className="space-y-4" onSubmit={handleSubmit}>
                     {path.includes("/admin/signup") && (
                         <input
                             type="text"
                             name="specailid"
                             placeholder="Enter PassId"
                             className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
+                            onChange={handleChange}
                         />
                     )}
 
@@ -58,29 +102,31 @@ function Auth() {
                                 name="name"
                                 placeholder="Name"
                                 className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
+                                onChange={handleChange}
                             />
                             <input
                                 type="text"
                                 name="username"
                                 placeholder="Username"
                                 className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
+                                onChange={handleChange}
                             />
                         </>
                     )}
-
                     <input
                         type="email"
                         name="email"
                         placeholder="Email"
                         className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
+                        onChange={handleChange}
                     />
                     <input
                         type="password"
                         name="password"
                         placeholder="Password"
                         className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
+                        onChange={handleChange}
                     />
-
                     {isSignup && (
                         <>
                             <input
@@ -88,6 +134,7 @@ function Auth() {
                                 name="phonenumber"
                                 placeholder="Phone Number"
                                 className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl focus:outline-none focus:ring-2"
+                                onChange={handleChange}
                             />
                             <div>
                                 <label
@@ -100,7 +147,8 @@ function Auth() {
                                     id="profession"
                                     name="profession"
                                     className="w-full border border-gray-300 text-black py-2 px-4 rounded-xl bg-white focus:outline-none focus:ring-2"
-                                    defaultValue=""
+                                    value={formdata.profession}
+                                    onChange={handleChange}
                                 >
                                     <option value="" disabled>
                                         Select your profession
@@ -112,7 +160,6 @@ function Auth() {
                             </div>
                         </>
                     )}
-
                     <button
                         type="submit"
                         className="w-full py-2 rounded-xl bg-blue-900 text-slate-200 cursor-pointer"
@@ -120,7 +167,6 @@ function Auth() {
                         Start Your Journey
                     </button>
                 </form>
-
                 <div className="text-center">
                     <span className="text-gray-600 text-sm">
                         {isSignup
@@ -138,4 +184,3 @@ function Auth() {
         </div>
     );
 }
-export default Auth;
