@@ -1,10 +1,21 @@
 "use client"
+import { sendEmail } from "@/app/actions/sendEmail";
+import { getEmailOfUsers } from "@/app/actions/user";
 import { FormEvent } from "react"
 
+
+async function  notifyUsers(email:string,jobTitle:string,descreption:string) {
+    console.log("notify user function got called")
+    await sendEmail(
+        email,
+        `${jobTitle}`   
+    )
+}
 export default function JobForm() {
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
+         console.log("onsubmti got called")
         event.preventDefault();
-        const token = localStorage.getItem("access_token");
+        const token = localStorage.getItem("token");
         console.log("token = ", token)
         const formdata = new FormData(event.currentTarget);
         try {
@@ -20,6 +31,12 @@ export default function JobForm() {
                 console.log("fromt eh reponse is not ok = ", response.json())
             }
             const result = await response.json();
+            console.log("response from the JobForm = ",result);
+            const emailOfusers=await getEmailOfUsers();
+            console.log("email of users from the job form = ",emailOfusers);
+            for(const user of emailOfusers){
+                await notifyUsers(user.email,result.jobTitle,"Check it out right now");
+            }
             console.log(result);
         } catch (e: any) {
             console.log(e.message);
@@ -29,7 +46,7 @@ export default function JobForm() {
         <form onSubmit={onSubmit} className="flex flex-col gap-12 p-4">
             <input type="text" name="title" placeholder="Title" required />
             <input type="text" name="description" placeholder="Description" required />
-            <input type="url" name="joblink" placeholder="Job Link (https://...)" required />
+            <input type="text" name="joblink" placeholder="Job Link (https://...)" required />
             <select name="jobTypes" required>
                 <option value="">Select job type</option>
                 <option value="Fulltime">Fulltime</option>

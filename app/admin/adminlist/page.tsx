@@ -1,7 +1,7 @@
 "use client"
 
 import AdminTable from "@/components/AdminTable"
-import { adminwithjobcountinterface, getalladmins } from "@/lib/actions"
+import { getalladmins,adminwithjobcountinterface } from "@/app/actions/admin";
 import { useEffect, useState } from "react"
 
 export default function Page(){

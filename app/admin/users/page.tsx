@@ -1,7 +1,7 @@
 "use client"
 import UserTable from "@/components/UserTable"
-import { getallusers } from "@/lib/actions"
-import userinterface from "@/app/api/user/signup/route"
+import { getallusers } from "@/app/actions/user"
+import userinterface from "@/interfaces/user"
 import { useEffect, useState } from "react"
 
 export default function Page(){

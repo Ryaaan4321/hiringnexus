@@ -13,19 +13,16 @@ export default function Auth() {
         username: "",
         profession: ""
     });
-
     const path = usePathname();
     const router = useRouter();
-
     const role = path.includes("/admin") ? "admin" : "user";
     const isSignup = path.includes("/signup");
-
     const handleRedirect = () => {
         console.log("handleredirect called");
         const target = isSignup ? "signin" : "signup";
         router.push(`/auth/${role}/${target}`);
     };
-
+    console.log("path from the auth = ",path);
     const handleChange = (e: any) => {
         setFormData(prev => ({
             ...prev,
@@ -34,9 +31,10 @@ export default function Auth() {
     };
     async function handleSubmit(e: any) {
         console.log("handlesubmit called");
+        const target = isSignup ? "signup" : "signin";
         e.preventDefault();
         try {
-            const res = await fetch("/api/user/signup", {
+            const res = await fetch(`/api/${role}/${target}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,7 +44,7 @@ export default function Auth() {
             const data = await res.json();
             if (res.ok) {
                 localStorage.setItem("token", data.token);
-                router.push("/");
+                role==="admin"?router.push("/admin"):router.push('/user');
             } else {
                 console.log("we fucced up");
             }

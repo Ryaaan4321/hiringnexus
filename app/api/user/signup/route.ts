@@ -3,7 +3,6 @@ import client from '@/app/db'
 import bcrypt from 'bcryptjs'
 import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
-import userinterface from "@/interfaces/user";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {

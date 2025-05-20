@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import  { getalljobs } from "@/lib/actions";
+import { getalljobs } from "@/app/actions/jobs";
 import jobinterface from "@/app/api/admin/jobpost/route";
 import Card from "@/components/Card"
 export default function Page() {
