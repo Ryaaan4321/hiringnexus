@@ -21,11 +21,10 @@ export default interface jobinterface {
     salary:number,
     jobTypes:JobType[]
 };
-
 export async function POST(req: NextRequest, res: NextResponse) {
-    console.log("this fucc got calllleddddd");
+    console.log("this jobpost from the backend got calllleddddd");
     try {
-        const token = req.cookies.get("access_token")?.value;
+        const token = req.cookies.get("token")?.value;
         if (!token) {
             return NextResponse.json({ msg: "token  is missing" }, {
                 status: 401

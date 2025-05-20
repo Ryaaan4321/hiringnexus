@@ -29,7 +29,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             process.env.SECRET_KEY,
             { expiresIn: "1h" }
         );
-        cookiestore.set("access_token", token, {
+        cookiestore.set("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",
