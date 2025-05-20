@@ -16,7 +16,7 @@ export async function sendEmail(to: string, Jobtitle: string,) {
         from: process.env.EMAIL,
         to,
         subject: `${Jobtitle}`,
-        text: `New Job Posted in our Platform Check it out in HiringNexus`
+        text: `hmlo hmlo we are fucking up in hiring nexus`
     }
     try {
         await transporter.sendMail(mailoption);

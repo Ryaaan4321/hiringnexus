@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { validateToken } from "./lib/utils";
 
 export async function middleware(req: NextRequest) {
-  const token = req.cookies.get("access_token")?.value;
+  const token = req.cookies.get("token")?.value;
   // console.log("token from middleware = ",token)
   if (!token) {
     return NextResponse.json({ msg: "token is not provided" }, { status: 401 });
