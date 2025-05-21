@@ -5,7 +5,6 @@ export default async function JobPage({ params }: { params: { id: string } }) {
     if (!job) {
         return <div className="text-red-500 text-center mt-10">Job not found.</div>;
     }
-
     return (
         <div className="p-8 max-w-2xl mx-auto space-y-4 bg-white shadow rounded">
             <h1 className="text-3xl font-bold text-blue-800">{job.title}</h1>

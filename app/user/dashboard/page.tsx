@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import  { getalljobs } from "@/lib/actions";
+import { getalljobs } from "@/app/actions/jobs";
 import jobinterface from "@/app/api/admin/jobpost/route";
 import Card from "@/components/Card"
 export default function Page() {
@@ -10,7 +10,6 @@ export default function Page() {
         async function fetchjobs() {
             try {
                 const data = await getalljobs();
-                // console.log("data = ", data)
                 setJobs(data);
             } catch (e: any) {
                 seterr(e.message);

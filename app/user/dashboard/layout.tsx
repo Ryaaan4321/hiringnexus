@@ -8,10 +8,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
     <div className="flex flex-col h-screen">
       <Header ontogglesidebar={()=>setIsSidebarOpen(true)} />
       <div className="flex flex-1">
-        {/* Sidebar */}
         <SidebarII isOpen={isSidebarOpen} onClose={()=>setIsSidebarOpen(false)}/>
-
-        {/* Main content */}
         <main className="flex-1 p-2 overflow-y-auto">{children}</main>
       </div>
     </div>
