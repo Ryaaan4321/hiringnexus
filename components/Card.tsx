@@ -1,7 +1,6 @@
 "use client";
 import Link from "next/link";
-import jobinterface from "../app/api/admin/jobpost/route";
-
+import jobinterface from "@/interfaces/jobinterface";
 export default function Card({ job }: { job: jobinterface[] }) {
     return (
         <div>

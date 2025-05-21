@@ -26,7 +26,7 @@ export default function UserProfile() {
                 if (e instanceof Error) {
                     setError(e.message);
                 } else {
-                    setError("An unknown error occurred.");
+                    setError("we are cooked!");
                 }
             }
         }
@@ -34,13 +34,11 @@ export default function UserProfile() {
     }, []);
 
     if (error) {
-        return <div className="text-red-500 text-center py-4">Error: {error}</div>;
+        return <div className="text-red-500 text-center py-4">error = {error}</div>;
     }
-
     if (!profile) {
         return <div className="text-gray-600 text-center py-4">Loading profile...</div>;
     }
-
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">

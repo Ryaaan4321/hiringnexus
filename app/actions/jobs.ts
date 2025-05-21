@@ -1,8 +1,7 @@
 "use server"
 import client from '@/app/db'
 import { JWTPayload } from 'jose'
-import jobinterface from '../api/admin/jobpost/route'
-
+import jobinterface from '@/interfaces/jobinterface'
 interface AdminPayload extends JWTPayload {
     id: string,
     email: string
