@@ -1,11 +1,7 @@
 "use server"
 import client from '@/app/db'
-import { jwtVerify, JWTPayload } from 'jose'
-import { cookies } from 'next/headers'
-import userinterface  from '@/interfaces/user'
+import { JWTPayload } from 'jose'
 import jobinterface from '../api/admin/jobpost/route'
-import { usersemail } from '@/interfaces/user'
-
 
 interface AdminPayload extends JWTPayload {
     id: string,
@@ -19,8 +15,6 @@ export default interface admininterface {
 export interface adminwithjobcountinterface extends admininterface {
     jobcount: number;
 }
-
-
 export async function getalljobs(): Promise<jobinterface[]> {
     try {
         const jobs: jobinterface[] = await client.jobschema.findMany({
@@ -37,8 +31,8 @@ export async function getalljobs(): Promise<jobinterface[]> {
                 },
                 companyname: true,
                 jobTypes: true,
-                experience:true,
-                salary:true,  
+                experience: true,
+                salary: true,
             }
         });
         console.log("type of the jobs from the actioon  = ", jobs);
@@ -46,5 +40,32 @@ export async function getalljobs(): Promise<jobinterface[]> {
     } catch (e: any) {
         console.log(e.message);
         return [];
+    }
+}
+export async function getSingleJob(id: string): Promise<jobinterface | null> {
+    try {
+        const response = await client.jobschema.findUnique({
+            where: { id },
+            select: {
+                id:true,
+                title: true,
+                descreption: true,
+                joblink: true,
+                postedbyId: true,
+                postedby: {
+                    select: {
+                        name: true
+                    }
+                },
+                companyname: true,
+                jobTypes: true,
+                experience: true,
+                salary: true,
+            }
+        });
+        return response;
+    } catch (e: any) {
+        console.log(e.message);
+        return null;
     }
 }
