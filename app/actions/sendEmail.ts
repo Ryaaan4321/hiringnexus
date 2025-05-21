@@ -18,7 +18,7 @@ export async function sendEmail(to: string, Jobtitle: string,) {
         subject: `${Jobtitle}`,
         html: `
        <div style="font-family: sans-serif; padding: 20px; background-color: #f9fafb; color: #111">
-        <h2 style="color: #111111;">🚀 New Job Posted on <span style="color:#1f2937;">HiringNexus</span></h2>
+        <h2 style="color: #111111;"> New Job Posted on <span style="color:#1f2937;">HiringNexus</span></h2>
         <p style="font-size: 16px;">Hello,</p>
         <p style="font-size: 16px;">We’re excited to share that a new job has just been posted!</p>
         <ul style="font-size: 16px; line-height: 1.6;">
