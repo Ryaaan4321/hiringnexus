@@ -77,13 +77,12 @@ function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
                     <div className='text-2xl font-semibold'>Profile</div>
                     <div className='bg-blue-950 text-white rounded m-1 p-1 text-xl'>H</div>
                 </div> */}
-                <div className="mt-6 p-4 rounded-2xl bg-gray-100 shadow-sm flex items-center gap-4">
-                    <div className="h-12 w-12 rounded bg-blue-950 flex items-center justify-center text-white text-lg font-semibold">
+                <div className="mt-6 p-1 rounded-2xl bg-gray-100 shadow-sm flex items-center gap-4">
+                    <div className="h-10 w-10 ml-1 rounded bg-blue-950 flex items-center justify-center text-white text-lg font-semibold">
                         N
                     </div>
-                    <div>
-                        <h2 className="text-sm font-semibold text-gray-800">Nitin</h2>
-                        <p className="text-xs text-gray-500 inline">Frontend Developer</p>
+                    <div className=''>
+                        <h2 className="text-sm font-semibold text-gray-800">Frontend Devloper</h2>
                     </div>
                     <div className="ml-auto text-gray-400 hover:text-gray-600 cursor-pointer">
                         <svg
@@ -101,5 +100,4 @@ function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
         </>
     );
 }
-
 export default SidebarII;

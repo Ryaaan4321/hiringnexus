@@ -1,5 +1,5 @@
 "use client"
-import { adminwithjobcountinterface } from '../lib/actions'
+import { adminwithjobcountinterface } from "@/app/actions/admin";
 
 export default function AdminTable({ admins }: { admins: adminwithjobcountinterface[] }) {
     return (

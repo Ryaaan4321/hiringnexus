@@ -3,36 +3,29 @@ import Link from 'next/link';
 export default function Header({ ontogglesidebar }: any) {
   return (
     <header className=" flex justify-between items-center px-6 py-4 bg-white border-b border-gray-200 sticky">
-      {/* Left section - User name */}
       <div className="container flex">
         <span className=" text-slate-900 md:text-8xl   sm:text-4xl sm:whitespace-nowrap sm:overflow-hidden sm:text-ellipsis iphone_se">HiringNexus</span>
       </div>
-
-      {/* Middle section - Navigation */}
       <nav className="flex gap-8 hideelm">
         <Link
           href="/dashboard"
           className={`transition-colors text-slate-600 text-3xl font-light`}
         >
-          {/* Overview */}
         </Link>
         <Link
           href="/customers"
           className={`transition-colors text-slate-600 text-3xl font-light`}
         >
-          {/* Users */}
         </Link>
         <Link
           href="/products"
           className={`transition-colors text-slate-600 text-3xl font-light`}
         >
-          {/* Products */}
         </Link>
         <Link
           href="/settings"
           className={`transition-colors text-slate-600 text-3xl font-light`}
         >
-          {/* Settings */}
         </Link>
       </nav>
 

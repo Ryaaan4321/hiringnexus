@@ -1,5 +1,5 @@
 "use client"
-import userinterface from "../app/api/user/signup/route";
+import userinterface from "@/interfaces/user";
 
 
 export default function UserTable({users}:{users:userinterface[]}) {

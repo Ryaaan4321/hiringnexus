@@ -9,3 +9,7 @@ export default interface userinterface {
 export interface usersemail {
   email: string;
 }
+export interface userDetail{
+  username:string,
+  profession:string
+}
