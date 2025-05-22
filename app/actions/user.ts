@@ -1,8 +1,12 @@
 "use server"
 import client from '@/app/db'
-import { JWTPayload } from 'jose'
+import { jwtDecrypt, JWTPayload, jwtVerify } from 'jose'
 import userinterface, { userDetail } from '@/interfaces/user'
 import { usersemail } from '@/interfaces/user'
+import { cookies } from 'next/headers'
+import { decode } from 'punycode'
+import { getServerSession } from 'next-auth'
+import { NEXT_AUTH_CONFIG } from '@/lib/auth'
 
 
 interface AdminPayload extends JWTPayload {
@@ -21,7 +25,7 @@ export interface adminwithjobcountinterface extends admininterface {
 export async function getallusers(): Promise<userinterface[]> {
     console.log("get all users from the actions got called");
     try {
-         const users = await client.user.findMany({
+        const users = await client.user.findMany({
             select: {
                 id: true,
                 name: true,
@@ -31,9 +35,11 @@ export async function getallusers(): Promise<userinterface[]> {
                 profession: true
             }
         });
-        console.log("type of users from the getallusers = ",typeof(users))
+        console.log("type of users from the getallusers = ", typeof (users))
+        console.log("users from the server action of the users = ", users);
         return users as userinterface[];
-        // because the type of the users is object so i cased them back into the array 
+
+        // because the type of the users is object so i casted them back into the array 
         // so they dont jerk the error again win win
     } catch (e: any) {
         console.log(e.message);
@@ -56,14 +62,48 @@ export async function getEmailOfUsers(): Promise<usersemail[]> {
 }
 export async function getDetailsofUser(id: string): Promise<userDetail | null> {
     try {
-        const res: userDetail | null = await client.user.findUnique({
+        const res = await client.user.findUnique({
             where: { id },
             select: {
+                id: true,
                 username: true,
-                profession: true
+                profession: true,
+                name: true,
+                phonenumber: true,
+                email: true,
+                alreadyapplied: {
+                    select: {
+                        id: true,
+                        title: true,
+                        descreption: true,
+                        joblink: true,
+                        postedbyId: true,
+                        timestamps: true,
+                    }
+                }
             }
         });
         return res;
+    } catch (e: any) {
+        console.log(e.message);
+        return null;
+    }
+}
+export async function getidOfUser(): Promise<string | null> {
+    try {
+        const cookiestore = cookies();
+        const token = (await cookiestore).get("token")?.value;
+        if (token && process.env.SECRET_KEY) {
+            const secret = new TextEncoder().encode(process.env.SECRET_KEY);
+            const decoded = await jwtDecrypt(token, secret);
+            const id = decoded.payload?.id as string;
+            if (id) return id;
+        }
+        const session = await getServerSession(NEXT_AUTH_CONFIG);
+        if (session?.user?.id) {
+            return session.user.id;
+        }
+        return null;
     } catch (e: any) {
         console.log(e.message);
         return null;

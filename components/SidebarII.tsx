@@ -78,22 +78,11 @@ function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
                     <div className='bg-blue-950 text-white rounded m-1 p-1 text-xl'>H</div>
                 </div> */}
                 <div className="mt-6 p-1 rounded-2xl bg-gray-100 shadow-sm flex items-center gap-4">
-                    <div className="h-10 w-10 ml-1 rounded bg-blue-950 flex items-center justify-center text-white text-lg font-semibold">
+                    <div className="h-8 w-8 ml-1 rounded-xl bg-blue-950 flex items-center justify-center text-white text-lg font-semibold">
                         N
                     </div>
                     <div className=''>
                         <h2 className="text-sm font-semibold text-gray-800">Frontend Devloper</h2>
-                    </div>
-                    <div className="ml-auto text-gray-400 hover:text-gray-600 cursor-pointer">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-5 w-5"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v.01M12 12v.01M12 18v.01" />
-                        </svg>
                     </div>
                </div>
             </div>

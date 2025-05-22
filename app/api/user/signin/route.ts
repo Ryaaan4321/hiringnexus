@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import client from '@/app/db'
 import bcrypt from "bcryptjs"
 import jwt from 'jsonwebtoken'
-import { cookies } from "next/headers";
+import { cookies } from "next/headers"
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
         const cookiestore = await cookies();
@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             process.env.SECRET_KEY,
             { expiresIn: "1h" }
         );
-        cookiestore.set("access_token", token, {
+        cookiestore.set("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
             sameSite: "strict",

@@ -1,8 +1,6 @@
-import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import client from '@/app/db';
-import { redirect } from "next/dist/server/api-utils";
-import { url } from "inspector";
+
 
 export const NEXT_AUTH_CONFIG = {
     providers: [
@@ -45,7 +43,7 @@ export const NEXT_AUTH_CONFIG = {
             return session;
         },
         redirect: async ({ url, baseUrl }: { url: string; baseUrl: string }) => {
-            return `${baseUrl}/users`;
+            return `${baseUrl}/user`;
         }
 
     },

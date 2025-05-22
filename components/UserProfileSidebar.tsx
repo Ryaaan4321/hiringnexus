@@ -1,13 +1,15 @@
-export default function UserProfileSidebar() {
+import { userDetail } from "@/interfaces/user"
+
+export default function UserProfileSidebar({user}:{user:userDetail}) {
     return (
         <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
             <div className="flex flex-col gap-6"> 
                <div className="flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center bg-black text-white rounded-full text-lg font-bold mb-2">
-                        H
+                        {user.name ? user.name[0]:"H"}
                     </div>
-                    <h2 className="text-xl font-semibold">Lalu</h2>
-                    <p className="text-gray-600">Frontend Developer</p>
+                    <h2 className="text-xl font-semibold">{user.name}</h2>
+                    <p className="text-gray-600">{user.profession}</p>
                 </div>
                 <div className="text-sm text-gray-700 text-center break-words">
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolor iste quibusdam, libero suscipit ut soluta,

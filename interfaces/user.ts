@@ -9,7 +9,19 @@ export default interface userinterface {
 export interface usersemail {
   email: string;
 }
-export interface userDetail{
-  username:string,
-  profession:string
+export interface userDetail {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  profession: string;
+  phonenumber: string | null;
+  alreadyapplied: {
+    id: string;
+    title: string;
+    descreption: string;
+    joblink: string;
+    postedbyId: string;
+    timestamps: Date;
+  }[];
 }
