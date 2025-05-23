@@ -1,12 +1,19 @@
 import { userDetail } from "@/interfaces/user"
 
-export default function UserProfileSidebar({user}:{user:userDetail}) {
+export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
+    if (!user) {
+        return (
+            <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
+                <div className="text-center py-10">No user data available</div>
+            </div>
+        );
+    }
     return (
         <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
-            <div className="flex flex-col gap-6"> 
-               <div className="flex flex-col items-center">
+            <div className="flex flex-col gap-6">
+                <div className="flex flex-col items-center">
                     <div className="w-16 h-16 flex items-center justify-center bg-black text-white rounded-full text-lg font-bold mb-2">
-                        {user.name ? user.name[0]:"H"}
+                        {user.name ? user.name[0] : "H"}
                     </div>
                     <h2 className="text-xl font-semibold">{user.name}</h2>
                     <p className="text-gray-600">{user.profession}</p>
@@ -43,7 +50,6 @@ export default function UserProfileSidebar({user}:{user:userDetail}) {
                     </div>
                 </div>
             </div>
-
             <div>
                 <h3 className="text-xl font-semibold mb-3">Skills</h3>
                 <div className="flex flex-wrap gap-2">

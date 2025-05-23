@@ -18,7 +18,6 @@ const getLanguageColor = (language: string | null): string => {
 };
 
 export function RenderGithubProfile({ profile }: { profile: any }) {
-    console.log("profiel data type = ",typeof(profile));
     return (
         <div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">
             <div className="flex items-center gap-4 mb-4">

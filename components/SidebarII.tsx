@@ -1,7 +1,22 @@
 "use client";
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import UserCard from './UserCard';
+import { getidOfUser } from '@/app/actions/user';
+import { FaTruckLoading } from 'react-icons/fa';
 
 function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
+     const [userId, setUserId] = useState<string | null>(null);
+     useEffect(()=>{
+        async function fetchUserId() {
+            try{
+              const id=await getidOfUser();
+              setUserId(id);
+            }catch(e:any){
+              console.log(e.message);
+            }
+        }
+        fetchUserId();
+     },[]);
     return (
         <>
             {isOpen && (
@@ -77,14 +92,7 @@ function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
                     <div className='text-2xl font-semibold'>Profile</div>
                     <div className='bg-blue-950 text-white rounded m-1 p-1 text-xl'>H</div>
                 </div> */}
-                <div className="mt-6 p-1 rounded-2xl bg-gray-100 shadow-sm flex items-center gap-4">
-                    <div className="h-8 w-8 ml-1 rounded-xl bg-blue-950 flex items-center justify-center text-white text-lg font-semibold">
-                        N
-                    </div>
-                    <div className=''>
-                        <h2 className="text-sm font-semibold text-gray-800">Frontend Devloper</h2>
-                    </div>
-               </div>
+             <UserCard userId={`profile/${userId}`}/>
             </div>
         </>
     );

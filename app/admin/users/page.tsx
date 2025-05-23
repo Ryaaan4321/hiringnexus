@@ -11,7 +11,6 @@ export default function Page(){
         async function fetchusers(){
             try{
                 const data=await getallusers();
-                // console.log("data = ",data);
                 setUsers(data)
             }catch(e:any){
                 console.log(e.message);

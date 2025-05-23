@@ -93,21 +93,41 @@ export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
-        if (token && process.env.SECRET_KEY) {
+        if (!token) {
+            console.log("no token found hehe");
+            const session = await getServerSession(NEXT_AUTH_CONFIG);
+            return session?.user?.id || null;
+        }
+        if (!token || typeof token !== "string" || token.split('.').length !== 3) {
+            console.log("invalid token format");
+            const session = await getServerSession(NEXT_AUTH_CONFIG);
+            return session?.user?.id || null;
+        }
+        if (!process.env.SECRET_KEY) {
+            console.error("secret key is not defined what really!");
+            const session = await getServerSession(NEXT_AUTH_CONFIG);
+            return session?.user?.id || null;
+        }
+
+        try {
             const secret = new TextEncoder().encode(process.env.SECRET_KEY);
-            const decoded = await jwtDecrypt(token, secret);
-            const id = decoded.payload?.id as string;
-            if (id) return id;
+            const { payload } = await jwtDecrypt(token, secret);
+            
+            if (!payload?.id) {
+                console.log("no id in payload id");
+                const session = await getServerSession(NEXT_AUTH_CONFIG);
+                return session?.user?.id || null;
+            }
+            return payload.id as string;
+        } catch (jwtError) {
+            console.error("error from the jwt = ", jwtError);
+            const session = await getServerSession(NEXT_AUTH_CONFIG);
+            return session?.user?.id || null;
         }
-        const session = await getServerSession(NEXT_AUTH_CONFIG);
-        if (session?.user?.id) {
-            return session.user.id;
-        }
-        return null;
+
     } catch (e: any) {
-        console.log(e.message);
+        console.error("error from the getidofuser ", e.message);
         return null;
     }
 }
-
 // to get the all the jobs in the type of the array i have used the the jobinterface

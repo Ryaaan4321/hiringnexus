@@ -6,20 +6,29 @@ import UserProfileSidebar from "./UserProfileSidebar";
 import { getUserRepositories, getGithubProfile } from "../app/api/github/route";
 import { GitHubRepository, GitHubProfile } from "../app/api/github/route";
 import { RenderGithubProfile, RenderGithubRepositories } from "./GithubProfileComponent";
-
+import { getDetailsofUser, getidOfUser } from "@/app/actions/user";
+import { userDetail } from "@/interfaces/user";
 export default function UserProfile() {
-    const [username,setusername]=useState("");
     const [error, setError] = useState<string | null>(null);
     const [profile, setProfile] = useState<GitHubProfile | null>(null);
     const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
-    const [loading,setloading]=useState(0);
-
+    const [loading, setloading] = useState(0);
+    const [userdata, setUserdata] = useState<userDetail | null>(null);
     useEffect(() => {
         setloading(1);
         async function fetchData() {
             try {
                 const profileData = await getGithubProfile();
                 const repoData = await getUserRepositories();
+                const id = await getidOfUser();
+                if (!id) {
+                    throw new Error("please check your credentials first!")
+                }
+                const user = await getDetailsofUser(id);
+                if(!user){
+                    throw new Error("sorrry for the inconvinence")
+                }
+                setUserdata(user);
                 setProfile(profileData);
                 setRepositories(repoData);
             } catch (e: unknown) {
@@ -44,7 +53,7 @@ export default function UserProfile() {
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
 
                 <div className="w-full sm:w-64 flex-none relative">
-                    <UserProfileSidebar />
+                  {userdata && <UserProfileSidebar user={userdata} />}
                 </div>
                 <div className="flex-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
