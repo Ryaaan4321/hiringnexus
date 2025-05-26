@@ -16,7 +16,6 @@ const getLanguageColor = (language: string | null): string => {
     };
     return languageColors[language || ""] || "#000000";
 };
-
 export function RenderGithubProfile({ profile }: { profile: any }) {
     return (
         <div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">

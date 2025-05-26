@@ -5,18 +5,18 @@ import { getidOfUser } from '@/app/actions/user';
 import { FaTruckLoading } from 'react-icons/fa';
 
 function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-     const [userId, setUserId] = useState<string | null>(null);
-     useEffect(()=>{
+    const [userId, setUserId] = useState<string | null>(null);
+    useEffect(() => {
         async function fetchUserId() {
-            try{
-              const id=await getidOfUser();
-              setUserId(id);
-            }catch(e:any){
-              console.log(e.message);
+            try {
+                const id = await getidOfUser();
+                setUserId(id);
+            } catch (e: any) {
+                console.log(e.message);
             }
         }
         fetchUserId();
-     },[]);
+    }, []);
     return (
         <>
             {isOpen && (
@@ -88,13 +88,10 @@ function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }
                         Clear All
                     </button>
                 </div>
-                {/* <div className='flex space-x-1 items-center'>
-                    <div className='text-2xl font-semibold'>Profile</div>
-                    <div className='bg-blue-950 text-white rounded m-1 p-1 text-xl'>H</div>
-                </div> */}
-             <UserCard userId={`profile/${userId}`}/>
+                {userId && <UserCard userId={userId} />}
             </div>
         </>
     );
 }
 export default SidebarII;
+

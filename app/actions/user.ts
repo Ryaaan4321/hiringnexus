@@ -93,41 +93,40 @@ export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
-        if (!token) {
-            console.log("no token found hehe");
-            const session = await getServerSession(NEXT_AUTH_CONFIG);
-            return session?.user?.id || null;
-        }
         if (!token || typeof token !== "string" || token.split('.').length !== 3) {
-            console.log("invalid token format");
+            console.log("no or invalid token format");
             const session = await getServerSession(NEXT_AUTH_CONFIG);
             return session?.user?.id || null;
         }
         if (!process.env.SECRET_KEY) {
-            console.error("secret key is not defined what really!");
+            console.error("SECRET_KEY is not defined");
             const session = await getServerSession(NEXT_AUTH_CONFIG);
             return session?.user?.id || null;
         }
-
         try {
             const secret = new TextEncoder().encode(process.env.SECRET_KEY);
-            const { payload } = await jwtDecrypt(token, secret);
-            
+            const { payload } = await jwtVerify(token, secret);
             if (!payload?.id) {
-                console.log("no id in payload id");
+                console.log("no id in payload");
                 const session = await getServerSession(NEXT_AUTH_CONFIG);
                 return session?.user?.id || null;
             }
             return payload.id as string;
         } catch (jwtError) {
-            console.error("error from the jwt = ", jwtError);
+            console.error("error verifying JWT: ", jwtError);
             const session = await getServerSession(NEXT_AUTH_CONFIG);
             return session?.user?.id || null;
         }
 
     } catch (e: any) {
-        console.error("error from the getidofuser ", e.message);
+        console.error("error in getidOfUser: ", e.message);
         return null;
     }
 }
-// to get the all the jobs in the type of the array i have used the the jobinterface
+
+
+
+
+
+
+
