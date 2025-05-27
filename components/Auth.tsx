@@ -42,9 +42,12 @@ export default function Auth() {
                 body: JSON.stringify(formdata),
             });
             const data = await res.json();
+            console.log("data from the auth = ",data);
+            const userprofileid=data.userwithoutpassword.id
+            console.log("user id from the autgh = ",data.userwithoutpassword.id);
             if (res.ok) {
                 localStorage.setItem("token", data.token);
-                role==="admin"?router.push("/admin"):router.push('/user');
+                role==="admin"?router.push("/admin"):router.push(`/user/profile/${userprofileid}`);
             } else {
                 console.log("we fucced up");
             }
@@ -52,7 +55,6 @@ export default function Auth() {
             console.log("error from the singup try catch:", e.message);
         }
     };
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
             <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 space-y-4">

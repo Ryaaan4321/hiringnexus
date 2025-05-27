@@ -13,7 +13,8 @@ export default function UserCard({ userId }: { userId: string }) {
             setUserdata(user);
         }
         fetchdata();
-    })
+    },[])
+    console.log("userdata from the usercard = ",userdata)
     return (
         <Link href={`/user/profile/${userId}`}>
             <div
