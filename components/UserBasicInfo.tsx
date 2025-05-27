@@ -1,16 +1,23 @@
 "use client"
+import { userDetail } from "@/interfaces/user";
 
-export default function UserBasicInfo() {
+export default function UserBasicInfo({ user }: { user: userDetail | null }) {
+    if (!user) {
+        return (
+            <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
+                <div className="text-center py-10">No user data available</div>
+            </div>
+        );
+    }
     return (
         <div className="w-auto bg-white rounded-xl shadow-md p-6 mt-6">
             <h2 className="text-2xl font-bold text-gray-800 mb-6">Basic Information</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                <InfoItem label="AGE" value="28 years" />
-                <InfoItem label="CTC" value="12.5 Lac" />
-                <InfoItem label="YEARS OF EXPERIENCE" value="6 years" />
+                {user.profession === "Fresher" ? "" : <InfoItem label="CTC" value="12.5 Lac" />}
+                <InfoItem label="YEARS OF EXPERIENCE" value={user.profession} />
                 <InfoItem label="LOCATION" value="Ahmedabad, Gujarat" />
-                <InfoItem label="PHONE" value="+91 98123 55679" />
-                <InfoItem label="EMAIL" value="anaynasharma@gmail.com" />
+                <InfoItem label="PHONE" value={user.phonenumber ? user.phonenumber : ""} />
+                <InfoItem label="EMAIL" value={user.email} />
             </div>
         </div>
     )

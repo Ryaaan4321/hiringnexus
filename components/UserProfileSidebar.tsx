@@ -1,3 +1,4 @@
+"use client"
 import { userDetail } from "@/interfaces/user"
 
 export default function UserProfileSidebar({ user }: { user: userDetail | null }) {

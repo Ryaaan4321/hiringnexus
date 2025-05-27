@@ -57,7 +57,7 @@ export default function UserProfile() {
                 </div>
                 <div className="flex-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <UserBasicInfo />
+                        <UserBasicInfo user={userdata}/>
                         <RenderGithubProfile profile={profile} />
                     </div>
                     <div className="mt-6">
