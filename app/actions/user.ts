@@ -60,7 +60,8 @@ export async function getEmailOfUsers(): Promise<usersemail[]> {
         return [];
     }
 }
-export async function getDetailsofUser(id: string): Promise<userDetail | null> {
+export async function getDetailsofUser(id: string | null | undefined): Promise<userDetail | null> {
+    if (!id) return null;
     try {
         const res = await client.user.findUnique({
             where: { id },
@@ -89,6 +90,7 @@ export async function getDetailsofUser(id: string): Promise<userDetail | null> {
         return null;
     }
 }
+
 export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
