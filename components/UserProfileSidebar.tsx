@@ -1,5 +1,5 @@
 "use client"
-import { userDetail } from "@/interfaces/user"
+import { userDetail } from "@/interfaces/userinterface"
 
 export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
     console.log("user from the userprofile sidebar = ",user)

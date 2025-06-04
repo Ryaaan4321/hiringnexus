@@ -3,7 +3,7 @@
 import { getDetailsofUser } from "@/app/actions/userserveraction";
 import Link from "next/link"
 import { useEffect, useState } from "react";
-import { userDetail } from "@/interfaces/user";
+import { userDetail } from "@/interfaces/userinterface";
 
 export default function UserCard({ userId }: { userId: string }) {
     const [userdata, setUserdata] = useState<userDetail | null>(null);

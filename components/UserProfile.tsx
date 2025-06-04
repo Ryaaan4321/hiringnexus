@@ -4,12 +4,11 @@ import { GitHubRepository, GitHubProfile } from "@/interfaces/githubinterface";
 import { RenderGithubProfile, RenderGithubRepositories } from "./GithubProfileComponent";
 import { useState, useEffect } from "react";
 import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
-import { userDetail } from "@/interfaces/user";
+import { userDetail } from "@/interfaces/userinterface";
 import UserProfileSidebar from "./UserProfileSidebar";
 import UserBasicInfo from "./UserBasicInfo";
 import GithubUserSearch from "./GithubUserSearch";
 import useUserId from "@/hooks/user";
-import { toDBProfile,toDBRepository,toApiProfile } from "@/utils/github.convertor";
 
 export default function UserProfile() {
     const [username, setUsername] = useState("");

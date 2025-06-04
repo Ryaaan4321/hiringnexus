@@ -1,5 +1,5 @@
 "use client"
-import userinterface from "@/interfaces/user";
+import userinterface from "@/interfaces/userinterface";
 
 
 export default function UserTable({users}:{users:userinterface[]}) {

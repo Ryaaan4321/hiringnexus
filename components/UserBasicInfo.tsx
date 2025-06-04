@@ -1,5 +1,5 @@
 "use client"
-import { userDetail } from "@/interfaces/user";
+import { userDetail } from "@/interfaces/userinterface";
 
 export default function UserBasicInfo({ user }: { user: userDetail | null }) {
     if (!user) {
