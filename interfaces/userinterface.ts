@@ -1,10 +1,16 @@
+import { JWTPayload, jwtVerify } from 'jose';
+
+export interface UserPayload extends JWTPayload {
+  id: string,
+  email: string
+}
 export default interface userinterface {
-    id: string,
-    name: string,
-    username: string,
-    email: string,
-    phonenumber: string,
-    profession: string
+  id: string,
+  name: string,
+  username: string,
+  email: string,
+  phonenumber: string,
+  profession: string
 }
 export interface usersemail {
   email: string;

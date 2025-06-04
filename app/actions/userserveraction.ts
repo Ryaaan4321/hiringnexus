@@ -1,8 +1,8 @@
 "use server"
 import client from '@/app/db'
 import { jwtDecrypt, JWTPayload, jwtVerify } from 'jose'
-import userinterface, { userDetail } from '@/interfaces/user'
-import { usersemail } from '@/interfaces/user'
+import userinterface, { userDetail } from '@/interfaces/userinterface'
+import { usersemail } from '@/interfaces/userinterface'
 import { cookies } from 'next/headers'
 import { decode } from 'punycode'
 import { getServerSession } from 'next-auth'
