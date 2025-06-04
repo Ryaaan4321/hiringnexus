@@ -1,6 +1,6 @@
 "use client"
 
-import { getDetailsofUser } from "@/app/actions/user";
+import { getDetailsofUser } from "@/app/actions/userserveraction";
 import Link from "next/link"
 import { useEffect, useState } from "react";
 import { userDetail } from "@/interfaces/user";

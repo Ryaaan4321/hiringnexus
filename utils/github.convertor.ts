@@ -3,6 +3,7 @@ import { GitHubProfile,GitHubRepository,DB_GitHubProfile,DB_Repository } from "@
 export function toDBProfile(profile: GitHubProfile): Omit<DB_GitHubProfile, 'id' | 'createdAt' | 'updatedAt'> {
   return {
     username: profile.login,
+    // fullname:profile.fullname,
     avatarUrl: profile.avatar_url,
     name: profile.name || null,
     bio: profile.bio || null,
@@ -27,6 +28,7 @@ export function toApiProfile(profile: DB_GitHubProfile): GitHubProfile {
     avatar_url: profile.avatarUrl,
     name: profile.name || '',
     bio: profile.bio || '',
+    // fullname:profile.fullname || '',
     html_url: profile.htmlUrl,
     public_repos: profile.publicRepos,
     followers: profile.followers,

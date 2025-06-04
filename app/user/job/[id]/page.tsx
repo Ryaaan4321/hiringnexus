@@ -1,4 +1,4 @@
-import { getSingleJob } from "@/app/actions/jobs";
+import { getSingleJob } from "@/app/actions/jobsserveraction";
 export default async function JobPage({ params }: { params: { id: string } }) {
     const job = await getSingleJob(params.id);
 

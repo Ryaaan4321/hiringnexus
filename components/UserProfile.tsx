@@ -1,70 +1,110 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import UserBasicInfo from "./UserBasicInfo";
-import UserProfileSidebar from "./UserProfileSidebar";
-import { getUserRepositories, getGithubProfile } from "../app/api/github/route";
-import { GitHubRepository, GitHubProfile } from "../app/api/github/route";
+"use client"
+import { getUserRepositories, getGithubProfile, saveGithubData } from "@/lib/github";
+import { GitHubRepository, GitHubProfile } from "@/interfaces/githubinterface";
 import { RenderGithubProfile, RenderGithubRepositories } from "./GithubProfileComponent";
-import { getDetailsofUser, getidOfUser } from "@/app/actions/user";
+import { useState, useEffect } from "react";
+import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
 import { userDetail } from "@/interfaces/user";
+import UserProfileSidebar from "./UserProfileSidebar";
+import UserBasicInfo from "./UserBasicInfo";
+import GithubUserSearch from "./GithubUserSearch";
+import useUserId from "@/hooks/user";
+import { toDBProfile,toDBRepository,toApiProfile } from "@/utils/github.convertor";
+
 export default function UserProfile() {
+    const [username, setUsername] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [profile, setProfile] = useState<GitHubProfile | null>(null);
     const [repositories, setRepositories] = useState<GitHubRepository[]>([]);
-    const [loading, setloading] = useState(0);
+    const [loading, setLoading] = useState(false);
     const [userdata, setUserdata] = useState<userDetail | null>(null);
+    const { userId, loading: useridLoading, err: useridError } = useUserId();
+    const handleSearch = async (searchUsername: string) => {
+        console.log("handle search got called ")
+        try {
+            setLoading(true);
+            setError(null);
+            setUsername(searchUsername);
+            const profileData = await getGithubProfile(searchUsername);
+            const repoData = await getUserRepositories(searchUsername);
+            console.log("profile data from the usrprofile = ",profileData);
+            console.log("repo data from the userprofile = ",repoData);
+            if (!userId) {
+                throw new Error("please login first!");
+            }
+            await saveGithubData(userId, profileData, repoData);
+            setProfile(profileData);
+            setRepositories(repoData);
+        } catch (err) {
+            setError(err instanceof Error ? err.message : 'Failed to fetch data');
+            setProfile(null);
+            setRepositories([]);
+        } finally {
+            setLoading(false);
+        }
+    };
     useEffect(() => {
-        setloading(1);
-        async function fetchData() {
+        async function fetchdata() {
             try {
-                const profileData = await getGithubProfile();
-                const repoData = await getUserRepositories();
-                const id = await getidOfUser();
-                if (!id) {
-                    throw new Error("please check your credentials first!")
+                if (!userId) {
+                    return;
                 }
-                const user = await getDetailsofUser(id);
-                if(!user){
-                    throw new Error("sorrry for the inconvinence")
+                const user = await getDetailsofUser(userId);
+                if (!user) {
+                    setError(useridError);
+                    return;
                 }
                 setUserdata(user);
-                setProfile(profileData);
-                setRepositories(repoData);
-            } catch (e: unknown) {
-                if (e instanceof Error) {
-                    setError(e.message);
-                } else {
-                    setError("we are cooked!");
-                }
+            } catch (e: any) {
+                setError(useridError);
             }
         }
-        fetchData();
-    }, []);
-
-    if (error) {
-        return <div className="text-red-500 text-center py-4">error = {error}</div>;
-    }
-    if (!profile) {
-        return <div className="text-gray-600 text-center py-4">Loading profile...</div>;
-    }
+        fetchdata();
+    }, [userId])
+    console.log("userdata from the user profile  = ", userdata);
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
-
                 <div className="w-full sm:w-64 flex-none relative">
-                  {userdata && <UserProfileSidebar user={userdata} />}
+                    {loading ? (
+                        <div className="h-full bg-gray-200 animate-pulse rounded"></div>
+                    ) : (
+                        <UserProfileSidebar user={userdata} />
+                    )}
                 </div>
                 <div className="flex-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <UserBasicInfo user={userdata}/>
-                        <RenderGithubProfile profile={profile} />
+                        <UserBasicInfo user={userdata} />
+                        <div className={loading ? "opacity-50" : ""}>
+                            <RenderGithubProfile profile={profile} />
+                        </div>
+                        <div className="lg:col-span-2">
+                            <GithubUserSearch onSearch={handleSearch} />
+                        </div>
                     </div>
                     <div className="mt-6">
-                        <RenderGithubRepositories repositories={repositories} />
+                        {loading ? (
+                            <div className="space-y-4">
+                                {[...Array(3)].map((_, i) => (
+                                    <div key={i} className="h-20 bg-gray-200 animate-pulse rounded"></div>
+                                ))}
+                            </div>
+                        ) : repositories.length > 0 ? (
+                            <RenderGithubRepositories repositories={repositories} />
+                        ) : profile ? (
+                            <div className="border p-4 rounded bg-white">
+                                <p className="text-gray-500">No repositories found</p>
+                            </div>
+                        ) : null}
                     </div>
                 </div>
             </div>
+
+            {error && (
+                <div className="fixed bottom-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
+                    {error}
+                </div>
+            )}
         </div>
     );
 }

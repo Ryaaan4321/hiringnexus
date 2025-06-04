@@ -4,6 +4,10 @@ import { toDBProfile, toDBRepository } from "@/utils/github.convertor";
 
 export async function POST(request: Request) {
     const { userId, profile, repositories } = await request.json();
+    if(!userId){
+        return NextResponse.json({err:"please login first from the github post req"},{status:400})
+    }
+    console.log("userid from the github save request = ",userId);
     const savedData = await client.user.update({
         where: { id: userId },
         data: {
@@ -32,5 +36,6 @@ export async function POST(request: Request) {
             }
         }
     });
+    console.log("saveddata from the github profile =",savedData.githubprofile)
     return NextResponse.json(savedData.githubprofile);
 }

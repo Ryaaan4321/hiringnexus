@@ -1,7 +1,7 @@
 "use client";
 
-import { sendEmail } from "@/app/actions/sendEmail";
-import { getEmailOfUsers } from "@/app/actions/user";
+import { sendEmail } from "@/app/actions/sendEmailserveraction";
+import { getEmailOfUsers } from "@/app/actions/userserveraction";
 import { FormEvent } from "react";
 
 async function notifyUsers(email: string, jobTitle: string, description: string) {

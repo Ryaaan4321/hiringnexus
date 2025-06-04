@@ -38,7 +38,7 @@ model GitHubProfile {
 model Repository {
   id              String        @id @default(uuid())
   name            String
-  fullName        String
+  fullName        String?
   description     String?
   htmlUrl         String
   stargazersCount Int

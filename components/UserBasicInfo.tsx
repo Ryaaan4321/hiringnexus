@@ -4,8 +4,8 @@ import { userDetail } from "@/interfaces/user";
 export default function UserBasicInfo({ user }: { user: userDetail | null }) {
     if (!user) {
         return (
-            <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[90vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
-                <div className="text-center py-10">No user data available</div>
+            <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[20vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
+                <div className="text-center py-2">Please login or wait!</div>
             </div>
         );
     }

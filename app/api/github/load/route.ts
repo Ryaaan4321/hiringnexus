@@ -1,12 +1,18 @@
-import { NextResponse } from 'next/server';
+import { NextResponse ,NextRequest} from 'next/server';
 import client from '@/app/db'
 import { DB_GitHubProfile, DB_Repository } from '@/interfaces/githubinterface';
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   console.log("function got calleddddddd")
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get('userId');
-
+  const token = request.cookies.get("token")?.value;
+  if(!token){
+    return NextResponse.json(
+      {err:"token is missing!please login first"},
+      {status:400}
+    )
+  }
   if (!userId) {
     return NextResponse.json(
       { err: 'Please login first' },

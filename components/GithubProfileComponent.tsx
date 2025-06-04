@@ -18,45 +18,47 @@ const getLanguageColor = (language: string | null): string => {
 };
 export function RenderGithubProfile({ profile }: { profile: any }) {
     return (
-        <div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">
-            <div className="flex items-center gap-4 mb-4">
-                <img
-                    src={profile.avatar_url}
-                    alt="Profile"
-                    className="w-20 h-20 rounded-full border-2 border-gray-300"
-                />
-                <div>
-                    <h1 className="text-xl font-bold text-gray-800">{profile.name}</h1>
-                    <p className="text-sm text-gray-600">{profile.bio || "NO BIO"}</p>
+        <>
+            {profile ? (<div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">
+                <div className="flex items-center gap-4 mb-4">
+                    <img
+                        src={profile.avatar_url}
+                        alt="Profile"
+                        className="w-20 h-20 rounded-full border-2 border-gray-300"
+                    />
+                    <div>
+                        <h1 className="text-xl font-bold text-gray-800">{profile.name}</h1>
+                        <p className="text-sm text-gray-600">{profile.bio || "NO BIO"}</p>
+                    </div>
                 </div>
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm text-gray-700 mb-4">
-                <div className="bg-gray-100 p-3 rounded-lg">
-                    <p className="text-blue-900">Followers</p>
-                    <p className="text-lg font-semibold text-black">{profile.followers}</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center text-sm text-gray-700 mb-4">
+                    <div className="bg-gray-100 p-3 rounded-lg">
+                        <p className="text-blue-900">Followers</p>
+                        <p className="text-lg font-semibold text-black">{profile.followers}</p>
+                    </div>
+                    <div className="bg-gray-100 p-3 rounded-lg">
+                        <p className="text-blue-900">Following</p>
+                        <p className="text-lg font-semibold text-black">{profile.following}</p>
+                    </div>
+                    <div className="bg-gray-100 p-3 rounded-lg">
+                        <p className="text-blue-900">Public Repos</p>
+                        <p className="text-lg font-semibold text-black">{profile.public_repos}</p>
+                    </div>
                 </div>
-                <div className="bg-gray-100 p-3 rounded-lg">
-                    <p className="text-blue-900">Following</p>
-                    <p className="text-lg font-semibold text-black">{profile.following}</p>
-                </div>
-                <div className="bg-gray-100 p-3 rounded-lg">
-                    <p className="text-blue-900">Public Repos</p>
-                    <p className="text-lg font-semibold text-black">{profile.public_repos}</p>
-                </div>
-            </div>
 
-            <div className="text-right">
-                <a
-                    href={profile.html_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-4 py-2 text-white bg-black rounded-lg text-sm font-semibold hover:bg-gray-800 transition"
-                >
-                    Stock the GIThub
-                </a>
-            </div>
-        </div>
+                <div className="text-right">
+                    <a
+                        href={profile.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-block px-4 py-2 text-white bg-black rounded-lg text-sm font-semibold hover:bg-gray-800 transition"
+                    >
+                        Stock the GIThub
+                    </a>
+                </div>
+            </div>) : (<input placeholder="Enter Your Github Username" />)}
+        </>
     );
 }
 
@@ -111,8 +113,8 @@ export function RenderGithubRepositories({ repositories }: { repositories: any }
     );
 }
 
-function getGithubUsername(){
-   
+function getGithubUsername() {
+
 }
 
 

@@ -7,6 +7,8 @@ export interface GitHubProfile {
     followers: number;
     following: number;
     login: string;
+    // fullname:stringcls
+    
 }
 export interface GitHubRepository {
     id: number;
@@ -23,6 +25,7 @@ export interface DB_GitHubProfile {
     avatarUrl: string;
     name: string | null;
     bio: string | null;
+    // fullname:string|null,
     htmlUrl: string;
     publicRepos: number;
     followers: number;
