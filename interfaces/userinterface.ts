@@ -22,7 +22,21 @@ export interface userDetail {
   email: string;
   profession: string;
   phonenumber: string | null;
-  descreption:string|null;
+  descreption: string | null;
+  githubprofile: {
+    id: string;
+    username: string;
+    htmlUrl: string;
+    followers: number;
+    following: number;
+    publicRepos: number;
+    repositories: {
+      id: string;
+      name: string;
+      htmlUrl: string;
+      stargazersCount: number;
+    }[];
+  } | null;
   alreadyapplied: {
     id: string;
     title: string;
@@ -32,3 +46,4 @@ export interface userDetail {
     timestamps: Date;
   }[];
 }
+

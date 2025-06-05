@@ -72,7 +72,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 name: true,
                 phonenumber: true,
                 email: true,
-                descreption:true,
+                descreption: true,
                 alreadyapplied: {
                     select: {
                         id: true,
@@ -81,9 +81,27 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                         joblink: true,
                         postedbyId: true,
                         timestamps: true,
-                    }
-                }
-            }
+                    },
+                },
+                githubprofile: {
+                    select: {
+                        id: true,
+                        username: true,
+                        htmlUrl: true,
+                        followers: true,
+                        following: true,
+                        publicRepos: true,
+                        repositories: {
+                            select: {
+                                id: true,
+                                name: true,
+                                htmlUrl: true,
+                                stargazersCount: true,
+                            },
+                        },
+                    },
+                },
+            },
         });
         return res;
     } catch (e: any) {
@@ -91,6 +109,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
         return null;
     }
 }
+
 
 export async function getidOfUser(): Promise<string | null> {
     try {
