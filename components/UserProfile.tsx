@@ -8,7 +8,7 @@ import { userDetail } from "@/interfaces/userinterface";
 import UserProfileSidebar from "./UserProfileSidebar";
 import UserBasicInfo from "./UserBasicInfo";
 import GithubUserSearch from "./GithubUserSearch";
-import useUserId from "@/hooks/user";
+import { useUserId } from "@/hooks/user";
 
 export default function UserProfile() {
     const [username, setUsername] = useState("");

@@ -1,6 +1,6 @@
 import UserProfile from "@/components/UserProfile";
 
-export default async function ProfilePage(params:string){
+export default async function ProfilePage(){
     return (
         <div>
             <UserProfile/>
