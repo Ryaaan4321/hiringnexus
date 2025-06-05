@@ -13,7 +13,6 @@ export async function middleware(req: NextRequest) {
     console.log("error from the file middleware ")
     return NextResponse.json({ msg: "invalid token" }, { status: 401 });
   }
-
   return NextResponse.next();
 }
 export const config = {

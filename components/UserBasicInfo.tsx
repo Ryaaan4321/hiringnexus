@@ -1,7 +1,10 @@
 "use client"
 import { userDetail } from "@/interfaces/userinterface";
-
+import { useState } from "react";
+import EditUserDetials from "./EditUserDetails";
+import Link from "next/link";
 export default function UserBasicInfo({ user }: { user: userDetail | null }) {
+    const [editpage, setEditPage] = useState(false);
     if (!user) {
         return (
             <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[20vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">
@@ -11,7 +14,10 @@ export default function UserBasicInfo({ user }: { user: userDetail | null }) {
     }
     return (
         <div className="w-auto bg-white rounded-xl shadow-md p-6 mt-6">
-            <h2 className="text-2xl font-bold text-gray-800 mb-6">Basic Information</h2>
+            <div className="flex justify-between">
+                <div><h2 className="text-xl font-bold text-gray-800 mb-6">Basic Information</h2></div>
+                <Link href={`/user/edit-page`}><div><h2 className="text-sky-700 cursor-pointer">Edit Profile</h2></div></Link>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 {user.profession === "Fresher" ? "" : <InfoItem label="CTC" value="12.5 Lac" />}
                 <InfoItem label="YEARS OF EXPERIENCE" value={user.profession} />
