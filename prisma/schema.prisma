@@ -12,6 +12,7 @@ model User {
   email          String         @unique
   password       String
   phonenumber    String?        @default("")
+  descreption    String?        @default("One Liner! Bt for HR this Time")
   profession     String
   alreadyapplied jobschema[]    @relation("UserTojobschema")
   githubprofile  GitHubProfile?
@@ -82,3 +83,4 @@ model jobschema {
 }
 
 // add the expereicnce  of th user also in the user table like college student ,fresher,senior   
+// npx prisma migrate dev --name "to add the changes in the schem wihotut loosing the data"

@@ -22,6 +22,7 @@ export interface userDetail {
   email: string;
   profession: string;
   phonenumber: string | null;
+  descreption:string|null;
   alreadyapplied: {
     id: string;
     title: string;

@@ -72,6 +72,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 name: true,
                 phonenumber: true,
                 email: true,
+                descreption:true,
                 alreadyapplied: {
                     select: {
                         id: true,

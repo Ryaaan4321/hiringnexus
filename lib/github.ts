@@ -7,7 +7,7 @@ export async function saveGithubData(
     repositories: GitHubRepository[]
 ) {
     console.log("save github data got called ");
-    const token = localStorage.get("token")?.value;
+    const token = localStorage.getItem("token");
     if(!token){
         return NextResponse.json("please login first from the save github data")
     }

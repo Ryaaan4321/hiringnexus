@@ -21,10 +21,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                     <p className="text-gray-600">{user.profession}</p>
                 </div>
                 <div className="text-sm text-gray-700 text-center break-words">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. At dolor iste quibusdam, libero suscipit ut soluta,
-                    placeat voluptatibus ipsum, molestiae repellat veritatis! Dolorum, corrupti. Lorem ipsum dolor sit, amet
-                    consectetur adipisicing elit. Ipsam impedit ipsum eligendi iusto deleniti provident quas! Pariatur in distinctio
-                    quod delectus quasi nulla molestiae ab!
+                   {user.descreption}
                 </div>
                 <div>
                     <h1 className="font-semibold text-blue-950 mb-3">Jobs You Have Applied Recently</h1>
