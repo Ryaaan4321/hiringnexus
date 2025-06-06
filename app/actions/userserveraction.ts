@@ -22,7 +22,6 @@ export interface adminwithjobcountinterface extends admininterface {
     jobcount: number;
 }
 export async function getallusers(): Promise<userinterface[]> {
-    console.log("get all users from the actions got called");
     try {
         const users = await client.user.findMany({
             select: {
@@ -34,8 +33,6 @@ export async function getallusers(): Promise<userinterface[]> {
                 profession: true
             }
         });
-        console.log("type of users from the getallusers = ", typeof (users))
-        console.log("users from the server action of the users = ", users);
         return users as userinterface[];
     } catch (e: any) {
         console.log(e.message);
@@ -43,7 +40,6 @@ export async function getallusers(): Promise<userinterface[]> {
     }
 }
 export async function getEmailOfUsers(): Promise<usersemail[]> {
-    console.log("get all user email from the action got called");
     try {
         const usersemail: usersemail[] = await client.user.findMany({
             select: {
@@ -110,7 +106,6 @@ export async function getidOfUser(): Promise<string | null> {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
         if (!token || typeof token !== "string" || token.split('.').length !== 3) {
-            console.log("no or invalid token format");
             const session = await getServerSession(NEXT_AUTH_CONFIG);
             return session?.user?.id || null;
         }
@@ -123,7 +118,6 @@ export async function getidOfUser(): Promise<string | null> {
             const secret = new TextEncoder().encode(process.env.SECRET_KEY);
             const { payload } = await jwtVerify(token, secret);
             if (!payload?.id) {
-                console.log("no id in payload");
                 const session = await getServerSession(NEXT_AUTH_CONFIG);
                 return session?.user?.id || null;
             }

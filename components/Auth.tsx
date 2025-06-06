@@ -18,11 +18,9 @@ export default function Auth() {
     const role = path.includes("/admin") ? "admin" : "user";
     const isSignup = path.includes("/signup");
     const handleRedirect = () => {
-        console.log("handleredirect called");
         const target = isSignup ? "signin" : "signup";
         router.push(`/auth/${role}/${target}`);
     };
-    console.log("path from the auth = ",path);
     const handleChange = (e: any) => {
         setFormData(prev => ({
             ...prev,
@@ -30,7 +28,6 @@ export default function Auth() {
         }));
     };
     async function handleSubmit(e: any) {
-        console.log("handlesubmit called");
         const target = isSignup ? "signup" : "signin";
         e.preventDefault();
         try {
@@ -42,9 +39,7 @@ export default function Auth() {
                 body: JSON.stringify(formdata),
             });
             const data = await res.json();
-            console.log("data from the auth = ",data);
             const userprofileid=data.userwithoutpassword.id
-            console.log("user id from the autgh = ",data.userwithoutpassword.id);
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 role==="admin"?router.push("/admin"):router.push(`/user/profile/${userprofileid}`);

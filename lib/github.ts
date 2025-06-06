@@ -6,12 +6,10 @@ export async function saveGithubData(
     profile: GitHubProfile,
     repositories: GitHubRepository[]
 ) {
-    console.log("save github data got called ");
     const token = localStorage.getItem("token");
     if(!token){
         return NextResponse.json("please login first from the save github data")
     }
-    console.log("token from teh github save function = ",token)
     const res = await fetch(API_BASE, {
         method: "POST",
         headers: { 
@@ -24,7 +22,6 @@ export async function saveGithubData(
     return res.json();
 }
 export async function getSavedGithubData(userId: string) {
-    console.log("error from the get saved githubdata ")
     const res = await fetch(`${API_BASE}?userId=${encodeURIComponent(userId)}`);
     if (!res.ok) {
         const err = await res.json();

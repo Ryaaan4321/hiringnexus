@@ -8,7 +8,6 @@ interface AdminPayload extends JWTPayload {
 }
 
 export async function POST(req: NextRequest, res: NextResponse) {
-    console.log("this jobpost from the backend got calllleddddd");
     try {
         const token = req.cookies.get("token")?.value;
         if (!token) {

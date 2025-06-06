@@ -41,7 +41,6 @@ export async function getalladmins(): Promise<adminwithjobcountinterface[]> {
         );
         return adminWithJobCounts;
     } catch (e: any) {
-        console.log(e.message);
         return [];
     }
 }

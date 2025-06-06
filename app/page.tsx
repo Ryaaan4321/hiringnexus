@@ -16,7 +16,7 @@ export default function Home() {
       }
     }
     fetch()
-    console.log("type of the jobs = ", typeof (jobs))
+
   }, [])
   return (
     <>

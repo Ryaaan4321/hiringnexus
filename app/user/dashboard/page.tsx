@@ -18,7 +18,6 @@ export default function Page() {
         fetchjobs()
         console.log("type of the jobs = ", typeof (jobs))
     }, [])
-    console.log("jobs   = ", jobs)
     return (
         <div >
             <div className="">

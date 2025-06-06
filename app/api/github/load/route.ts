@@ -4,9 +4,7 @@ import { DB_GitHubProfile, DB_Repository } from '@/interfaces/githubinterface';
 import { UserPayload } from '@/interfaces/userinterface';
 import { jwtVerify } from 'jose';
 export async function GET(request: NextRequest) {
-  console.log("function got calleddddddd")
   const token = request.cookies.get("token")?.value;
-  console.log("token from the github get request")
   if(!token){
     return NextResponse.json(
       {err:"token is missing!please login first"},

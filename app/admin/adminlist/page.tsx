@@ -12,7 +12,6 @@ export default function Page(){
             try{
                 const data=await getalladmins();
                 setadmin(data);
-                console.log("data from the fetchdadmin",data )
             }catch(e:any){
                 console.log(e.message);
                 seterr(e.message);

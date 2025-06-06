@@ -34,10 +34,8 @@ export async function getalljobs(): Promise<jobinterface[]> {
                 salary: true,
             }
         });
-        console.log("type of the jobs from the actioon  = ", jobs);
         return jobs
     } catch (e: any) {
-        console.log(e.message);
         return [];
     }
 }
@@ -64,7 +62,6 @@ export async function getSingleJob(id: string): Promise<jobinterface | null> {
         });
         return response;
     } catch (e: any) {
-        console.log(e.message);
         return null;
     }
 }

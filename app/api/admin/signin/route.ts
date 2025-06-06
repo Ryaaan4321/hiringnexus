@@ -21,7 +21,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         if (!isvaliduser) {
             return NextResponse.json({ msg: "bkl admin" }, { status: 401 });
         }
-        // console.log("key = ",process.env.SECRET_KEY);
         if (!process.env.SECRET_KEY) throw new Error("secret key is not defined");
         const { password, ...adminwithoutpassword } = isadmin;
         const token = jwt.sign(

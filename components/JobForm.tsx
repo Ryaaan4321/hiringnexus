@@ -5,7 +5,6 @@ import { getEmailOfUsers } from "@/app/actions/userserveraction";
 import { FormEvent } from "react";
 
 async function notifyUsers(email: string, jobTitle: string, description: string) {
-    console.log("notify user function got called");
     await sendEmail(email, `${jobTitle}`);
 }
 export default function JobForm() {
@@ -30,18 +29,13 @@ export default function JobForm() {
             });
             if (!response.ok) {
                 const err = await response.json();
-                console.log("err = ", err);
                 return;
             }
             const result = await response.json();
-            console.log("response from the JobForm = ", result);
             const emailOfUsers = await getEmailOfUsers();
-            console.log("email of users from the job form = ", emailOfUsers);
             for (const user of emailOfUsers) {
                 await notifyUsers(user.email, result.newJob.title, "Check it out right now");
-                console.log("email of the user = ",user.email);
             }
-            console.log("job is posted and the user is notified about it");
         } catch (e: any) {
             console.log("err from the form", e.message);
         }

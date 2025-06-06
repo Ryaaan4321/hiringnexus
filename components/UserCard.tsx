@@ -14,7 +14,6 @@ export default function UserCard({ userId }: { userId: string }) {
         }
         fetchdata();
     },[])
-    console.log("userdata from the usercard = ",userdata)
     return (
         <Link href={`/user/profile/${userId}`}>
             <div

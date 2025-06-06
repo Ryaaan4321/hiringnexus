@@ -16,6 +16,7 @@ export default function EditUserDetails() {
             [field]: value
         }))
     }
+    console.log("userid fromt the editusrdetails = ",userId);
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!userId) return;

@@ -10,16 +10,13 @@ export default function Page() {
         async function fetchjobs() {
             try {
                 const data = await getalljobs();
-                // console.log("data = ", data)
                 setJobs(data);
             } catch (e: any) {
                 seterr(e.message);
             }
         }
         fetchjobs()
-        console.log("type of the jobs = ", typeof (jobs))
     }, [])
-    console.log("jobs   = ", jobs)
     return (
         <div >
             <div className="">

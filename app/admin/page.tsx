@@ -1,6 +1,5 @@
 "use react"
 export default function Page() {
-    console.log("admin  got called")
     return (
         <div>
         <h1 className="text-3xl font-bold text-blue-900">Welcome to Admin Panel</h1>

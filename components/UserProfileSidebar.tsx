@@ -2,7 +2,6 @@
 import { userDetail } from "@/interfaces/userinterface"
 
 export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
-    console.log("user from the userprofile sidebar = ",user)
     if (!user) {
         return (
             <div className="bg-white shadow-md rounded-lg p-6 max-w-sm w-full min-h-[20vh] flex flex-col justify-between lg:mt-6 left-5 mt-6 sm:mt-0">

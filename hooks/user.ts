@@ -54,7 +54,6 @@ export function useUserFromParam() {
         async function fetchUsers() {
             try {
                 const param = params?.id as string | undefined;
-                console.log("param from the hook = ", param);
                 if (!param) {
                     setErr("user id not found!");
                     return;

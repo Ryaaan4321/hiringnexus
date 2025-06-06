@@ -19,7 +19,6 @@ export default function Page(){
         }
         fetchusers();
     },[])
-    console.log("users = ",users);
     return (
         <UserTable users={users}/>
     )

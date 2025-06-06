@@ -19,15 +19,12 @@ export default function UserProfile() {
     const [userdata, setUserdata] = useState<userDetail | null>(null);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
     const handleSearch = async (searchUsername: string) => {
-        console.log("handle search got called ")
         try {
             setLoading(true);
             setError(null);
             setUsername(searchUsername);
             const profileData = await getGithubProfile(searchUsername);
             const repoData = await getUserRepositories(searchUsername);
-            console.log("profile data from the usrprofile = ",profileData);
-            console.log("repo data from the userprofile = ",repoData);
             if (!userId) {
                 throw new Error("please login first!");
             }
@@ -60,7 +57,6 @@ export default function UserProfile() {
         }
         fetchdata();
     }, [userId])
-    console.log("userdata from the user profile  = ", userdata);
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
