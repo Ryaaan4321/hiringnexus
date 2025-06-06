@@ -46,4 +46,14 @@ export interface userDetail {
     timestamps: Date;
   }[];
 }
+export type safeuserupdateinput = {
+  name?: string;
+  username?: string;
+  email?: string;
+  password?: string;
+  phonenumber?: string;
+  descreption?: string;
+  profession?: string;
+};
+
 

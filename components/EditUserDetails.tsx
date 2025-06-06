@@ -1,55 +1,69 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
+import { useUserId } from "@/hooks/user";
+import { updateUserDetails } from "@/app/actions/userserveraction";
+import { useRouter } from "next/navigation";
+import { safeuserupdateinput } from "@/interfaces/userinterface";
 
 export default function EditUserDetails() {
-    const [user, setUser] = useState({
-        id: "123",
-        phonenumber: "6969",
-        profession: "Student",
-        email: "lalu@gmail.com",
-        descreption: "I am a MERN stack developer passionate about solving real-world problems.",
-    });
-
+    const router = useRouter();
+    const { userId, loading: useridLoading, err: useridError } = useUserId();
+    const [formdata, setFormData] = useState<Partial<safeuserupdateinput>>({});
+    function handlechange(field: keyof safeuserupdateinput, value: string) {
+        setFormData((prev) => ({
+            ...prev,
+            [field]: value
+        }))
+    }
+    async function handleSubmit(e: React.FormEvent) {
+        e.preventDefault();
+        if (!userId) return;
+        const updated = await updateUserDetails(userId, formdata);
+        if (updated) {
+            router.push(`/user/profile/${userId}`);
+        } else {
+            alert("Failed to update profile.");
+        }
+    };
     return (
-        <div className="bg-white shadow-md rounded-lg p-6 max-w-2xl w-full mt-6">
-            <div className="flex justify-between mb-4">
-                <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
+        <div className="flex justify-center items-center min-h-screen bg-gray-50">
+            <div className="bg-white shadow-md rounded-lg p-6 max-w-2xl w-full mt-6 ">
+                <div className="flex justify-between mb-4">
+                    <div><h2 className="text-xl font-bold text-gray-800">Edit Profile</h2></div>
+                    <Link href={`/user/profile/${123}`}>
+                        <div className="">
+                            <h1 className="rounded-full bg-blue-900 m-2 px-4 py-2 text-white w-6 h-7 flex items-center justify-center">
+                                H
+                            </h1>
+                        </div>
+                    </Link>
+                </div>
+                <form>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-6">
+                        <FormItem label="name" onChange={(val) => { }} />
+                        <FormItem label="username" onChange={(val) => { }} />
+                        <FormItem label="phonenumber" onChange={(val) => { }} />
+                        <FormItem label="Profession" onChange={(val) => { }} />
+                        <FormItem label="Location" onChange={(val) => { }} />
+                        <FormItem label="descreption" onChange={(val) => { }} />
+                    </div>
+                    <div className="flex justify-end">
+                        <button type="submit" className="px-4 py-2  text-white rounded bg-blue-900  cursor-pointer" onClick={handleSubmit}>
+                            Save Changes
+                        </button>
+                    </div>
+                </form>
             </div>
-            <form>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-6">
-                    <FormItem label="Phone" value={user.phonenumber} onChange={(val) => setUser({ ...user, phonenumber: val })} />
-                    <FormItem label="Profession" value={user.profession} onChange={(val) => setUser({ ...user, profession: val })} />
-                    <FormItem label="Location" value="Ahmedabad, Gujarat" disabled />
-                    <FormItem label="Email" value={user.email} disabled />
-                </div>
-                <div className="mb-4">
-                    <label className="block text-sm font-medium text-gray-500 mb-1">Description</label>
-                    <textarea
-                        value={user.descreption}
-                        onChange={(e) => setUser({ ...user, descreption: e.target.value })}
-                        className="w-full border rounded-md p-2 text-sm text-gray-700"
-                        rows={3}
-                        placeholder="Describe yourself in one line"
-                    />
-                </div>
-                <div className="flex justify-end">
-                    <button type="submit" className="px-4 py-2 bg-sky-600 text-white rounded hover:bg-sky-700 transition">
-                        Save Changes
-                    </button>
-                </div>
-            </form>
         </div>
     );
 }
-
 function FormItem({
     label,
-    value,
     onChange,
     disabled = false,
 }: {
     label: string;
-    value: string;
     onChange?: (val: string) => void;
     disabled?: boolean;
 }) {
@@ -58,12 +72,10 @@ function FormItem({
             <label className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">{label}</label>
             <input
                 type="text"
-                value={value}
                 onChange={(e) => onChange?.(e.target.value)}
                 disabled={disabled}
-                className={`text-sm font-medium text-gray-800 p-2 border rounded ${
-                    disabled ? "bg-gray-100 cursor-not-allowed" : ""
-                }`}
+                className={`text-sm font-medium text-gray-800 p-2 border rounded ${disabled ? "bg-gray-100 cursor-not-allowed" : ""
+                    }`}
             />
         </div>
     );

@@ -4,7 +4,7 @@ import { jwtDecrypt, JWTPayload, jwtVerify } from 'jose'
 import userinterface, { userDetail } from '@/interfaces/userinterface'
 import { usersemail } from '@/interfaces/userinterface'
 import { cookies } from 'next/headers'
-import { decode } from 'punycode'
+import { safeuserupdateinput } from '@/interfaces/userinterface'
 import { getServerSession } from 'next-auth'
 import { NEXT_AUTH_CONFIG } from '@/lib/auth'
 
@@ -21,7 +21,6 @@ export default interface admininterface {
 export interface adminwithjobcountinterface extends admininterface {
     jobcount: number;
 }
-
 export async function getallusers(): Promise<userinterface[]> {
     console.log("get all users from the actions got called");
     try {
@@ -38,9 +37,6 @@ export async function getallusers(): Promise<userinterface[]> {
         console.log("type of users from the getallusers = ", typeof (users))
         console.log("users from the server action of the users = ", users);
         return users as userinterface[];
-
-        // because the type of the users is object so i casted them back into the array 
-        // so they dont jerk the error again win win
     } catch (e: any) {
         console.log(e.message);
         return [];
@@ -109,8 +105,6 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
         return null;
     }
 }
-
-
 export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
@@ -145,7 +139,19 @@ export async function getidOfUser(): Promise<string | null> {
         return null;
     }
 }
-
+export async function updateUserDetails(id: string, fieldstoupdate: Partial<safeuserupdateinput>) {
+    try {
+        if (!id) return;
+        const updated = await client.user.update({
+            where: { id },
+            data: fieldstoupdate
+        })
+        return updated;
+    } catch (e: any) {
+        console.log("err from the update user details = ", e.message);
+        return null;
+    }
+}
 
 
 
