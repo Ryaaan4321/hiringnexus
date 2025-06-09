@@ -140,6 +140,8 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
             where: { id },
             data: fieldstoupdate
         })
+        console.log("id from the server action ",id )
+        console.log("updated data from the userserver action ",updated);
         return updated;
     } catch (e: any) {
         console.log("err from the update user details = ", e.message);

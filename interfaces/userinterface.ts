@@ -49,10 +49,8 @@ export interface userDetail {
 export type safeuserupdateinput = {
   name?: string;
   username?: string;
-  email?: string;
-  password?: string;
   phonenumber?: string;
-  descreption?: string;
+  descreption ?: string;
   profession?: string;
 };
 

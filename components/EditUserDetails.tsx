@@ -6,6 +6,7 @@ import { updateUserDetails } from "@/app/actions/userserveraction";
 import { useRouter } from "next/navigation";
 import { safeuserupdateinput } from "@/interfaces/userinterface";
 
+
 export default function EditUserDetails() {
     const router = useRouter();
     const { userId, loading: useridLoading, err: useridError } = useUserId();
@@ -16,7 +17,6 @@ export default function EditUserDetails() {
             [field]: value
         }))
     }
-    console.log("userid fromt the editusrdetails = ",userId);
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!userId) return;
@@ -27,6 +27,8 @@ export default function EditUserDetails() {
             alert("Failed to update profile.");
         }
     };
+    console.log("formdata = ",formdata);
+    console.log("userid from the editusrdetails = ", userId);
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-50">
             <div className="bg-white shadow-md rounded-lg p-6 max-w-2xl w-full mt-6 ">
@@ -42,12 +44,11 @@ export default function EditUserDetails() {
                 </div>
                 <form>
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-6">
-                        <FormItem label="name" onChange={(val) => { }} />
-                        <FormItem label="username" onChange={(val) => { }} />
-                        <FormItem label="phonenumber" onChange={(val) => { }} />
-                        <FormItem label="Profession" onChange={(val) => { }} />
-                        <FormItem label="Location" onChange={(val) => { }} />
-                        <FormItem label="descreption" onChange={(val) => { }} />
+                        <FormItem label="name" onChange={(val) =>handlechange("name",val) } />
+                        <FormItem label="username" onChange={(val) =>handlechange("username",val)} />
+                        <FormItem label="phonenumber" onChange={(val) => handlechange("phonenumber",val)} />
+                        <FormItem label="Profession" onChange={(val) => handlechange("profession",val)} />
+                        <FormItem label="descreption" onChange={(val) => handlechange("descreption",val)} />
                     </div>
                     <div className="flex justify-end">
                         <button type="submit" className="px-4 py-2  text-white rounded bg-blue-900  cursor-pointer" onClick={handleSubmit}>
