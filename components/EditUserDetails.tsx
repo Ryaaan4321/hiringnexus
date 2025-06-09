@@ -24,7 +24,7 @@ export default function EditUserDetails() {
         if (updated) {
             router.push(`/user/profile/${userId}`);
         } else {
-            alert("Failed to update profile.");
+            alert("failed to update profile !.");
         }
     };
     console.log("formdata = ",formdata);
@@ -34,7 +34,7 @@ export default function EditUserDetails() {
             <div className="bg-white shadow-md rounded-lg p-6 max-w-2xl w-full mt-6 ">
                 <div className="flex justify-between mb-4">
                     <div><h2 className="text-xl font-bold text-gray-800">Edit Profile</h2></div>
-                    <Link href={`/user/profile/${123}`}>
+                    <Link href={`/user/profile/${userId}`}>
                         <div className="">
                             <h1 className="rounded-full bg-blue-900 m-2 px-4 py-2 text-white w-6 h-7 flex items-center justify-center">
                                 H
