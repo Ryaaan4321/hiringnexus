@@ -35,6 +35,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             maxAge: 60 * 60,
             path: "/",
         });
+        console.log("adminwithoutpassword from the api = ",adminwithoutpassword.id);
         return NextResponse.json({ adminwithoutpassword, token }, { status: 201 });
     } catch (e: any) {
         console.log(e);
