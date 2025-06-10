@@ -1,6 +1,6 @@
 import { GitHubProfile, GitHubRepository } from "@/interfaces/githubinterface";
 import { NextResponse } from "next/server";
-const API_BASE = "/api/github/save";
+const API_BASE = "/api/github";
 export async function saveGithubData(
     userId: string,
     profile: GitHubProfile,
@@ -10,7 +10,7 @@ export async function saveGithubData(
     if(!token){
         return NextResponse.json("please login first from the save github data")
     }
-    const res = await fetch(API_BASE, {
+    const res = await fetch(`${API_BASE}/save`, {
         method: "POST",
         headers: { 
             "Content-Type": "application/json",
@@ -22,7 +22,7 @@ export async function saveGithubData(
     return res.json();
 }
 export async function getSavedGithubData(userId: string) {
-    const res = await fetch(`${API_BASE}?userId=${encodeURIComponent(userId)}`);
+    const res = await fetch(`${API_BASE}/load/?userId=${encodeURIComponent(userId)}`);
     if (!res.ok) {
         const err = await res.json();
         throw new Error(err.err || "sorry try again!");

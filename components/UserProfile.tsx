@@ -1,7 +1,8 @@
 "use client"
-import { getUserRepositories, getGithubProfile, saveGithubData } from "@/lib/github";
+import { getUserRepositories, getGithubProfile, saveGithubData, getSavedGithubData } from "@/lib/github";
 import { GitHubRepository, GitHubProfile } from "@/interfaces/githubinterface";
-import { RenderGithubProfile, RenderGithubRepositories } from "./GithubProfileComponent";
+import { RenderGithubProfile } from "./GithubProfileComponent";
+import { RenderGithubRepositories } from "./GithubProfileComponent";
 import { useState, useEffect } from "react";
 import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
 import { userDetail } from "@/interfaces/userinterface";
@@ -9,6 +10,7 @@ import UserProfileSidebar from "./UserProfileSidebar";
 import UserBasicInfo from "./UserBasicInfo";
 import GithubUserSearch from "./GithubUserSearch";
 import { useUserId } from "@/hooks/user";
+import { useUserDetails } from "@/hooks/user";
 
 export default function UserProfile() {
     const [username, setUsername] = useState("");
@@ -18,6 +20,10 @@ export default function UserProfile() {
     const [loading, setLoading] = useState(false);
     const [userdata, setUserdata] = useState<userDetail | null>(null);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
+    const {user,err}=useUserDetails(userId); 
+    // expirenment
+    const [newrepo, setNewRepo] = useState<GitHubRepository[]>([]);
+    const [newprofiledata, setNewProfiledata] = useState<GitHubProfile | null>()
     const handleSearch = async (searchUsername: string) => {
         try {
             setLoading(true);
@@ -57,6 +63,21 @@ export default function UserProfile() {
         }
         fetchdata();
     }, [userId])
+    useEffect(() => {
+        async function fetchdata() {
+            try {
+                if (!userId) {
+                    return;
+                }
+                const data = await getSavedGithubData(userId);
+                setNewProfiledata(data.profile);
+                setNewRepo(data.repositories);
+            } catch (e: any) {
+                console.log("error from the second useeffect = ", e.message);
+            }
+        }
+        fetchdata();
+    }, [userId])
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
@@ -69,13 +90,13 @@ export default function UserProfile() {
                 </div>
                 <div className="flex-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <UserBasicInfo user={userdata} />
+                       {user && <UserBasicInfo user={user} />}
                         <div className={loading ? "opacity-50" : ""}>
-                            <RenderGithubProfile profile={profile} />
+                            <RenderGithubProfile profile={newprofiledata} />
                         </div>
-                        <div className="lg:col-span-2">
+                        {newrepo.length > 0 ? "" : <div className="lg:col-span-2">
                             <GithubUserSearch onSearch={handleSearch} />
-                        </div>
+                        </div>}
                     </div>
                     <div className="mt-6">
                         {loading ? (
@@ -84,8 +105,8 @@ export default function UserProfile() {
                                     <div key={i} className="h-20 bg-gray-200 animate-pulse rounded"></div>
                                 ))}
                             </div>
-                        ) : repositories.length > 0 ? (
-                            <RenderGithubRepositories repositories={repositories} />
+                        ) : newrepo.length > 0 ? (
+                            <RenderGithubRepositories repositories={newrepo} />
                         ) : profile ? (
                             <div className="border p-4 rounded bg-white">
                                 <p className="text-gray-500">No repositories found</p>
@@ -94,7 +115,6 @@ export default function UserProfile() {
                     </div>
                 </div>
             </div>
-
             {error && (
                 <div className="fixed bottom-4 right-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
                     {error}
