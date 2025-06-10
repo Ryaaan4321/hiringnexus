@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         if (!process.env.SECRET_KEY) throw new Error("secret key is not defined");
         const { password, ...adminwithoutpassword } = isadmin;
         const token = jwt.sign(
-            { id: isadmin.id, email: isadmin.email },
+            { id: isadmin.id, email: isadmin.email, role: "admin" },
             process.env.SECRET_KEY,
             { expiresIn: "1h" }
         );
@@ -35,7 +35,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             maxAge: 60 * 60,
             path: "/",
         });
-        console.log("adminwithoutpassword from the api = ",adminwithoutpassword.id);
+        console.log("adminwithoutpassword from the api = ", adminwithoutpassword.id);
         return NextResponse.json({ adminwithoutpassword, token }, { status: 201 });
     } catch (e: any) {
         console.log(e);
