@@ -16,6 +16,8 @@ model User {
   profession     String
   alreadyapplied jobschema[]    @relation("UserTojobschema")
   githubprofile  GitHubProfile?
+  ctc            String?
+  location       String?
 }
 model GitHubProfile {
   id           String       @id @default(uuid())

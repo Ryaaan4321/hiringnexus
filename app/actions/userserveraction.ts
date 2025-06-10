@@ -65,6 +65,8 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 phonenumber: true,
                 email: true,
                 descreption: true,
+                location:true,
+                ctc:true,
                 alreadyapplied: {
                     select: {
                         id: true,
@@ -135,7 +137,7 @@ export async function getidOfUser(): Promise<string | null> {
 }
 export async function updateUserDetails(id: string, fieldstoupdate: Partial<safeuserupdateinput>) {
     try {
-        if (!id) return;
+        if (!id) return { success: false, msg: "please please login first!" };
         const updated = await client.user.update({
             where: { id },
             data: fieldstoupdate

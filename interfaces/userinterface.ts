@@ -23,6 +23,8 @@ export interface userDetail {
   profession: string;
   phonenumber: string | null;
   descreption: string | null;
+  location:string |null;
+  ctc:string|null;
   githubprofile: {
     id: string;
     username: string;
