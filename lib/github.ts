@@ -1,4 +1,4 @@
-import { GitHubProfile, GitHubRepository } from "@/interfaces/githubinterface";
+import { DB_GitHubProfile, DB_Repository, GitHubProfile, GitHubRepository } from "@/interfaces/githubinterface";
 import { NextResponse } from "next/server";
 const API_BASE = "/api/github";
 export async function saveGithubData(
@@ -27,7 +27,7 @@ export async function getSavedGithubData(userId: string) {
         const err = await res.json();
         throw new Error(err.err || "sorry try again!");
     }
-    return res.json() as Promise<{ profile: GitHubProfile; repositories: GitHubRepository[] }>;
+    return res.json() as Promise<{ profile: DB_GitHubProfile; repositories: DB_Repository[] }>;
 }
 export async function getGithubProfile(username: string): Promise<GitHubProfile> {
     const response = await fetch(`https://api.github.com/users/${username}`);

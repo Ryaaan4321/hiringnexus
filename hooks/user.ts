@@ -2,6 +2,9 @@ import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
 import { userDetail } from "@/interfaces/userinterface";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { GitHubProfile } from "@prisma/client";
+import { DB_GitHubProfile, DB_Repository, GitHubRepository } from "@/interfaces/githubinterface";
+import { getSavedGithubData } from "@/lib/github";
 export function useUserId() {
     const [userId, setUserId] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
@@ -70,4 +73,24 @@ export function useUserFromParam() {
         fetchUsers();
     }, [params]);
     return { user, err };
+}
+export function useGithub() {
+    const [githubprofile, setGithubProfile] = useState<DB_GitHubProfile | null>()
+    const [githubrepositories, setGithubRepositories] = useState<DB_Repository[]>([]);
+    const { userId, loading: useridLoading, err: useridError } = useUserId();
+    useEffect(()=>{
+        async function fetchdata(){
+            try{
+                if(!userId){
+                    return;
+                }
+                const data=await getSavedGithubData(userId);
+                setGithubProfile(data.profile)
+                setGithubRepositories(data.repositories);
+            }catch(e:any){
+
+            }
+        }
+    },[userId])
+    return {githubprofile,githubrepositories}
 }
