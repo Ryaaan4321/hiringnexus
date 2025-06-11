@@ -65,8 +65,8 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 phonenumber: true,
                 email: true,
                 descreption: true,
-                location:true,
-                ctc:true,
+                location: true,
+                ctc: true,
                 alreadyapplied: {
                     select: {
                         id: true,
@@ -142,12 +142,27 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
             where: { id },
             data: fieldstoupdate
         })
-        console.log("id from the server action ",id )
-        console.log("updated data from the userserver action ",updated);
+        console.log("id from the server action ", id)
+        console.log("updated data from the userserver action ", updated);
         return updated;
     } catch (e: any) {
         console.log("err from the update user details = ", e.message);
         return null;
+    }
+}
+export async function applyForJob(jobId: string, userId: string) {
+    try {
+        const alreadyApplied = await client.user.findFirst({
+            where: { id: userId, alreadyapplied: { some: { id: jobId } } },
+        });
+        if (alreadyApplied) return { success: false, msg: "you have already visited this job" };
+        await client.user.update({
+            where: { id: userId },
+            data: { alreadyapplied: { connect: { id: jobId } } },
+        });
+        return { success: true };
+    } catch (err:any) {
+        return { success: false, err: err.message };
     }
 }
 
