@@ -9,8 +9,7 @@ import { userDetail } from "@/interfaces/userinterface";
 import UserProfileSidebar from "./UserProfileSidebar";
 import UserBasicInfo from "./UserBasicInfo";
 import GithubUserSearch from "./GithubUserSearch";
-import { useUserId } from "@/hooks/user";
-import { useUserDetails } from "@/hooks/user";
+import { useUserDetails ,useGithub,useUserId } from "@/hooks/user";
 
 export default function UserProfile() {
     const [username, setUsername] = useState("");
@@ -21,8 +20,8 @@ export default function UserProfile() {
     const [userdata, setUserdata] = useState<userDetail | null>(null);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
     const { user, err } = useUserDetails(userId);
-    const [userRepo, setUserRepo] = useState<DB_Repository[]>([]);
-    const [userGithubprofile, setuserGithubProfile] = useState<DB_GitHubProfile | null>()
+    const {userGithubprofile,userGithubrepositories}=useGithub();
+   
     const handleSearch = async (searchUsername: string) => {
         try {
             setLoading(true);
@@ -62,21 +61,6 @@ export default function UserProfile() {
         }
         fetchdata();
     }, [userId])
-    useEffect(() => {
-        async function fetchdata() {
-            try {
-                if (!userId) {
-                    return;
-                }
-                const data = await getSavedGithubData(userId);
-                setuserGithubProfile(data.profile);
-                setUserRepo(data.repositories);
-            } catch (e: any) {
-                console.log("error from the second useeffect = ", e.message);
-            }
-        }
-        fetchdata();
-    }, [userId])
     return (
         <div className="min-h-screen bg-gray-100 p-4">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
@@ -93,7 +77,7 @@ export default function UserProfile() {
                         <div className={loading ? "opacity-50" : ""}>
                             <RenderGithubProfile profile={userGithubprofile} />
                         </div>
-                        {userRepo.length > 0 ? "" : <div className="lg:col-span-2">
+                        {userGithubrepositories.length > 0 ? "" : <div className="lg:col-span-2">
                             <GithubUserSearch onSearch={handleSearch} />
                         </div>}
                     </div>
@@ -104,8 +88,8 @@ export default function UserProfile() {
                                     <div key={i} className="h-20 bg-gray-200 animate-pulse rounded"></div>
                                 ))}
                             </div>
-                        ) : userRepo.length > 0 ? (
-                            <RenderGithubRepositories repositories={userRepo} />
+                        ) : userGithubrepositories.length > 0 ? (
+                            <RenderGithubRepositories repositories={userGithubrepositories} />
                         ) : profile ? (
                             <div className="border p-4 rounded bg-white">
                                 <p className="text-gray-500">No repositories found</p>

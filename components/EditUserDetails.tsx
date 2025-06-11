@@ -51,6 +51,8 @@ export default function EditUserDetails() {
                         <FormItem label="phonenumber" onChange={(val) => handlechange("phonenumber", val)} />
                         <FormItem label="Profession" onChange={(val) => handlechange("profession", val)} />
                         <FormItem label="descreption" onChange={(val) => handlechange("descreption", val)} />
+                        <FormItem label="ctc" onChange={(val) => handlechange("ctc", val)} />
+                        <FormItem label="location" onChange={(val) => handlechange("location", val)} />
                     </div>
                     <div className="flex justify-end">
                         <button type="submit" className="px-4 py-2  text-white rounded bg-blue-900  cursor-pointer" onClick={handleSubmit}>

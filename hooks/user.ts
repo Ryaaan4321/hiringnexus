@@ -75,9 +75,10 @@ export function useUserFromParam() {
     return { user, err };
 }
 export function useGithub() {
-    const [githubprofile, setGithubProfile] = useState<DB_GitHubProfile | null>()
-    const [githubrepositories, setGithubRepositories] = useState<DB_Repository[]>([]);
+    const [userGithubprofile, setUserGithubProfile] = useState<DB_GitHubProfile | null>()
+    const [userGithubrepositories, setUserGithubRepositories] = useState<DB_Repository[]>([]);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
+    const [err,setErr]=useState("");
     useEffect(()=>{
         async function fetchdata(){
             try{
@@ -85,12 +86,13 @@ export function useGithub() {
                     return;
                 }
                 const data=await getSavedGithubData(userId);
-                setGithubProfile(data.profile)
-                setGithubRepositories(data.repositories);
+                setUserGithubProfile(data.profile)
+                setUserGithubRepositories(data.repositories);
             }catch(e:any){
-
+                setErr(e.message);
             }
         }
+        fetchdata();
     },[userId])
-    return {githubprofile,githubrepositories}
+    return {userGithubprofile,userGithubrepositories}
 }

@@ -54,6 +54,8 @@ export type safeuserupdateinput = {
   phonenumber?: string;
   descreption ?: string;
   profession?: string;
+  ctc?:string;
+  location?:string
 };
 
 
