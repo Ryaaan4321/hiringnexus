@@ -18,8 +18,10 @@ model User {
   githubprofile  GitHubProfile?
   ctc            String?
   location       String?
-  @@index([username,email])
+
+  @@index([username, email])
 }
+
 model GitHubProfile {
   id           String       @id @default(uuid())
   username     String       @unique
@@ -38,8 +40,10 @@ model GitHubProfile {
   user         User         @relation(fields: [userId], references: [id])
   userId       String       @unique
   repositories Repository[]
-  @@index([id,username,userId])
+
+  @@index([id, username, userId])
 }
+
 model Repository {
   id              String        @id @default(uuid())
   name            String
@@ -55,8 +59,10 @@ model Repository {
   updatedAt       DateTime      @updatedAt
   githubProfile   GitHubProfile @relation(fields: [profileId], references: [id])
   profileId       String
-  @@index([name,language,profileId])
+
+  @@index([name, language, profileId])
 }
+
 model Admin {
   id          String      @id @default(uuid())
   name        String
@@ -65,14 +71,17 @@ model Admin {
   password    String
   phonenumber String
   postedjobs  jobschema[]
+
   @@index([id])
 }
+
 enum JobType {
   FULLTIME
   REMOTE
   INTERNSHIP
   CONTRACT
 }
+
 model jobschema {
   id           String    @id @default(uuid())
   title        String
@@ -86,6 +95,7 @@ model jobschema {
   experience   Int
   salary       Int
   timestamps   DateTime  @default(now())
+  @@index([timestamps])
 }
 
 // add the expereicnce  of th user also in the user table like college student ,fresher,senior   

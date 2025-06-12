@@ -9,8 +9,14 @@ export default interface jobinterface {
     postedby: {
         name: string
     },
-    companyname:string,
-    experience:number,
-    salary:number,
-    jobTypes:JobType[]
+    companyname: string,
+    experience: number,
+    salary: number,
+    jobTypes: JobType[]
 };
+export interface recentappliedJob {
+    id: string;
+    title: string;
+    companyname: string;
+    timestamps: Date;
+}

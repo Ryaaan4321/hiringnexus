@@ -150,24 +150,3 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
         return null;
     }
 }
-export async function applyForJob(jobId: string, userId: string) {
-    try {
-        const alreadyApplied = await client.user.findFirst({
-            where: { id: userId, alreadyapplied: { some: { id: jobId } } },
-        });
-        if (alreadyApplied) return { success: false, msg: "you have already visited this job" };
-        await client.user.update({
-            where: { id: userId },
-            data: { alreadyapplied: { connect: { id: jobId } } },
-        });
-        return { success: true };
-    } catch (err:any) {
-        return { success: false, err: err.message };
-    }
-}
-
-
-
-
-
-

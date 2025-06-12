@@ -1,7 +1,29 @@
 "use client";
 import Link from "next/link";
 import jobinterface from "@/interfaces/jobinterface";
+import { useUserId } from "@/hooks/user";
+import { visitedJobs } from "@/app/actions/jobsserveraction";
 export default function Card({ job }: { job: jobinterface[] }) {
+    const { userId, loading, err } = useUserId();
+    function AlreadyApplied({ jobId, jobLink }: { jobId: string, jobLink: string }) {
+        if (!userId) {
+            return null;
+        }
+        const handleClick = async () => {
+            const result = await visitedJobs(jobId, userId);
+            if (result.success) alert("Applied!");
+        };
+        return (
+            <Link href={jobLink || `https://github.com/Ryaaan4321/hiringnexus`}>
+
+                <button
+                    className="border-t px-4 py-3 cursor-pointer text-blue-900"
+                    onClick={handleClick}>
+                    Visit the Link
+                </button>
+            </Link>
+        );
+    }
     return (
         <div>
             <div className="grid grid-cols-4 gap-1 card">
@@ -59,33 +81,22 @@ export default function Card({ job }: { job: jobinterface[] }) {
                                 </span>
                             ))}
                         </div>
-                        <div className="border-t px-4 py-3">
-                            <a
-                                href={item.joblink || "https://github.com/Ryaaan4321/hiringnexus"}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-sm text-blue-600 hover:underline inline-flex items-center"
-                            >
-                                Visit the Link
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    className="w-4 h-4 ml-1"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        strokeWidth={2}
-                                        d="M14 3h7m0 0v7m0-7L10 14"
-                                    />
-                                </svg>
-                            </a>
-                        </div>
+                        {userId ? (
+                            <AlreadyApplied jobId={item.id} jobLink={item.joblink} />
+                        ) : (
+                            <Link href={item.joblink || `https://github.com/Ryaaan4321/hiringnexus`} target="_blank">
+                                <button className="border-t px-4 py-3 cursor-pointer text-blue-900">
+                                    Visit the Link
+                                </button>
+                            </Link>
+                        )}
+
                     </div>
                 ))}
             </div>
         </div>
     );
 }
+
+// lets suppose user is not logged in than render the diffent component so that
+// he only visits the page

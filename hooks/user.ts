@@ -2,7 +2,6 @@ import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
 import { userDetail } from "@/interfaces/userinterface";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
-import { GitHubProfile } from "@prisma/client";
 import { DB_GitHubProfile, DB_Repository, GitHubRepository } from "@/interfaces/githubinterface";
 import { getSavedGithubData } from "@/lib/github";
 export function useUserId() {
