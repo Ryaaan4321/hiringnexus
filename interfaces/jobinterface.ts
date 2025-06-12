@@ -19,4 +19,8 @@ export interface recentappliedJob {
     title: string;
     companyname: string;
     timestamps: Date;
+    joblink?: string;
+    experience?: number;
+    salary?: number;
+    jobTypes?: string[];
 }

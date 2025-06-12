@@ -65,43 +65,4 @@ export async function getSingleJob(id: string): Promise<jobinterface | null> {
         return null;
     }
 }
-export async function visitedJobs(jobId: string, userId: string) {
-    try {
-        const alreadyApplied = await client.user.findFirst({
-            where: { id: userId, alreadyapplied: { some: { id: jobId } } },
-        });
-        if (alreadyApplied) return { success: false, msg: "you have already visited this job" };
-        await client.user.update({
-            where: { id: userId },
-            data: { alreadyapplied: { connect: { id: jobId } } },
-        });
-        return { success: true };
-    } catch (err: any) {
-        return { success: false, err: err.message };
-    }
-}
-export async function getRecentappliedJobsOfUser(userId: string): Promise<recentappliedJob[] | null> {
-    try {
-        const userwithjobs = await client.user.findUnique({
-            where: { id: userId },
-            include: {
-                alreadyapplied: {
-                    orderBy: {
-                        timestamps: 'desc'
-                    },
-                    take: 3,
-                    select: {
-                        id: true,
-                        title: true,
-                        companyname: true,
-                        timestamps: true,
-                    }
-                },
-            }
-        });
-        return userwithjobs?.alreadyapplied || [];
-    } catch (e: any) {
-        console.log(e.message);
-        return null;
-    }
-}
+

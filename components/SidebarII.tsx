@@ -1,22 +1,10 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import UserCard from './UserCard';
-import { getidOfUser } from '@/app/actions/userserveraction';
-import { FaTruckLoading } from 'react-icons/fa';
+import { useUserId } from '@/hooks/user';
 
 function SidebarII({ isOpen, onClose }: { isOpen: boolean, onClose: () => void }) {
-    const [userId, setUserId] = useState<string | null>(null);
-    useEffect(() => {
-        async function fetchUserId() {
-            try {
-                const id = await getidOfUser();
-                setUserId(id);
-            } catch (e: any) {
-                console.log(e.message);
-            }
-        }
-        fetchUserId();
-    }, []);
+    const {userId, loading,err} = useUserId();
     return (
         <>
             {isOpen && (

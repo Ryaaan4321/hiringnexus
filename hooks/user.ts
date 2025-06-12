@@ -1,9 +1,11 @@
 import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
 import { userDetail } from "@/interfaces/userinterface";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { useParams } from "next/navigation";
 import { DB_GitHubProfile, DB_Repository, GitHubRepository } from "@/interfaces/githubinterface";
 import { getSavedGithubData } from "@/lib/github";
+import { recentappliedJob } from "@/interfaces/jobinterface";
+import { getRecentappliedJobsOfUser } from "@/app/actions/userserveraction";
 export function useUserId() {
     const [userId, setUserId] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
@@ -77,21 +79,48 @@ export function useGithub() {
     const [userGithubprofile, setUserGithubProfile] = useState<DB_GitHubProfile | null>()
     const [userGithubrepositories, setUserGithubRepositories] = useState<DB_Repository[]>([]);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
-    const [err,setErr]=useState("");
-    useEffect(()=>{
-        async function fetchdata(){
-            try{
-                if(!userId){
+    const [err, setErr] = useState("");
+    useEffect(() => {
+        async function fetchdata() {
+            try {
+                if (!userId) {
                     return;
                 }
-                const data=await getSavedGithubData(userId);
+                const data = await getSavedGithubData(userId);
                 setUserGithubProfile(data.profile)
                 setUserGithubRepositories(data.repositories);
-            }catch(e:any){
+            } catch (e: any) {
                 setErr(e.message);
             }
         }
         fetchdata();
-    },[userId])
-    return {userGithubprofile,userGithubrepositories}
+    }, [userId])
+    return { userGithubprofile, userGithubrepositories }
+}
+export function useRecentappliedJobs() {
+    const [jobs, setJobs] = useState<recentappliedJob[] | null>(null);
+    const { userId } = useUserId();
+    const [err, setErr] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false)
+    useEffect(() => {
+        if (!userId) {
+            return;
+        }
+        async function fetchJobs() {
+            try {
+                setLoading(true);
+                if (!userId) {
+                    return;
+                }
+                const data = await getRecentappliedJobsOfUser(userId)
+                setJobs(data)
+                setErr(null);
+            } catch (e: any) {
+                setErr("failed to load the recent jobs");
+                setJobs(null);
+            }
+        }
+        fetchJobs();
+    }, [userId]);
+    return { jobs, loading, err }
 }

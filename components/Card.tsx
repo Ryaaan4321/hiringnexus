@@ -2,7 +2,7 @@
 import Link from "next/link";
 import jobinterface from "@/interfaces/jobinterface";
 import { useUserId } from "@/hooks/user";
-import { visitedJobs } from "@/app/actions/jobsserveraction";
+import { visitedJobs } from "@/app/actions/userserveraction";
 export default function Card({ job }: { job: jobinterface[] }) {
     const { userId, loading, err } = useUserId();
     function AlreadyApplied({ jobId, jobLink }: { jobId: string, jobLink: string }) {
