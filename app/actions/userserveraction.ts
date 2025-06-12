@@ -174,7 +174,7 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
                     orderBy: {
                         timestamps: 'desc'
                     },
-                    take: 3,
+                    take: 4,
                     select: {
                         id: true,
                         title: true,

@@ -1,6 +1,7 @@
 "use client"
 import { userDetail } from "@/interfaces/userinterface"
 import { useRecentappliedJobs } from "@/hooks/user";
+import Link from "next/link";
 export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
     const { jobs } = useRecentappliedJobs();
     if (!user) {
@@ -24,15 +25,18 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                     {user.descreption}
                 </div>
                 <div>
-                    <h1 className="font-semibold text-blue-950 mb-3">Jobs You Have Applied Recently</h1>
+                    <h1 className="font-semibold text-blue-950 mb-3">Jobs You Have Visited Recently</h1>
                     <div className="space-y-2">
                         {jobs?.map(job => (
-                            <div key={job.id} className="flex justify-between text-sky-700 text-sm">
+                            <Link
+                                key={job.id}
+                                href={`/user/job/${job.id}`}
+                                className="flex justify-between text-sky-700 text-sm"
+                            >
                                 <div>{job.title}</div>
                                 <div>{job.companyname}</div>
-                            </div>
+                            </Link>
                         ))}
-
                     </div>
                 </div>
             </div>

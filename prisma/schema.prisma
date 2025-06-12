@@ -96,6 +96,9 @@ model jobschema {
   salary       Int
   timestamps   DateTime  @default(now())
   @@index([timestamps])
+  @@index([jobTypes])
+  @@index([experience])
+  @@index([salary])
 }
 
 // add the expereicnce  of th user also in the user table like college student ,fresher,senior   
