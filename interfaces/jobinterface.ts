@@ -1,6 +1,19 @@
-type JobType = "FULLTIME" | "REMOTE" | "INTERNSHIP" | "CONTRACT";
+export const JobType = {
+  FULLTIME: 'FULLTIME',
+  REMOTE: 'REMOTE',
+  INTERNSHIP: 'INTERNSHIP',
+  CONTRACT: 'CONTRACT'
+} as const;
 
-export default interface jobinterface {
+export type JobType = keyof typeof JobType;
+
+export enum EnumJobType {
+  FULLTIME = 'FULLTIME',
+  REMOTE = 'REMOTE',
+  INTERNSHIP = 'INTERNSHIP',
+  CONTRACT = 'CONTRACT'
+}
+export  interface jobinterface {
     id: string,
     title: string,
     descreption: string,
@@ -23,4 +36,9 @@ export interface recentappliedJob {
     experience?: number;
     salary?: number;
     jobTypes?: string[];
+}
+export interface jobFilters {
+  jobTypes?: EnumJobType[];
+  minExperience?: number;
+  salaryRange?: [number, number];
 }

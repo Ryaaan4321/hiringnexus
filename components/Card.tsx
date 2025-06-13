@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import jobinterface from "@/interfaces/jobinterface";
+import { jobinterface } from "@/interfaces/jobinterface";
 import { useUserId } from "@/hooks/user";
 import { visitedJobs } from "@/app/actions/userserveraction";
 export default function Card({ job }: { job: jobinterface[] }) {
@@ -76,6 +76,9 @@ export default function Card({ job }: { job: jobinterface[] }) {
                                 <span
                                     key={i}
                                     className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs font-medium"
+                                    onChange={()=>{
+
+                                    }}
                                 >
                                     {type}
                                 </span>

@@ -1,7 +1,8 @@
 "use server"
 import client from '@/app/db'
 import { JWTPayload } from 'jose'
-import jobinterface, { recentappliedJob } from '@/interfaces/jobinterface'
+import { jobFilters, jobinterface } from '@/interfaces/jobinterface'
+import { JobType, EnumJobType } from '@/interfaces/jobinterface'
 interface AdminPayload extends JWTPayload {
     id: string,
     email: string
@@ -64,5 +65,34 @@ export async function getSingleJob(id: string): Promise<jobinterface | null> {
     } catch (e: any) {
         return null;
     }
+}
+
+export async function getFilteredJobs(filters: jobFilters) {
+    return await client.jobschema.findMany({
+        where: {
+            AND: [
+                filters.jobTypes?.length ? {
+                    jobTypes: {
+                        hasSome: filters.jobTypes
+                    }
+                } : {},
+                filters.minExperience ? {
+                    experience: {
+                        gte: filters.minExperience
+                    }
+                } : {},
+                filters.salaryRange ? {
+                    salary: {
+                        gte: filters.salaryRange[0] * 100000,
+                        lte: filters.salaryRange[1] * 100000
+                    }
+                } : {}
+            ].filter(condition => Object.keys(condition).length > 0)
+        },
+        orderBy: { timestamps: 'desc' },
+        include: {
+            postedby: { select: { name: true } }
+        }
+    });
 }
 
