@@ -15,7 +15,8 @@ export default function Filters({
         salaryRange: [number, number] | null;
     }) => void;
 }) {
-    const handleJobTypeChange = (type: JobType) => {
+    // function taking care of the jobtype change
+    function handleJobTypeChange(type: JobType) {
         onChange({
             ...filters,
             jobTypes: filters.jobTypes.includes(type)
@@ -23,22 +24,21 @@ export default function Filters({
                 : [...filters.jobTypes, type],
         });
     };
-
-    const handleExperienceChange = (years: number) => {
+    // function taking care of the experienc changes
+    function handleExperienceChange(years: number) {
         onChange({ ...filters, minExperience: years });
     };
-
-    const handleSalaryChange = (min: number | null, max: number | null) => {
+    // function taking care of the salarychange
+    function handleSalaryChange(min: number | null, max: number | null) {
         onChange({
             ...filters,
             salaryRange: min !== null && max !== null ? [min, max] : null,
         });
     };
-
     return (
         <div>
-            {/* Job Type Filter */}
             <div>
+                {/* here you go for all the jobtype filter that u need */}
                 <h3 className="font-semibold mb-2">Job Type</h3>
                 <div className="space-y-1">
                     {Object.values(JobType).map(type => (
@@ -54,8 +54,10 @@ export default function Filters({
                     ))}
                 </div>
             </div>
-
-            {/* Experience Filter */}
+            {/* the experience filter takes place here in future if u think there are some changes
+            need to be done in the experience filter here you go
+            
+            */}
             <div>
                 <h3 className="font-semibold mb-2 mt-4">Experience</h3>
                 <div className="space-y-1">
@@ -74,7 +76,7 @@ export default function Filters({
                 </div>
             </div>
 
-            {/* Salary Filter */}
+            {/* if u fuck up in future in the salary filter this is the place son*/}
             <div>
                 <h3 className="font-semibold mb-2 mt-4">Salary</h3>
                 <div className="grid grid-cols-2 gap-2">

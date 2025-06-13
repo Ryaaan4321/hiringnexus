@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import Filters from './FilterinJobs';
 import { JobType } from '@/interfaces/jobinterface';
+import { useUserId } from '@/hooks/user';
+import UserCard from './UserCard';
 
 interface FilterState {
   jobTypes: JobType[];
@@ -22,7 +24,7 @@ export default function SidebarII({
     minExperience: null,
     salaryRange: null,
   });
-
+  const {userId}=useUserId();
   const clearFilters = () => {
     setFilters({
       jobTypes: [],
@@ -52,6 +54,7 @@ export default function SidebarII({
             Clear All
           </button>
         </div>
+        {userId  && <UserCard userId={userId}/>}
       </div>
     </>
   );
