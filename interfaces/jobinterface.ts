@@ -13,32 +13,38 @@ export enum EnumJobType {
   INTERNSHIP = 'INTERNSHIP',
   CONTRACT = 'CONTRACT'
 }
-export  interface jobinterface {
-    id: string,
-    title: string,
-    descreption: string,
-    joblink: string,
-    postedbyId: string,
-    postedby: {
-        name: string
-    },
-    companyname: string,
-    experience: number,
-    salary: number,
-    jobTypes: JobType[]
+export interface jobinterface {
+  id: string,
+  title: string,
+  descreption: string,
+  joblink: string,
+  postedbyId: string,
+  postedby: {
+    name: string
+  },
+  companyname: string,
+  experience: number,
+  salary: number,
+  jobTypes: JobType[]
 };
 export interface recentappliedJob {
-    id: string;
-    title: string;
-    companyname: string;
-    timestamps: Date;
-    joblink?: string;
-    experience?: number;
-    salary?: number;
-    jobTypes?: string[];
+  id: string;
+  title: string;
+  companyname: string;
+  timestamps: Date;
+  joblink?: string;
+  experience?: number;
+  salary?: number;
+  jobTypes?: string[];
 }
 export interface jobFilters {
   jobTypes?: EnumJobType[];
   minExperience?: number;
   salaryRange?: [number, number];
+}
+
+export interface DeleteJobInterface {
+  success: boolean;
+  msg?: string;
+  deletedJob?: any; 
 }

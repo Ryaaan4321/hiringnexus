@@ -15,11 +15,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 email: body.email,
                 password: hashedpassword,
                 phonenumber: body.phonenumber,
-                username: body.username
+                username: body.username,
+                canDeleteJob:body.canDeleteJob
             }
         })
         if (!process.env.SECRET_KEY) throw new Error("secret key is not defined");
-        const token = jwt.sign({ id: response.id, email: response.email }, process.env.SECRET_KEY, { expiresIn: "1h" });
+        const token = jwt.sign({ id: response.id, email: response.email, role: "admin",canDeleteJob:response.canDeleteJob }, process.env.SECRET_KEY, { expiresIn: "1h" });
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {
         console.log(e);

@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
 }
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
 model User {
   id             String         @id @default(uuid())
   name           String
@@ -64,13 +66,14 @@ model Repository {
 }
 
 model Admin {
-  id          String      @id @default(uuid())
-  name        String
-  username    String
-  email       String      @unique
-  password    String
-  phonenumber String
-  postedjobs  jobschema[]
+  id           String      @id @default(uuid())
+  name         String
+  username     String
+  email        String      @unique
+  password     String
+  phonenumber  String
+  postedjobs   jobschema[]
+  canDeleteJob Boolean?
 
   @@index([id])
 }
@@ -95,6 +98,7 @@ model jobschema {
   experience   Int
   salary       Int
   timestamps   DateTime  @default(now())
+
   @@index([timestamps])
   @@index([jobTypes])
   @@index([experience])

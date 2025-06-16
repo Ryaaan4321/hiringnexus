@@ -3,26 +3,56 @@ import Link from "next/link";
 import { jobinterface } from "@/interfaces/jobinterface";
 import { useUserId } from "@/hooks/user";
 import { visitedJobs } from "@/app/actions/userserveraction";
+import { deleteJob } from "@/app/actions/adminserveraction";
+import { useAdmin } from "@/hooks/admin";
 export default function Card({ job }: { job: jobinterface[] }) {
     const { userId, loading, err } = useUserId();
+    const { admindata} = useAdmin();
+    const role=admindata?.role;
+    const canDeleteJob=admindata?.canDeleteJob;
+    console.log("role from the card page = ",role);
+    console.log("candeltejob from the card = ",canDeleteJob)
     function AlreadyApplied({ jobId, jobLink }: { jobId: string, jobLink: string }) {
         if (!userId) {
             return null;
         }
         const handleClick = async () => {
-            const result = await visitedJobs(jobId, userId);
-            if (result.success) alert("Applied!");
+            const result = await visitedJobs(jobId, userId)
         };
         return (
-            <Link href={jobLink || `https://github.com/Ryaaan4321/hiringnexus`}>
-
-                <button
-                    className="border-t px-4 py-3 cursor-pointer text-blue-900"
-                    onClick={handleClick}>
+            <Link
+                href={jobLink || "https://github.com/Ryaaan4321/hiringnexus"}
+                target="_blank"
+                onClick={handleClick}
+            >
+                <button className="text-blue-900 hover:underline text-sm font-medium ml-2 cursor-pointer">
                     Visit the Link
                 </button>
             </Link>
         );
+    }
+    function DeleteThisJob({ jobId }: { jobId: string }) {
+        if (!jobId) {
+            return null;
+        }
+        const handleClick = async () => {
+            console.log("handleclick got called from the deletejob")
+            const result = deleteJob(jobId);
+            if ((await result).success == false) {
+                <div>job is not deleted</div>
+            }
+            else {
+                <div>succesfully delted the job</div>
+            }
+        }
+        return (
+            <button
+                className="text-red-900 hover:underline text-sm font-medium mr-2 cursor-pointer"
+                onClick={handleClick}
+            >
+                Delete the Job
+            </button>
+        )
     }
     return (
         <div>
@@ -76,7 +106,7 @@ export default function Card({ job }: { job: jobinterface[] }) {
                                 <span
                                     key={i}
                                     className="bg-gray-100 text-gray-800 px-2 py-1 rounded-full text-xs font-medium"
-                                    onChange={()=>{
+                                    onChange={() => {
 
                                     }}
                                 >
@@ -84,15 +114,23 @@ export default function Card({ job }: { job: jobinterface[] }) {
                                 </span>
                             ))}
                         </div>
-                        {userId ? (
-                            <AlreadyApplied jobId={item.id} jobLink={item.joblink} />
-                        ) : (
-                            <Link href={item.joblink || `https://github.com/Ryaaan4321/hiringnexus`} target="_blank">
-                                <button className="border-t px-4 py-3 cursor-pointer text-blue-900">
-                                    Visit the Link
-                                </button>
-                            </Link>
-                        )}
+                        <div className="flex justify-between">
+                            <div>
+
+                                {userId ? (
+                                    <AlreadyApplied jobId={item.id} jobLink={item.joblink} />
+                                ) : (
+                                    <Link href={item.joblink || `https://github.com/Ryaaan4321/hiringnexus`} target="_blank">
+                                        <button className="border-t px-2 py-1 cursor-pointer text-blue-900">
+                                            Visit the Link
+                                        </button>
+                                    </Link>
+                                )}
+                            </div>
+                            <div>
+                               {role === "admin" && canDeleteJob && <DeleteThisJob jobId={item.id} />}
+                            </div>
+                        </div>
 
                     </div>
                 ))}
