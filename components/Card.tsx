@@ -10,8 +10,6 @@ export default function Card({ job }: { job: jobinterface[] }) {
     const { admindata} = useAdmin();
     const role=admindata?.role;
     const canDeleteJob=admindata?.canDeleteJob;
-    console.log("role from the card page = ",role);
-    console.log("candeltejob from the card = ",canDeleteJob)
     function AlreadyApplied({ jobId, jobLink }: { jobId: string, jobLink: string }) {
         if (!userId) {
             return null;
@@ -36,7 +34,6 @@ export default function Card({ job }: { job: jobinterface[] }) {
             return null;
         }
         const handleClick = async () => {
-            console.log("handleclick got called from the deletejob")
             const result = deleteJob(jobId);
             if ((await result).success == false) {
                 <div>job is not deleted</div>

@@ -14,11 +14,11 @@ export default function EditUserDetails() {
     const [formdata, setFormData] = useState<Partial<safeuserupdateinput>>({});
     function handlechange(field: keyof safeuserupdateinput, value: string) {
         if (field === "skills") {
-           const skillArray=value
-           .split(",")
-           .map((s)=>s.trim())
-           .filter((s)=>s.length>0);
-           setFormData((prev)=>({...prev,skills:skillArray}));
+            const skillArray = value
+                .split(",")
+                .map((s) => s.trim())
+                .filter((s) => s.length > 0);
+            setFormData((prev) => ({ ...prev, skills: skillArray }));
         } else {
             setFormData((prev) => ({
                 ...prev,
@@ -26,7 +26,7 @@ export default function EditUserDetails() {
             }))
         }
     }
-    console.log("formdata from the edit page = ",formdata);
+    console.log("formdata from the edit page = ", formdata);
     async function handleSubmit(e: React.FormEvent) {
         e.preventDefault();
         if (!userId) {
@@ -62,7 +62,13 @@ export default function EditUserDetails() {
                         <FormItem label="descreption" onChange={(val) => handlechange("descreption", val)} />
                         <FormItem label="ctc" onChange={(val) => handlechange("ctc", val)} />
                         <FormItem label="location" onChange={(val) => handlechange("location", val)} />
-                        <FormItem label="skills" onChange={(val) => handlechange("skills", val)} />
+                        
+                        <div className="text-[12px] text-gray-600 mb-2 ">
+                            Enter multiple skills separated by commas, e.g. <span className="font-medium text-blue-800">C++, DSA, Java</span>
+                            <FormItem label="skills" onChange={(val) => handlechange("skills", val)} />
+                        </div>
+                        
+
                     </div>
                     <div className="flex justify-end">
                         <button type="submit" className="px-4 py-2  text-white rounded bg-blue-900  cursor-pointer" onClick={handleSubmit}>
