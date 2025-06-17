@@ -67,6 +67,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 descreption: true,
                 location: true,
                 ctc: true,
+                skills:true,
                 alreadyapplied: {
                     select: {
                         id: true,

@@ -42,13 +42,20 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
             </div>
             <h3 className="text-xl font-semibold mb-3">Skills</h3>
             <div className="flex flex-wrap gap-2">
-                <div className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm">User Interface</div>
-                <div className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm">React</div>
-                <div className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm">JavaScript</div>
-                <div className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm">TailwindCSS</div>
-                <div className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm">Next.js</div>
-                <div className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm">Problem Solving</div>
+                {user.skills?.length > 0 ? (
+                    user.skills.map((skill, index) => (
+                        <div
+                            key={index}
+                            className="bg-gray-200 text-blue-900 px-3 py-1 rounded-full text-sm"
+                        >
+                            {skill}
+                        </div>
+                    ))
+                ) : (
+                    <div className="text-gray-500 text-sm">No skills added yet.</div>
+                )}
             </div>
+
         </div>
     )
 }

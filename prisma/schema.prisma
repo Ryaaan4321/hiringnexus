@@ -20,6 +20,7 @@ model User {
   githubprofile  GitHubProfile?
   ctc            String?
   location       String?
+  skills         String[] @default([])
 
   @@index([username, email])
 }
@@ -98,6 +99,8 @@ model jobschema {
   experience   Int
   salary       Int
   timestamps   DateTime  @default(now())
+  languageRequirement String[] @default([])
+
 
   @@index([timestamps])
   @@index([jobTypes])

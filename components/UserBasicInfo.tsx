@@ -19,7 +19,7 @@ export default function UserBasicInfo({ user }: { user: userDetail | null }) {
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
                 {(user.profession === "Fresher" ) ? "" : <InfoItem label="CTC" value={user.ctc ? user.ctc:"Enter your ctc"} />}
-                <InfoItem label="YEARS OF EXPERIENCE" value={user.profession} />
+                {/* <InfoItem label="YEARS OF EXPERIENCE" value={user.e} /> */}
                 <InfoItem label="LOCATION" value={user.location ?user.location :"Enter Your Location"} />
                 <InfoItem label="PHONE" value={user.phonenumber ? user.phonenumber : ""} />
                 <InfoItem label="EMAIL" value={user.email} />

@@ -25,6 +25,7 @@ export interface userDetail {
   descreption: string | null;
   location:string |null;
   ctc:string|null;
+  skills:string[]|[]
   githubprofile: {
     id: string;
     username: string;
@@ -56,6 +57,7 @@ export type safeuserupdateinput = {
   profession?: string;
   ctc?:string;
   location?:string
+  skills?:string[]
 };
 
 
