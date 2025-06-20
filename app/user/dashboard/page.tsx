@@ -2,7 +2,7 @@
 
 import { useState, useTransition, useEffect } from "react";
 import SidebarII from "@/components/SidebarII";
-import Card from "@/components/Card";
+import Cards from "@/components/Cards";
 import { getFilteredJobs } from "@/app/actions/jobsserveraction";
 import { EnumJobType, JobType, jobinterface, jobFilters } from "@/interfaces/jobinterface";
 
@@ -56,7 +56,7 @@ export default function JobListingPage() {
                 {isPending ? (
                     <p>Loading filtered jobs...</p>
                 ) : (
-                    <Card job={jobs} />
+                    <Cards job={jobs} />
                 )}
             </div>
         </div>

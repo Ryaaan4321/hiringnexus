@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from "react";
 import { getalljobs } from "./actions/jobsserveraction";
-import jobinterface from "@/interfaces/jobinterface";
+import { jobinterface } from "@/interfaces/jobinterface";
 import Header from "../components/Header";
 export default function Home() {
   const [jobs, setJobs] = useState<jobinterface[]>([]);

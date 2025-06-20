@@ -1,104 +1,126 @@
 "use client";
+
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useUserId } from "@/hooks/user";
 import { updateUserDetails } from "@/app/actions/userserveraction";
-import { useRouter } from "next/navigation";
 import { safeuserupdateinput } from "@/interfaces/userinterface";
 
+// Shadcn UI components
+import { Card, CardContent } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
 
 export default function EditUserDetails() {
-    // console.log("edit page calledddd")
-    const router = useRouter();
-    const { userId, loading: useridLoading, err: useridError } = useUserId();
-    const [formdata, setFormData] = useState<Partial<safeuserupdateinput>>({});
-    function handlechange(field: keyof safeuserupdateinput, value: string) {
-        if (field === "skills") {
-            const skillArray = value
-                .split(",")
-                .map((s) => s.trim())
-                .filter((s) => s.length > 0);
-            setFormData((prev) => ({ ...prev, skills: skillArray }));
-        } else {
-            setFormData((prev) => ({
-                ...prev,
-                [field]: value
-            }))
-        }
-    }
-    console.log("formdata from the edit page = ", formdata);
-    async function handleSubmit(e: React.FormEvent) {
-        e.preventDefault();
-        if (!userId) {
-            alert("please login first!")
-            return;
-        };
-        const updated = await updateUserDetails(userId, formdata);
-        if (updated) {
-            router.push(`/user/profile/${userId}`);
-        } else {
-            alert("failed to update profile!.");
-        }
-    };
-    return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-50">
-            <div className="bg-white shadow-md rounded-lg p-6 max-w-2xl w-full mt-6 ">
-                <div className="flex justify-between mb-4">
-                    <div><h2 className="text-xl font-bold text-gray-800">Edit Profile</h2></div>
-                    <Link href={`/user/profile/${userId}`}>
-                        <div className="">
-                            <h1 className="rounded-full bg-blue-900 m-2 px-4 py-2 text-white w-6 h-7 flex items-center justify-center">
-                                H
-                            </h1>
-                        </div>
-                    </Link>
-                </div>
-                <form>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 mb-6">
-                        <FormItem label="name" onChange={(val) => handlechange("name", val)} />
-                        <FormItem label="username" onChange={(val) => handlechange("username", val)} />
-                        <FormItem label="phonenumber" onChange={(val) => handlechange("phonenumber", val)} />
-                        <FormItem label="Profession" onChange={(val) => handlechange("profession", val)} />
-                        <FormItem label="descreption" onChange={(val) => handlechange("descreption", val)} />
-                        <FormItem label="ctc" onChange={(val) => handlechange("ctc", val)} />
-                        <FormItem label="location" onChange={(val) => handlechange("location", val)} />
-                        
-                        <div className="text-[12px] text-gray-600 mb-2 ">
-                            Enter multiple skills separated by commas, e.g. <span className="font-medium text-blue-800">C++, DSA, Java</span>
-                            <FormItem label="skills" onChange={(val) => handlechange("skills", val)} />
-                        </div>
-                        
+  const router = useRouter();
+  const { userId } = useUserId();
+  const [formdata, setFormData] = useState<Partial<safeuserupdateinput>>({});
 
-                    </div>
-                    <div className="flex justify-end">
-                        <button type="submit" className="px-4 py-2  text-white rounded bg-blue-900  cursor-pointer" onClick={handleSubmit}>
-                            Save Changes
-                        </button>
-                    </div>
-                </form>
+  function handlechange(field: keyof safeuserupdateinput, value: string) {
+    if (field === "skills") {
+      const skillArray = value
+        .split(",")
+        .map((s) => s.trim())
+        .filter((s) => s.length > 0);
+      setFormData((prev) => ({ ...prev, skills: skillArray }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [field]: value,
+      }));
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!userId) {
+      alert("Please login first!");
+      return;
+    }
+
+    const updated = await updateUserDetails(userId, formdata);
+    if (updated) {
+      router.push(`/user/profile/${userId}`);
+    } else {
+      alert("Failed to update profile!");
+    }
+  }
+
+  return (
+    <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
+      <Card className="w-full max-w-2xl mt-8">
+        <CardContent className="p-6">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
+            <Link href={`/user/profile/${userId}`}>
+              <Button variant="outline">Back</Button>
+            </Link>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <FormItem label="Name" onChange={(val) => handlechange("name", val)} />
+              <FormItem label="Username" onChange={(val) => handlechange("username", val)} />
+              <FormItem label="Phone Number" onChange={(val) => handlechange("phonenumber", val)} />
+              <FormItem label="Profession" onChange={(val) => handlechange("profession", val)} />
+              <FormItem label="CTC" onChange={(val) => handlechange("ctc", val)} />
+              <FormItem label="Location" onChange={(val) => handlechange("location", val)} />
             </div>
-        </div>
-    );
+
+            <Separator />
+
+            <div>
+              <Label className="text-sm text-gray-700 mb-1 block">Description</Label>
+              <Textarea
+                placeholder="Describe yourself..."
+                className="resize-none"
+                onChange={(e) => handlechange("descreption", e.target.value)}
+              />
+            </div>
+
+            <div>
+              <Label className="text-sm text-gray-700 mb-1 block">
+                Skills <span className="text-muted-foreground text-xs">(comma-separated)</span>
+              </Label>
+              <Input
+                placeholder="e.g. C++, DSA, Java"
+                onChange={(e) => handlechange("skills", e.target.value)}
+              />
+            </div>
+
+            <div className="flex justify-end">
+              <Button type="submit" className="bg-blue-900 text-white hover:bg-blue-800">
+                Save Changes
+              </Button>
+            </div>
+          </form>
+        </CardContent>
+      </Card>
+    </div>
+  );
 }
 function FormItem({
-    label,
-    onChange,
-    disabled = false,
+  label,
+  onChange,
+  disabled = false,
 }: {
-    label: string;
-    onChange?: (val: string) => void;
-    disabled?: boolean;
+  label: string;
+  onChange?: (val: string) => void;
+  disabled?: boolean;
 }) {
-    return (
-        <div className="flex flex-col">
-            <label className="text-xs font-medium text-gray-500 uppercase tracking-wider mb-1">{label}</label>
-            <input
-                type="text"
-                onChange={(e) => onChange?.(e.target.value)}
-                disabled={disabled}
-                className={`text-sm font-medium text-gray-800 p-2 border rounded ${disabled ? "bg-gray-100 cursor-not-allowed" : ""
-                    }`}
-            />
-        </div>
-    );
+  return (
+    <div className="flex flex-col gap-1">
+      <Label className="text-xs font-semibold text-muted-foreground">{label}</Label>
+      <Input
+        type="text"
+        onChange={(e) => onChange?.(e.target.value)}
+        disabled={disabled}
+        className="text-sm"
+      />
+    </div>
+  );
 }
