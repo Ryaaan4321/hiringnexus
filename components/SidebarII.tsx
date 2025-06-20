@@ -4,7 +4,7 @@ import { JobType } from '@/interfaces/jobinterface';
 import { useUserId } from '@/hooks/user';
 import UserCard from './UserCard';
 
-interface FilterState {
+export interface FilterState {
   jobTypes: JobType[];
   minExperience: number | null;
   salaryRange: [number, number] | null;

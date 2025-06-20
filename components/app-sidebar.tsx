@@ -12,7 +12,8 @@ import {
   PieChart,
   Settings2,
   SquareTerminal,
-  Proportions
+  Proportions,
+  Asterisk
 
 } from "lucide-react"
 
@@ -37,20 +38,11 @@ const data = {
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
+      name: "HiringNexus",
+      logo: Asterisk,
       plan: "Enterprise",
     },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    
   ],
   navMain: [
     {
