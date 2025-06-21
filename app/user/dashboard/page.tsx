@@ -1,11 +1,10 @@
-"use client";
-
-import { useState, useTransition, useEffect } from "react";
-import SidebarII from "@/components/SidebarII";
-import Cards from "@/components/Cards";
-import { getFilteredJobs } from "@/app/actions/jobsserveraction";
+"use client"
+import { useState, useTransition, useEffect } from "react"
+import { UserSidebar } from "@/components/UserSidebar"
+import Cards from "@/components/Cards"
+import { getFilteredJobs } from "@/app/actions/jobsserveraction"
 import { EnumJobType, JobType, jobinterface, jobFilters } from "@/interfaces/jobinterface";
-
+import { SidebarTrigger } from "@/components/ui/sidebar"
 function useDebouncedEffect(callback: () => void, delay: number, deps: any[]) {
     useEffect(() => {
         const handler = setTimeout(() => callback(), delay);
@@ -13,8 +12,7 @@ function useDebouncedEffect(callback: () => void, delay: number, deps: any[]) {
         return () => clearTimeout(handler);
     }, [...deps, delay]);
 }
-
-export default function JobListingPage() {
+export default function Page() {
     const [filters, setFilters] = useState<{
         jobTypes: JobType[];
         minExperience: number | null;
@@ -27,7 +25,6 @@ export default function JobListingPage() {
 
     const [jobs, setJobs] = useState<jobinterface[]>([]);
     const [isPending, startTransition] = useTransition();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
     useDebouncedEffect(() => {
         const convertedFilters: jobFilters = {
             jobTypes: filters.jobTypes.map((type) => EnumJobType[type]),
@@ -44,21 +41,13 @@ export default function JobListingPage() {
     const handleApplyFilters = (newFilters: typeof filters) => {
         setFilters(newFilters);
     };
-
     return (
         <div className="flex">
-            <SidebarII
-                isOpen={sidebarOpen}
-                onClose={() => setSidebarOpen(false)}
-                onApply={handleApplyFilters}
-            />
+            <UserSidebar onApply={handleApplyFilters} />
             <div className="flex-1 p-4">
-                {isPending ? (
-                    <p>Loading filtered jobs...</p>
-                ) : (
-                    <Cards job={jobs} />
-                )}
+                <SidebarTrigger /> 
+                <Cards job={jobs}  />
             </div>
         </div>
-    );
+    )
 }

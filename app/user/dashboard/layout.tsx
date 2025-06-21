@@ -1,14 +1,18 @@
 "use client"
-import Header from "@/components/Header";
-import { useState } from "react";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+
 export default function UserLayout({ children }: { children: React.ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   return (
-    <div className="flex flex-col h-screen">
-      <Header  />
-      <div className="flex flex-1">
-        <main className="flex-1 p-2 overflow-y-auto">{children}</main>
+    <SidebarProvider>
+      <div className="flex flex-col h-screen w-full">
+        <div className="flex flex-1 overflow-hidden">
+          {/* <UserSidebar  onApply={()=>{}} /> */}
+          <main className="flex-1 overflow-y-auto p-4">
+            {children}
+          </main>
+        </div>
       </div>
-    </div>
+    </SidebarProvider>
   );
 }
