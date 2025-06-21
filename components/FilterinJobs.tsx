@@ -1,5 +1,6 @@
 import { JobType } from '@/interfaces/jobinterface';
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu } from './ui/sidebar';
+import { useUserDetails } from '@/hooks/user';
 
 export default function Filters({
     filters,
@@ -25,7 +26,7 @@ export default function Filters({
                 : [...filters.jobTypes, type],
         });
     };
-    // function taking care of the experienc changes
+    // function taking care of the experience changes
     function handleExperienceChange(years: number) {
         onChange({ ...filters, minExperience: years });
     };
@@ -36,13 +37,15 @@ export default function Filters({
             salaryRange: min !== null && max !== null ? [min, max] : null,
         });
     };
+    const {user}=useUserDetails();
+    if(!user)return null;
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>Welcome Admin!</SidebarGroupLabel>
+            <SidebarGroupLabel>{`Welcome ${user.name}`}</SidebarGroupLabel>
             <SidebarMenu>
                 <div className='space-y-2'>
                     <div>
-                        {/* here you go for all the jobtype filter that u need */}
+                        {/* if you fuck up in the job filter than this is the place son */}
                         <h3 className="text-base font-medium mb-2">Job Type</h3>
                         <div className="space-y-1 text-base font-medium">
                             {Object.values(JobType).map(type => (
@@ -58,10 +61,7 @@ export default function Filters({
                             ))}
                         </div>
                     </div>
-                    {/* the experience filter takes place here in future if u think there are some changes
-            need to be done in the experience filter here you go
-            
-            */}
+                    {/*if u fuck up in the experience filter than this is the place son*/}
                     <div>
                         <span className="text-base font-medium mb-2 mt-4">Experience</span>
                         <div className="space-y-1 text-base font-medium">
@@ -79,7 +79,6 @@ export default function Filters({
                             ))}
                         </div>
                     </div>
-
                     {/* if u fuck up in future in the salary filter this is the place son*/}
                     <div>
                         <h3 className="text-base font-medium mb-2 mt-4">Salary</h3>

@@ -25,7 +25,6 @@ export default function Page() {
 
     const [jobs, setJobs] = useState<jobinterface[]>([]);
     const [isPending, startTransition] = useTransition();
-    const [sidebarOpen, setSidebarOpen] = useState(false);
     useDebouncedEffect(() => {
         const convertedFilters: jobFilters = {
             jobTypes: filters.jobTypes.map((type) => EnumJobType[type]),

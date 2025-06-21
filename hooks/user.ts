@@ -26,27 +26,26 @@ export function useUserId() {
     return { userId, loading, err };
 }
 
-export function useUserDetails(id: string | null | undefined) {
+export function useUserDetails() {
+    const {userId,loading,err}=useUserId();
     const [user, setUser] = useState<userDetail>();
-    const [err, setErr] = useState("");
     useEffect(() => {
         async function fetchUsers() {
             try {
-                if (!id) {
-                    setErr("user id not found!");
+                if (!userId) {
                     return;
                 }
-                const userdetail = await getDetailsofUser(id);
+                const userdetail = await getDetailsofUser(userId);
                 if (userdetail) {
                     setUser(userdetail);
                 }
             } catch (e: any) {
-                setErr("yes something went wrong!");
+                return;
             }
         }
 
         fetchUsers();
-    }, [id]);
+    }, [userId]);
 
     return { user, err };
 }

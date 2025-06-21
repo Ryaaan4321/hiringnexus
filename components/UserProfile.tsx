@@ -19,7 +19,7 @@ export default function UserProfile() {
     const [loading, setLoading] = useState(false);
     const [userdata, setUserdata] = useState<userDetail | null>(null);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
-    const { user, err } = useUserDetails(userId);
+    const { user, err } = useUserDetails();
     const {userGithubprofile,userGithubrepositories}=useGithub();
    
     const handleSearch = async (searchUsername: string) => {

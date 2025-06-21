@@ -15,26 +15,11 @@ import {
 } from "@/components/ui/sidebar"
 import { Asterisk } from "lucide-react";
 import { Button } from "./ui/button";
+import { useUserDetails } from "@/hooks/user";
 interface UserSidebarProps extends React.ComponentProps<typeof Sidebar> {
   onApply: (filters: FilterState) => void;
 }
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "HiringNexus",
-      logo: Asterisk,
-      plan: "",
-    },
 
-  ],
-
-
-}
 
 export function UserSidebar({
   onApply,
@@ -45,7 +30,7 @@ export function UserSidebar({
     minExperience: null,
     salaryRange: null,
   });
-  const { userId } = useUserId();
+  const { user, err } = useUserDetails();
   const clearFilters = () => {
     setFilters({
       jobTypes: [],
@@ -53,11 +38,44 @@ export function UserSidebar({
       salaryRange: null,
     });
   };
+  if(!user){
+    return;
+  }
+  const data = {
+    user: {
+      name: user.name || "loading",
+      email: "m@example.com",
+      avatar: "/avatars/shadcn.jpg",
+    },
+    teams: [
+      {
+        name: "Hiring",
+        logo: Asterisk,
+        plan: "",
+      },
+
+    ],
+
+  }
+  const data1={
+    user:{
+       name:user.name || "loading!",
+       email:user.email,
+       avatar:""
+    },
+    teams:[
+      {
+        name:user.name,
+        logo: Asterisk,
+        plan: "",
+      }
+    ]
+  }
 
   return (
     <Sidebar collapsible="offcanvas" variant="sidebar" {...props}>
       <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher teams={data1.teams} />
       </SidebarHeader>
       <SidebarContent>
         {!props.collapsible && (
@@ -71,12 +89,12 @@ export function UserSidebar({
 
       <SidebarFooter>
         {/* <SidebarContent> */}
-          <Button
-            onClick={() => onApply(filters)}
-            className="bg-blue-950 text-white rounded-md cursor-pointer w-full"
-          >
-            Apply Filters
-          </Button>
+        <Button
+          onClick={() => onApply(filters)}
+          className="bg-blue-950 text-white rounded-md cursor-pointer w-full"
+        >
+          Apply Filters
+        </Button>
         {/* </SidebarContent> */}
         <SidebarContent>
           <Button
