@@ -10,7 +10,7 @@ export interface AdminPayload extends JWTPayload {
   id: string,
   // email: string
   role: string
-  canDeleteJob:boolean
+  canDeleteJob: boolean
 }
 export default interface admininterface {
   id: string,
@@ -57,14 +57,30 @@ export async function getidOfAdmin(): Promise<AdminPayload | null> {
     const secret = new TextEncoder().encode(process.env.SECRET_KEY);
     const { payload } = await jwtVerify<AdminPayload>(token, secret);
     if (!payload.id || payload.role !== "admin") return null;
-    console.log("payload candeltejob =- ",payload.canDeleteJob);
+    console.log("payload candeltejob =- ", payload.canDeleteJob);
     return {
       id: payload.id,
       role: payload.role,
-      canDeleteJob:payload.canDeleteJob
+      canDeleteJob: payload.canDeleteJob
     };
   } catch (err: any) {
     console.log(err.message);
+    return null;
+  }
+}
+export async function getDetailsOfAdmin(id: string | null | undefined): Promise<admininterface | null> {
+  try {
+    if (!id) return null;
+    const details = await client.admin.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        username: true
+      }
+    })
+    return details;
+  } catch (e: any) {
     return null;
   }
 }
@@ -78,7 +94,7 @@ export async function deleteJob(jobId: string) {
     const dbadmin = await client.admin.findUnique({
       where: {
         id: admin.id,
-        
+
       }
     })
     if (!dbadmin || !dbadmin.canDeleteJob) {

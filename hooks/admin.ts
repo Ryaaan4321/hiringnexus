@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getidOfAdmin } from "@/app/actions/adminserveraction";
+import admininterface, { getDetailsOfAdmin, getidOfAdmin } from "@/app/actions/adminserveraction";
 import { AdminPayload } from "@/app/actions/adminserveraction";
 export function useAdmin() {
     const [admindata, setAdminId] = useState<AdminPayload | null>(null);
@@ -20,4 +20,23 @@ export function useAdmin() {
         fetchAdmin();
     }, [])
     return { admindata, loading }
+}
+export function useAdminData() {
+    const [admin, setAdmin] = useState<admininterface | null>(null);
+    const [loading, setLoading] = useState(true);
+    useEffect(() => {
+        async function fetchAdmin() {
+            const adminpayload = await getidOfAdmin();
+            if (!adminpayload) {
+                setAdmin(null);
+                setLoading(false);
+                return;
+            }
+            const admindetials = await getDetailsOfAdmin(adminpayload.id);
+            setAdmin(admindetials);
+            setLoading(false);
+        }
+        fetchAdmin();
+    }, []);
+    return { admin, loading }
 }

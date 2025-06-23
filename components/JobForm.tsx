@@ -13,15 +13,19 @@ import {
     SelectContent,
     SelectItem,
 } from "@/components/ui/select";
+import { useRouter } from "next/navigation";
+
 
 async function notifyUsers(email: string, jobTitle: string, description: string) {
     await sendEmail(email, `${jobTitle}`);
 }
 
 export default function JobForm() {
+    const router=useRouter();
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
+        const form=event.currentTarget;
+        const formData = new FormData(form);
         const data: any = {};
         formData.forEach((value, key) => {
             data[key] = value;
@@ -47,6 +51,8 @@ export default function JobForm() {
             for (const user of emailOfUsers) {
                 await notifyUsers(user.email, result.newJob.title, "Check it out right now");
             }
+            form.reset();
+            router.refresh();
         } catch (e: any) {
             console.log("err from the form", e.message);
         }

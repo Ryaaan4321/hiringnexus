@@ -29,59 +29,61 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { useAdminData } from "@/hooks/admin"
 
-const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "HiringNexus",
-      logo: Asterisk,
-      plan: "Enterprise",
-    },
-    
-  ],
-  navMain: [
-    {
-      title: "Create Job",
-      url: "/admin/createjob",
-      icon: SquareTerminal,
-      isActive: true,
-    },
-    {
-      title: "Users",
-      url: "/admin/users",
-      icon: Bot,
-    },
-    {
-      title: "Jobs",
-      url: "/admin/jobs",
-      icon: BookOpen,
-    },
-    {
-      title: "AdminList",
-      url: "/admin/adminlist",
-      icon: ShieldUser
-    },
-    {
-      title: "HR",
-      url: "#",
-      icon: Settings2,
-
-    },
-    {
-      title: "Report",
-      url: "#",
-      icon: Proportions
-    }
-  ],
-
-}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const { admin, loading } = useAdminData();
+  const data = {
+    user: {
+      name: admin?.username ?? "admin...",
+      email: admin?.email ?? "admin.email.com",
+      avatar: "/avatars/shadcn.jpg",
+    },
+    teams: [
+      {
+        name: "HiringNexus",
+        logo: Asterisk,
+        plan: "Enterprise",
+      },
+
+    ],
+    navMain: [
+      {
+        title: "Create Job",
+        url: "/admin/createjob",
+        icon: SquareTerminal,
+        isActive: true,
+      },
+      {
+        title: "Users",
+        url: "/admin/users",
+        icon: Bot,
+      },
+      {
+        title: "Jobs",
+        url: "/admin/jobs",
+        icon: BookOpen,
+      },
+      {
+        title: "AdminList",
+        url: "/admin/adminlist",
+        icon: ShieldUser
+      },
+      {
+        title: "HR",
+        url: "#",
+        icon: Settings2,
+
+      },
+      {
+        title: "Report",
+        url: "#",
+        icon: Proportions
+      }
+    ],
+
+  }
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
