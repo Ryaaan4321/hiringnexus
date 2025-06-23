@@ -1,11 +1,36 @@
-import { Typography } from "@/components/ui/typography"
+"use client"
 import { getSingleJob } from "@/app/actions/jobsserveraction";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useUserId } from "@/hooks/user";
+import { jobinterface } from "@/interfaces/jobinterface";
+import { visitedJobs } from "@/app/actions/userserveraction";
+import { useEffect, useState } from "react";
+import Link from "next/link";
 
-export default async function testjob({ params }: { params: { id: string } }) {
-    const job = await getSingleJob(params.id);
-    if (!job) {
-        return <div></div>
+export default function SingleJob({ job }: { job: jobinterface }) {
+    const { userId, loading, err } = useUserId()
+    const [isclient, setIsClient] = useState(false);
+    useEffect(() => {
+        setIsClient(true);
+    }, [])
+    function AlreadyApplied({ jobId, jobLink }: { jobId: string, jobLink: string }) {
+        if (!userId) {
+            return null;
+        }
+        const handleClick = async () => {
+            const result = await visitedJobs(jobId, userId)
+        };
+        return (
+            <Link
+                href={jobLink || "https://github.com/Ryaaan4321/hiringnexus"}
+                target="_blank"
+                onClick={handleClick}
+            >
+                <button className="text-blue-900 hover:underline text-sm font-medium ml-2 cursor-pointer">
+                    Visit the Link
+                </button>
+            </Link>
+        );
     }
     return (
         <Card className="max-w-xl mx-auto border border-gray-100 shadow-sm hover:shadow-md transition-shadow mt-4">
@@ -33,7 +58,7 @@ export default async function testjob({ params }: { params: { id: string } }) {
 
                     <div className="space-y-1">
                         <p className="font-medium text-gray-500 uppercase">Salary</p>
-                        <p className="font-medium text-gray-900">₹{job.salary.toLocaleString()}</p>
+                        <div className="font-medium text-gray-900">₹{job.salary.toLocaleString("en-IN")}</div>
                     </div>
 
                     <div className="space-y-1">
@@ -52,29 +77,10 @@ export default async function testjob({ params }: { params: { id: string } }) {
                 </div>
 
                 <div className="pt-2">
-                    <a
-                        href={job.joblink}
-                        className="inline-flex items-center text-blue-900 cursor-pointer font-medium transition-colors"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        Apply Now
-                        <svg
-                            className="w-4 h-4 ml-1"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"
-                            />
-                        </svg>
-                    </a>
+                    {isclient && <AlreadyApplied jobLink={job.joblink} jobId={job.id} />}
                 </div>
             </CardContent>
         </Card>
     )
+
 }

@@ -113,7 +113,7 @@ export default function Cards({ job }: { job: jobinterface[] }) {
 
                     <CardFooter className="flex justify-between border-t pt-1">
                         <div className="items-center">
-                            {userId ? (
+                            {/* {userId ? (
                                 <AlreadyApplied jobId={item.id} jobLink={item.joblink} />
                             ) : (
                                 <Link
@@ -124,7 +124,7 @@ export default function Cards({ job }: { job: jobinterface[] }) {
                                         Visit the Link
                                     </button>
                                 </Link>
-                            )}
+                            )} */}
                         </div>
                         <div>
                             {role === "admin" && canDeleteJob && <DeleteThisJob jobId={item.id} />}

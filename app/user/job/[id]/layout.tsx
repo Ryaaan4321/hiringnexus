@@ -1,7 +1,12 @@
-export default function UsersLayout({ children }: { children: React.ReactNode }) {
+import Header from "@/components/Header";
+
+export default function Layout({children}:{children:React.ReactNode}){
     return (
-        <section>
-            {children}
-        </section>
-    );
+        <div>
+            {/* <div className="sticky"> */}
+                <Header/>
+            {/* </div> */}
+            <section>{children}</section>
+        </div>
+    )
 }
