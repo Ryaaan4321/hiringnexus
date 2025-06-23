@@ -1,7 +1,7 @@
 import { JobType } from '@/interfaces/jobinterface';
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu } from './ui/sidebar';
-import { useUserDetails } from '@/hooks/user';
-
+import { useUserDetails, useUserId } from '@/hooks/user';
+import Link from 'next/link';
 export default function Filters({
     filters,
     onChange,
@@ -37,19 +37,22 @@ export default function Filters({
             salaryRange: min !== null && max !== null ? [min, max] : null,
         });
     };
-    const {user}=useUserDetails();
-    if(!user)return null;
+    const { user } = useUserDetails();
+    const { userId, loading, err } = useUserId();
+    if (!user || !userId) return null;
     return (
         <SidebarGroup>
-            <SidebarGroupLabel>{`Welcome ${user.name}`}</SidebarGroupLabel>
+            <Link href={`/user/profile/${userId}`}>
+                <span className='text-sm font-medium text-blue-950 underline'>{`Welcome ${user.name}`}</span>
+            </Link>
             <SidebarMenu>
                 <div className='space-y-2'>
                     <div>
                         {/* if you fuck up in the job filter than this is the place son */}
-                        <h3 className="text-base font-medium mb-2">Job Type</h3>
-                        <div className="space-y-1 text-base font-medium">
+                        <h3 className="text-base font-medium mb-2 ">Job Type</h3>
+                        <div className="space-y-1 text-base">
                             {Object.values(JobType).map(type => (
-                                <label key={type} className="flex items-center gap-2 text-base font-medium">
+                                <label key={type} className="flex items-center gap-2 text-base lowercase">
                                     <input
                                         type="checkbox"
                                         checked={filters.jobTypes.includes(type)}
@@ -63,10 +66,10 @@ export default function Filters({
                     </div>
                     {/*if u fuck up in the experience filter than this is the place son*/}
                     <div>
-                        <span className="text-base font-medium mb-2 mt-4">Experience</span>
+                        <p className="text-base mb-2 mt-4">Experience</p>
                         <div className="space-y-1 text-base font-medium">
                             {[0, 1, 2, 3, 4].map(year => (
-                                <label key={year} className="flex items-center gap-2 text-base font-medium">
+                                <label key={year} className="flex items-center gap-2 text-base lowercase">
                                     <input
                                         type="radio"
                                         name="experience"
@@ -81,7 +84,7 @@ export default function Filters({
                     </div>
                     {/* if u fuck up in future in the salary filter this is the place son*/}
                     <div>
-                        <h3 className="text-base font-medium mb-2 mt-4">Salary</h3>
+                        <p className="text-base mb-2 mt-4">Salary</p>
                         <div className="grid grid-cols-1 gap-2 text-base font-medium">
                             {[
                                 { label: "Competitive", value: null },
@@ -99,7 +102,7 @@ export default function Filters({
                                         onChange={() =>
                                             handleSalaryChange(value?.[0] ?? null, value?.[1] ?? null)
                                         }
-                                        className="form-radio accent-blue-600"
+                                        className="form-radio accent-blue-900 lowercase"
                                     />
                                     <span className="text-sm">{label}</span>
                                 </label>

@@ -66,7 +66,7 @@ export default function Cards({ job }: { job: jobinterface[] }) {
             {job.map((item) => (
                 <Card key={item.id} className="max-w-sm mb-4 hover:shadow-lg transition-shadow duration-300">
                     <CardHeader>
-                        <Link href={`/user/job/${item.id}`} className="flex items-center gap-3">
+                        <Link href={`/user/test-job/${item.id}`} className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-black text-white flex items-center justify-center rounded-lg text-sm font-semibold">
                                 {item.title?.[0] || "H"}
                             </div>
