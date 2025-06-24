@@ -8,6 +8,7 @@ import { safeuserupdateinput } from '@/interfaces/userinterface'
 import { getServerSession } from 'next-auth'
 import { NEXT_AUTH_CONFIG } from '@/lib/auth'
 import { recentappliedJob } from '@/interfaces/jobinterface'
+import { revalidatePath } from 'next/cache'
 
 interface AdminPayload extends JWTPayload {
     id: string,
@@ -143,8 +144,7 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
             where: { id },
             data: fieldstoupdate
         })
-        console.log("id from the server action ", id)
-        console.log("updated data from the userserver action ", updated);
+        revalidatePath(`/user/profile/${id}`)
         return updated;
     } catch (e: any) {
         console.log("err from the update user details = ", e.message);

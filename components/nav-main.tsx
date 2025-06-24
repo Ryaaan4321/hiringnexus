@@ -6,7 +6,7 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
 } from "@/components/ui/sidebar"
-
+import { useAdminData } from "@/hooks/admin"
 export function NavMain({
   items,
 }: {
@@ -17,9 +17,10 @@ export function NavMain({
     isActive?: boolean
   }[]
 }) {
+  const {admin,loading}=useAdminData();
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>Welcome Admin!</SidebarGroupLabel>
+      <SidebarGroupLabel className="font-semibold flex space-x-1">Welcome    {admin?.username}</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>

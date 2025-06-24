@@ -11,14 +11,17 @@ import { safeuserupdateinput } from "@/interfaces/userinterface";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
+import { Button } from "./ui/stateful-button";
+import { Buttons } from "./ui/button";
 
 export default function EditUserDetails() {
   const router = useRouter();
   const { userId } = useUserId();
   const [formdata, setFormData] = useState<Partial<safeuserupdateinput>>({});
+  const [editpageloading, setEditpageLoading] = useState(false);
 
   function handlechange(field: keyof safeuserupdateinput, value: string) {
     if (field === "skills") {
@@ -41,15 +44,21 @@ export default function EditUserDetails() {
       alert("Please login first!");
       return;
     }
-
-    const updated = await updateUserDetails(userId, formdata);
-    if (updated) {
-      router.push(`/user/profile/${userId}`);
-    } else {
-      alert("Failed to update profile!");
+    try {
+      setEditpageLoading(true);
+      const updated = await updateUserDetails(userId, formdata);
+      if (updated) {
+        router.push(`/user/profile/${userId}`);
+      } else {
+        alert("Failed to update profile!");
+      }
+    } catch (e: any) {
+      console.error("Error updating profile:", e);
+      alert("Something went wrong!");
+    } finally {
+      setEditpageLoading(false); 
     }
   }
-
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-50 px-4">
       <Card className="w-full max-w-2xl mt-8">
@@ -57,7 +66,7 @@ export default function EditUserDetails() {
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
             <Link href={`/user/profile/${userId}`}>
-              <Button variant="outline">Back</Button>
+              <Buttons variant="secondary" className="text-black font-semibold cursor-pointer">Back</Buttons>
             </Link>
           </div>
 
@@ -93,7 +102,7 @@ export default function EditUserDetails() {
             </div>
 
             <div className="flex justify-end">
-              <Button type="submit" className="bg-blue-900 text-white hover:bg-blue-800">
+              <Button className="bg-blue-900 hover:ring-blue-900">
                 Save Changes
               </Button>
             </div>
@@ -124,3 +133,4 @@ function FormItem({
     </div>
   );
 }
+

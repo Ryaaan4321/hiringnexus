@@ -1,11 +1,10 @@
 "use client";
-
 import { sendEmail } from "@/app/actions/sendEmailserveraction";
 import { getEmailOfUsers } from "@/app/actions/userserveraction";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
+import { Buttons } from "./ui/button";
 import {
     Select,
     SelectTrigger,
@@ -21,9 +20,11 @@ async function notifyUsers(email: string, jobTitle: string, description: string)
 }
 
 export default function JobForm() {
+    const [loading,setLoading]=useState(false);
     const router=useRouter();
     async function onSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
+        setLoading(true);
         const form=event.currentTarget;
         const formData = new FormData(form);
         const data: any = {};
@@ -55,6 +56,9 @@ export default function JobForm() {
             router.refresh();
         } catch (e: any) {
             console.log("err from the form", e.message);
+            // setLoading(false)
+        }finally{
+            setLoading(false);
         }
     }
 
@@ -106,9 +110,9 @@ export default function JobForm() {
             </div>
 
             <div className="flex justify-center">
-                <Button type="submit" className="text-lg px-8 py-3 rounded-2xl cursor-pointer">
-                    Submit
-                </Button>
+                <Buttons type="submit" className="text-lg px-8 py-3 rounded-2xl cursor-pointer bg-blue-900">
+                    {loading ? "loading..." : "Submit"}
+                </Buttons>
             </div>
         </form>
     );

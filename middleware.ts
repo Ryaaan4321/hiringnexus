@@ -27,6 +27,8 @@ export const config = {
     "/admin/users",
     "/admin/adminlist",
     "/admin/jobs",
-    "/admin/createjob"
+    "/admin/createjob",
+    "/admin/hr",
+    "/admin/report"
   ],
 };
