@@ -1,5 +1,5 @@
 "use client"
-
+import { LogOut } from 'lucide-react';
 import * as React from "react"
 import { ChevronsUpDown, Plus } from "lucide-react"
 
@@ -18,7 +18,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-
+import { userLogout } from '@/app/actions/userserveraction';
+import Link from "next/link";
+import { useUserId } from '@/hooks/user';
+import { signOut } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 export function TeamSwitcher({
   teams,
 }: {
@@ -30,9 +34,23 @@ export function TeamSwitcher({
 }) {
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
-
+  const { userId } = useUserId();
+  console.log("user id from the team switcher = ", userId); 
+  const router = useRouter();
   if (!activeTeam) {
     return null
+  }
+  async function handleLogout() {
+    try {
+      await fetch('/api/logout', {
+        method: 'POST',
+        cache: 'no-store'
+      })
+      await userLogout
+      router.push('/user/dashboard')
+    } catch (e: any) {
+      console.log(e.message);
+    }
   }
 
   return (
@@ -61,21 +79,32 @@ export function TeamSwitcher({
             sideOffset={4}
           >
             <DropdownMenuLabel className="text-muted-foreground text-xs">
-                Your Profile
+              Your Profile
             </DropdownMenuLabel>
             {teams.map((team, index) => (
               <DropdownMenuItem
                 key={team.name}
-                onClick={() => setActiveTeam(team)}
-                className="gap-2 p-2"
+                className="gap-2 p-2 cursor-pointer"
               >
-                <div className="flex size-6 items-center justify-center rounded-md border">
-                  <team.logo className="size-3.5 shrink-0" />
-                </div>
-                {team.name}
-                <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>
+                <Link href={`/user/profile/${userId}`}>
+                  <div className='flex items-center space-x-1.5'>
+                    <div className="flex size-6 items-center justify-center rounded-md border">
+                      <team.logo className="size-3.5 shrink-0" />
+                    </div>
+                    <div className='font-medium text-base cursor-pointer'> {team.name}</div>
+                  </div>
+                </Link>
               </DropdownMenuItem>
             ))}
+            <DropdownMenuItem
+              className="gap-2 p-2 cursor-pointer"
+              onClick={handleLogout}
+            >
+              <div className="flex size-6 items-center justify-center font-semibold rounded-md border">
+                <LogOut strokeWidth={2} className='cursor-pointer' />
+              </div>
+              <span className='font-medium text-base '>Signout</span>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
           </DropdownMenuContent>
         </DropdownMenu>

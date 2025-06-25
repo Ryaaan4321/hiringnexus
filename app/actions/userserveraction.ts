@@ -68,7 +68,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 descreption: true,
                 location: true,
                 ctc: true,
-                skills:true,
+                skills: true,
                 alreadyapplied: {
                     select: {
                         id: true,
@@ -190,4 +190,13 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
         console.log(e.message);
         return null;
     }
+}
+export async function userLogout() {
+    (await cookies()).delete("next-auth.session-token");
+    (await cookies()).delete("next-auth.csrf-token");
+    (await cookies()).delete("next-auth.callback-url");
+    (await cookies()).delete("next-auth.state");
+    (await cookies()).delete("nextauth.message");
+    (await cookies()).delete("token");
+    (await cookies()).delete("access_token");
 }

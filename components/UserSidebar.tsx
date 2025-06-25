@@ -14,7 +14,7 @@ import {
   SidebarSeparator
 } from "@/components/ui/sidebar"
 import { Asterisk } from "lucide-react";
-import { Button } from "./ui/button";
+import { Buttons } from "./ui/button";
 import { useUserDetails } from "@/hooks/user";
 interface UserSidebarProps extends React.ComponentProps<typeof Sidebar> {
   onApply: (filters: FilterState) => void;
@@ -38,12 +38,12 @@ export function UserSidebar({
       salaryRange: null,
     });
   };
-  if(!user){
+  if (!user) {
     return;
   }
   const data = {
     user: {
-      name: user.name || "loading",
+      name: "loading",
       email: "m@example.com",
       avatar: "/avatars/shadcn.jpg",
     },
@@ -57,15 +57,15 @@ export function UserSidebar({
     ],
 
   }
-  const data1={
-    user:{
-       name:user.name || "loading!",
-       email:user.email,
-       avatar:""
+  const data1 = {
+    user: {
+      name: user.name,
+      email: user.email,
+      avatar: ""
     },
-    teams:[
+    teams: [
       {
-        name:user.name,
+        name: user.name,
         logo: Asterisk,
         plan: "",
       }
@@ -88,21 +88,21 @@ export function UserSidebar({
       />
 
       <SidebarFooter>
-        {/* <SidebarContent> */}
-        <Button
-          onClick={() => onApply(filters)}
-          className="bg-blue-950 text-white rounded-md cursor-pointer w-full"
-        >
-          Apply Filters
-        </Button>
-        {/* </SidebarContent> */}
         <SidebarContent>
-          <Button
+          <Buttons
+            onClick={() => onApply(filters)}
+            className="bg-blue-950 text-white rounded-md cursor-pointer w-full"
+          >
+            Apply Filters
+          </Buttons>
+        </SidebarContent>
+        <SidebarContent>
+          <Buttons
             onClick={clearFilters}
             className="bg-gray-300 text-black rounded-md cursor-pointer w-full"
           >
             Clear All
-          </Button>
+          </Buttons>
         </SidebarContent>
       </SidebarFooter>
     </Sidebar>

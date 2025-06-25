@@ -36,7 +36,7 @@ export default function Page() {
             const result = await getFilteredJobs(convertedFilters);
             setJobs(result);
         });
-    }, 500, [filters]);
+    }, 100, [filters]);
 
     const handleApplyFilters = (newFilters: typeof filters) => {
         setFilters(newFilters);
