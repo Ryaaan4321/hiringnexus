@@ -58,7 +58,7 @@ export default function Auth() {
                     Welcome Anon to HiringNexus
                 </h1>
                 <h4 className="font-semibold text-center">
-                    {isSignup ? "Create a New Account" : "Welcome Again Anon..!"}
+                    {isSignup ? "Create a New Account" : ""}
                 </h4>
 
                 {role === "admin" ? null : (
@@ -77,7 +77,7 @@ export default function Auth() {
                 )}
                 {isSignup && (
                     <p className="text-sm text-gray-500 text-center">
-                        We recommend you to make an account with GitHub
+                        {/* We recommend you to make an account with GitHub */}
                     </p>
                 )}
                 <form className="space-y-4" onSubmit={handleSubmit}>
