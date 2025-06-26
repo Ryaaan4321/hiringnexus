@@ -1,28 +1,20 @@
 "use client"
-import { useEffect, useState } from "react";
-import { getalljobs } from "./actions/jobsserveraction";
-import { jobinterface } from "@/interfaces/jobinterface";
-import Header from "../components/Header";
+import { Asterisk } from "lucide-react";
 export default function Home() {
-  const [jobs, setJobs] = useState<jobinterface[]>([]);
-  const [err, seterr] = useState("")
-  useEffect(() => {
-    async function fetch() {
-      try {
-        const data = await getalljobs();
-        setJobs(data);
-      } catch (e: any) {
-        seterr(e.message);
-      }
-    }
-    fetch()
 
-  }, [])
   return (
     <>
-      <Header />
-      <div>
-        
+      <div className="flex justify-center items-center h-screen ">
+        <div className="flex flex-col  items-center text-7xl font-semibold text-black">
+          {/* <Asterisk className="h-10 w-10" /> */}
+          <div>HiringNexus</div>
+          <div className="text-3xl">
+            One Stop for the HR and the Students
+          </div>
+        </div>
+        <div>
+
+        </div>
       </div>
     </>
   );
