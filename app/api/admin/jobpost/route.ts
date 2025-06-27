@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ newJob }, { status: 201 });
     } catch (e: any) {
         console.log("error message = ", e.message);
+        console.error("error =", e);
+        console.error("stack =", e.stack);
         return NextResponse.json({ msg: e.message }, { status: 500 });
     }
 }
