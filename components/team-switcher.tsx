@@ -35,7 +35,6 @@ export function TeamSwitcher({
   const { isMobile } = useSidebar()
   const [activeTeam, setActiveTeam] = React.useState(teams[0])
   const { userId } = useUserId();
-  console.log("user id from the team switcher = ", userId); 
   const router = useRouter();
   if (!activeTeam) {
     return null
@@ -49,7 +48,6 @@ export function TeamSwitcher({
       await userLogout
       router.push('/user/dashboard')
     } catch (e: any) {
-      console.log(e.message);
     }
   }
 

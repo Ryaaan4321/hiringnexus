@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
-console.log("insdie the db.ts")
+import { PrismaClient } from "@prisma/client"
 const prismaSingleton = () => {
-    console.log("Inside the function of the Prisma singleton");
     return new PrismaClient();
 };
 

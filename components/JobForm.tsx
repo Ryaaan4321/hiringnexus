@@ -55,8 +55,7 @@ export default function JobForm() {
             form.reset();
             router.refresh();
         } catch (e: any) {
-            console.log("err from the form", e.message);
-            // setLoading(false)
+            alert(e.message);
         }finally{
             setLoading(false);
         }

@@ -5,7 +5,6 @@ export async function GET(req: NextResponse) {
         const response = await client.user.findMany({});
         return NextResponse.json({ response });
     } catch (e) {
-        console.log(e);
         return NextResponse.json({ msg: e });
     }
 }

@@ -13,7 +13,6 @@ export default function Page(){
                 const data=await getallusers();
                 setUsers(data)
             }catch(e:any){
-                console.log(e.message);
                 setErr(e.message);
             }
         }

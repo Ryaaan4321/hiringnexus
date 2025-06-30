@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
     
     return NextResponse.next();
   } catch (e: any) {
-    console.log("error from the token", e.message);
+
     return new NextResponse(
       JSON.stringify({ msg: "token not provided probably" }),
       { status: 401, headers: { 'content-type': 'application/json' } }

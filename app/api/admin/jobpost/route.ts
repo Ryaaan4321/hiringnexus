@@ -18,10 +18,11 @@ export async function POST(req: NextRequest) {
         const adminId = payload.id;
         const body = await req.json();
         const admin = await client.admin.findUnique({
-            where: { id: adminId }
+            where: { id: adminId, canDeleteJob: true },
+
         });
         if (!admin) {
-            return NextResponse.json({ msg: "admin not found from the token" }, { status: 404 });
+            return NextResponse.json({ msg: "admin not found from the token or you are not authorized please refresh the page if u are logged in" }, { status: 404 });
         }
         const newJob = await client.jobschema.create({
             data: {
@@ -42,9 +43,6 @@ export async function POST(req: NextRequest) {
         });
         return NextResponse.json({ newJob }, { status: 201 });
     } catch (e: any) {
-        console.log("error message = ", e.message);
-        console.error("error =", e);
-        console.error("stack =", e.stack);
         return NextResponse.json({ msg: e.message }, { status: 500 });
     }
 }

@@ -74,7 +74,8 @@ model Admin {
   password     String
   phonenumber  String
   postedjobs   jobschema[]
-  canDeleteJob Boolean?
+  canDeleteJob Boolean?  @default(false)
+  canPostJob   Boolean?  @default(false)
 
   @@index([id])
 }

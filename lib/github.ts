@@ -42,7 +42,6 @@ export async function getUserRepositories(username: string): Promise<GitHubRepos
         throw new Error(`Error from GitHub API: ${response.status}`);
     }
     const repos = await response.json();
-    console.log("reposs = ",repos);
     return repos.map((repo: any) => ({
         id: repo.id,
         name: repo.name,

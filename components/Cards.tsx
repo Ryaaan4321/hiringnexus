@@ -18,8 +18,7 @@ export default function Cards({ job }: { job: jobinterface[] }) {
     const { userId, loading, err } = useUserId();
     const { admindata } = useAdmin();
     const role = admindata?.role;
-    const canDeleteJob = admindata?.canDeleteJob;
-    console.log("candelete job from the card = ", canDeleteJob)
+    const canDeleteJob = admindata?.canDeleteJob
     function AlreadyApplied({ jobId, jobLink }: { jobId: string, jobLink: string }) {
         if (!userId) {
             return null;
@@ -66,7 +65,7 @@ export default function Cards({ job }: { job: jobinterface[] }) {
             {job.map((item) => (
                 <Card key={item.id} className="max-w-sm mb-4 hover:shadow-lg transition-shadow duration-300">
                     <CardHeader>
-                        <Link href={`/user/test-job/${item.id}`} className="flex items-center gap-3">
+                        <Link href={`/user/job/${item.id}`} className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-black text-white flex items-center justify-center rounded-lg text-sm font-semibold">
                                 {item.title?.[0] || "H"}
                             </div>

@@ -23,7 +23,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const token = jwt.sign({ id: response.id, email: response.email, role: "user" }, process.env.SECRET_KEY, { expiresIn: "1h" });
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {
-        console.log(e);
         return NextResponse.json({ msg: e.message || "error in the user signup func" }, { status: 500 });
 
     }

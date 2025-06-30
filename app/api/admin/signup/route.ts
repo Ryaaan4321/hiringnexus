@@ -16,6 +16,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 password: hashedpassword,
                 phonenumber: body.phonenumber,
                 username: body.username,
+                canPostJob:body.canPostJob,
                 canDeleteJob:body.canDeleteJob
             }
         })
@@ -23,7 +24,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const token = jwt.sign({ id: response.id, email: response.email, role: "admin",canDeleteJob:response.canDeleteJob }, process.env.SECRET_KEY, { expiresIn: "1h" });
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {
-        console.log(e);
         return NextResponse.json({ msg: e.message || "error in the admin signup func" }, { status: 500 });
     }
 }
@@ -32,7 +32,6 @@ export async function GET(req: NextResponse) {
         const response = await client.user.findMany({});
         return NextResponse.json({ response });
     } catch (e) {
-        console.log(e);
         return NextResponse.json({ msg: e });
     }
 }

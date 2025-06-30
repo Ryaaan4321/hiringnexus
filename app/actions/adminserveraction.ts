@@ -57,14 +57,12 @@ export async function getidOfAdmin(): Promise<AdminPayload | null> {
     const secret = new TextEncoder().encode(process.env.SECRET_KEY);
     const { payload } = await jwtVerify<AdminPayload>(token, secret);
     if (!payload.id || payload.role !== "admin") return null;
-    console.log("payload candeltejob =- ", payload.canDeleteJob);
     return {
       id: payload.id,
       role: payload.role,
       canDeleteJob: payload.canDeleteJob
     };
   } catch (err: any) {
-    console.log(err.message);
     return null;
   }
 }
@@ -85,7 +83,6 @@ export async function getDetailsOfAdmin(id: string | null | undefined): Promise<
   }
 }
 export async function deleteJob(jobId: string) {
-  console.log("yes sir we are in")
   try {
     const admin = await getidOfAdmin();
     if (!admin) {
@@ -115,8 +112,6 @@ export async function deleteJob(jobId: string) {
     revalidatePath('/admin/jobs');
     return { success: true, deletedJobId: jobId }
   } catch (err: any) {
-    console.log("sorry we are fucced up and in the catch")
-    console.log(err.message);
     return { success: false, msg: "It's not you it's us" }
   }
 }

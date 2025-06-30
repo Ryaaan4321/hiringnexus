@@ -36,7 +36,6 @@ export async function getallusers(): Promise<userinterface[]> {
         });
         return users as userinterface[];
     } catch (e: any) {
-        console.log(e.message);
         return [];
     }
 }
@@ -49,7 +48,6 @@ export async function getEmailOfUsers(): Promise<usersemail[]> {
         })
         return usersemail;
     } catch (e: any) {
-        console.log(e.message);
         return [];
     }
 }
@@ -101,7 +99,6 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
         });
         return res;
     } catch (e: any) {
-        console.log(e.message);
         return null;
     }
 }
@@ -147,7 +144,6 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
         revalidatePath(`/user/profile/${id}`)
         return updated;
     } catch (e: any) {
-        console.log("err from the update user details = ", e.message);
         return null;
     }
 }
@@ -187,7 +183,6 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
         });
         return userwithjobs?.alreadyapplied || [];
     } catch (e: any) {
-        console.log(e.message);
         return null;
     }
 }

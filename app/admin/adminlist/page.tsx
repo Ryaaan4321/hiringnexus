@@ -13,7 +13,6 @@ export default function Page() {
                 const data = await getalladmins();
                 setadmin(data);
             } catch (e: any) {
-                console.log(e.message);
                 seterr(e.message);
             }
         }

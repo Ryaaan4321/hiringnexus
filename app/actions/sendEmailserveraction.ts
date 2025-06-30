@@ -38,6 +38,5 @@ export async function sendEmail(to: string, Jobtitle: string,) {
     try {
         await transporter.sendMail(mailoption);
     } catch (e: any) {
-        console.log(e.message);
     }
 }

@@ -40,15 +40,13 @@ export default function Auth() {
             });
             const data = await res.json();
             const profileid = (role === "admin" ? data.adminwithoutpassword.id : data.userwithoutpassword.id);
-            console.log("profile id =",profileid);
             if (res.ok) {
                 localStorage.setItem("token", data.token);
                 role === "admin" ? router.push("/admin/users") : router.push(`/user/profile/${profileid}`);
             } else {
-                console.log("we fucced up");
+
             }
         } catch (e: any) {
-            console.log("error from the signup try catch:", e.message);
         }
     };
     return (

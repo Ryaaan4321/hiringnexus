@@ -17,7 +17,6 @@ const getLanguageColor = (language: string | null): string => {
     return languageColors[language || ""] || "#000000";
 };
 export function RenderGithubProfile({ profile }: { profile: any }) {
-    // console.log("profile data from the render github profile = ",profile);
     return (
         <>
             {profile ? (<div className="w-full p-6 bg-white shadow-lg rounded-2xl lg:mt-6 ">
@@ -64,7 +63,6 @@ export function RenderGithubProfile({ profile }: { profile: any }) {
 }
 
 export function RenderGithubRepositories({ repositories }: { repositories: any }) {
-    console.log("render github repository = ",repositories);
     return (
         <div className="max-w-7xl mx-auto mt-10 px-4">
             <h2 className="text-3xl font-bold mb-8 text-gray-800">Repositories</h2>

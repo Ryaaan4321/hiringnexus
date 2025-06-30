@@ -35,7 +35,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         });
         return NextResponse.json( {userwithoutpassword , token},{ status: 201 });
     } catch (e: any) {
-        console.log(e);
         return NextResponse.json({ msg: e.message || "error in the user signin func" }, { status: 500 });
     }
 }

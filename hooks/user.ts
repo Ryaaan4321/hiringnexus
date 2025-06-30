@@ -14,7 +14,6 @@ export function useUserId() {
         async function fetchUserId() {
             try {
                 const id = await getidOfUser();
-                console.log("id from the useuserid hookk = ", id);
                 setUserId(id);
             } catch (e: any) {
                 setErr("failed to fetch the user id!")

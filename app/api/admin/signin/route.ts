@@ -41,10 +41,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
             maxAge: 60 * 60,
             path: "/",
         });
-        console.log("adminwithoutpassword from the api = ", adminwithoutpassword.id);
         return NextResponse.json({ adminwithoutpassword, token }, { status: 201 });
     } catch (e: any) {
-        console.log(e);
         return NextResponse.json({ msg: e.message || "error in the admin signin func" }, { status: 500 });
     }
 }

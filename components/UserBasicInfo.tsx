@@ -1,7 +1,5 @@
 "use client"
 import { userDetail } from "@/interfaces/userinterface";
-import { useState } from "react";
-import EditUserDetials from "./EditUserDetails";
 import Link from "next/link";
 export default function UserBasicInfo({ user }: { user: userDetail | null }) {
     if (!user) {
@@ -18,12 +16,17 @@ export default function UserBasicInfo({ user }: { user: userDetail | null }) {
                 <Link href={`/user/edit-page`}><div><h2 className="text-sky-700 cursor-pointer">Edit Profile</h2></div></Link>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mb-6">
-                {(user.profession === "Fresher" ) ? "" : <InfoItem label="CTC" value={user.ctc ? user.ctc:"Enter your ctc"} />}
+                {(user.profession === "Fresher") ? "" : <InfoItem label="CTC" value={user.ctc ? user.ctc : "Enter your ctc"} />}
                 {/* <InfoItem label="YEARS OF EXPERIENCE" value={user.e} /> */}
-                <InfoItem label="LOCATION" value={user.location ?user.location :"Enter Your Location"} />
+                <InfoItem label="LOCATION" value={user.location ? user.location : "Enter Your Location"} />
                 <InfoItem label="PHONE" value={user.phonenumber ? user.phonenumber : ""} />
                 <InfoItem label="EMAIL" value={user.email} />
             </div>
+            <Link href={`/user/dashboard`}>
+                <div className="flex justify-end text-blue-900">
+                    DashBoard
+                </div>
+            </Link>
         </div>
     )
 }
