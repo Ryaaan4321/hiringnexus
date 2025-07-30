@@ -20,7 +20,7 @@ interface UserSidebarProps extends React.ComponentProps<typeof Sidebar> {
   onApply: (filters: FilterState) => void;
 }
 
-
+console.log("user sidebar got called")
 export function UserSidebar({
   onApply,
   ...props
@@ -38,25 +38,11 @@ export function UserSidebar({
       salaryRange: null,
     });
   };
+  console.log("user from the sidebar = ", user);
   if (!user) {
-    return;
+   return "something went wrong in the login"
   }
-  const data = {
-    user: {
-      name: "loading",
-      email: "m@example.com",
-      avatar: "/avatars/shadcn.jpg",
-    },
-    teams: [
-      {
-        name: "Hiring",
-        logo: Asterisk,
-        plan: "",
-      },
 
-    ],
-
-  }
   const data1 = {
     user: {
       name: user.name,
@@ -71,7 +57,7 @@ export function UserSidebar({
       }
     ]
   }
-
+  console.log("sidebar got called")
   return (
     <Sidebar collapsible="offcanvas" variant="sidebar" {...props}>
       <SidebarHeader>

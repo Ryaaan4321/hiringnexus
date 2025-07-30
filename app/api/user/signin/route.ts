@@ -22,18 +22,20 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const { password, ...userwithoutpassword } = isuser;
         if (!process.env.SECRET_KEY) throw new Error("SECRET_KEY is not defined");
         const token = jwt.sign(
-            { id: isuser.id, email: isuser.email,role:"user" },
+            { id: isuser.id, email: isuser.email, role: "user" },
             process.env.SECRET_KEY,
             { expiresIn: "1h" }
         );
+        console.log("token from the signin route  = ",token);
         cookiestore.set("token", token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
-            sameSite: "strict",
-            maxAge: 60 * 60,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "lax", 
+            maxAge: 60 * 60, 
             path: "/",
         });
-        return NextResponse.json( {userwithoutpassword , token},{ status: 201 });
+
+        return NextResponse.json({ userwithoutpassword, token }, { status: 201 });
     } catch (e: any) {
         return NextResponse.json({ msg: e.message || "error in the user signin func" }, { status: 500 });
     }

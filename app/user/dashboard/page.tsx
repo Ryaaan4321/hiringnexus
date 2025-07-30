@@ -43,7 +43,7 @@ export default function Page() {
     };
     return (
         <div className="flex">
-            <UserSidebar onApply={handleApplyFilters} />
+            {/* <UserSidebar onApply={handleApplyFilters} />` */}
             <div className="flex-1 p-4">
                 <SidebarTrigger />
                 {jobs.length>0 ? <Cards job={jobs} /> : <div>There are no jobs with this Filters:Please Refresh the Page</div>}

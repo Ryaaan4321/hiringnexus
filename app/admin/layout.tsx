@@ -2,6 +2,7 @@ import Header from "../../components/Header";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import Navigation from "@/components/Navigation";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +13,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <AppSidebar />
           <main className="flex-1 overflow-y-auto p-4">
             <SidebarTrigger />
-            {children}
+            <Navigation/>
+              {children}
+            
           </main>
         </div>
       </div>
