@@ -26,7 +26,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             process.env.SECRET_KEY,
             { expiresIn: "1h" }
         );
-        console.log("token from the signin route  = ",token);
+        // console.log("token from the signin route  = ",token);
         cookiestore.set("token", token, {
             httpOnly: true,
             secure: process.env.NODE_ENV !== "development",

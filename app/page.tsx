@@ -5,8 +5,14 @@ import Link from "next/link";
 import { Buttons } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Users, Building2, Trophy, Search, UserCheck, Star } from "lucide-react"
-
+import { useUserDetails } from "@/hooks/user";
+import { useUserId } from '@/hooks/user';
+import { FaLinkedin } from "react-icons/fa";
+import { FaWhatsapp } from "react-icons/fa";
+import { FaTelegram } from "react-icons/fa";
 export default function HomePage() {
+  const { user, userloading } = useUserDetails();
+  const { userId } = useUserId();
   return (
     <div className="min-h-screen bg-gray-50">
       <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
@@ -28,22 +34,24 @@ export default function HomePage() {
               <Link href="/students" className="text-gray-700 hover:text-slate-800 font-medium">
                 Students
               </Link>
-              <Link href="/about" className="text-gray-700 hover:text-slate-800 font-medium">
-                About
-              </Link>
             </div>
+            {user ?
+              <div>
+                <Link href={`/user/profile/${userId}`}>
+                  <Buttons className="cursor-pointer bg-slate-800">Profile</Buttons>
+                </Link>
+              </div> :
+              <div className="flex items-center space-x-4">
+                <Link href='/user/login'>
+                  <Buttons variant="ghost" className="text-slate-800 hover:bg-slate-100 cursor-pointer">
+                    Sign In
+                  </Buttons>
+                </Link>
+                <Link href='/user/signup'>
+                  <Buttons className="bg-slate-800 hover:bg-slate-700 text-white cursor-pointer">Sign Up</Buttons>
+                </Link>
+              </div>}
 
-            {/* Auth Buttons */}
-            <div className="flex items-center space-x-4">
-              <Link href='/user/login'>
-                <Buttons variant="ghost" className="text-slate-800 hover:bg-slate-100 cursor-pointer">
-                  Sign In
-                </Buttons>
-              </Link>
-              <Link href='/user/signup'>
-                <Buttons className="bg-slate-800 hover:bg-slate-700 text-white cursor-pointer">Sign Up</Buttons>
-              </Link>
-            </div>
           </div>
         </div>
       </nav>
@@ -389,10 +397,16 @@ export default function HomePage() {
               <p className="text-gray-400 mb-4">
                 Connecting talented students with innovative companies for a brighter future.
               </p>
-              <div className="flex space-x-4">
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
-                <div className="w-8 h-8 bg-gray-700 rounded-full"></div>
+              <div className="flex space-x-4 items-center justify-items-center">
+                <div className="w-8 h-6`  rounded-full items-center justify-items-center cursor-pointer">
+                  <FaLinkedin size="30" />
+                </div>
+                <div className="w-8 h-8  rounded-full cursor-pointer">
+                  <FaTelegram size="30"/>
+                </div>
+                <div className="w-8 h-8  rounded-full cursor-pointer">
+                  <FaWhatsapp size="30"/>
+                </div>
               </div>
             </div>
 

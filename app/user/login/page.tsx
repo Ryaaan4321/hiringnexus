@@ -43,7 +43,6 @@ export default function LoginPage() {
         console.log("Login successful:", result);
         await new Promise((resolve) => setTimeout(resolve, 1000))
         router.push('/user/dashboard')
-        console.log("Login attempt:", formData)
         setIsLoading(false)
     }
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

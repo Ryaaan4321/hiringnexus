@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
         const { payload } = await jwtVerify<AdminPayload>(token, new TextEncoder().encode(process.env.SECRET_KEY));
         const adminId = payload.id;
         const body = await req.json();
-        console.log("token = ",token);
+      
         const admin = await client.admin.findUnique({
             where: { id: adminId, canDeleteJob: true },
 

@@ -28,8 +28,10 @@ export function useUserId() {
 export function useUserDetails() {
     const {userId,loading,err}=useUserId();
     const [user, setUser] = useState<userDetail>();
+    const [userloading,setUserLoading]=useState(false);
     console.log("userid from the hook = ",userId);
     useEffect(() => {
+        setUserLoading(true);
         async function fetchUsers() {
             try {
                 if (!userId) {
@@ -45,9 +47,10 @@ export function useUserDetails() {
         }
 
         fetchUsers();
+        setUserLoading(false);
     }, [userId]);
 
-    return { user, err };
+    return { user, err ,userloading};
 }
 export function useUserFromParam() {
     const [user, setUser] = useState<userDetail>();

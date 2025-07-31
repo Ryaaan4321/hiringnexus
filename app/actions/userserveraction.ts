@@ -103,11 +103,10 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
     }
 }
 export async function getidOfUser(): Promise<string | null> {
-    console.log("get id of user got called");
+    // console.log("get id of user got called");
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
-        console.log("token = ",token);
         if (!token || typeof token !== "string" || token.split('.').length !== 3) {
             const session = await getServerSession(NEXT_AUTH_CONFIG);
             return session?.user?.id || null;

@@ -17,7 +17,6 @@ export default function Filters({
         salaryRange: [number, number] | null;
     }) => void;
 }) {
-    // function taking care of the jobtype change
     function handleJobTypeChange(type: JobType) {
         onChange({
             ...filters,
@@ -26,11 +25,9 @@ export default function Filters({
                 : [...filters.jobTypes, type],
         });
     };
-    // function taking care of the experience changes
     function handleExperienceChange(years: number) {
         onChange({ ...filters, minExperience: years });
     };
-    // function taking care of the salarychange
     function handleSalaryChange(min: number | null, max: number | null) {
         onChange({
             ...filters,
@@ -64,7 +61,6 @@ export default function Filters({
                             ))}
                         </div>
                     </div>
-                    {/*if u fuck up in the experience filter than this is the place son*/}
                     <div>
                         <p className="text-base mb-2 mt-4">Experience</p>
                         <div className="space-y-1 text-base font-medium">
@@ -82,7 +78,6 @@ export default function Filters({
                             ))}
                         </div>
                     </div>
-                    {/* if u fuck up in future in the salary filter this is the place son*/}
                     <div>
                         <p className="text-base mb-2 mt-4">Salary</p>
                         <div className="grid grid-cols-1 gap-2 text-base font-medium">
