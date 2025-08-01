@@ -18,12 +18,10 @@ export default function HomePage() {
       <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
             <Link href="/" className="flex items-center">
               <span className="text-2xl font-bold text-slate-800">HiringNexus</span>
             </Link>
 
-            {/* Navigation Links */}
             <div className="hidden md:flex items-center space-x-8">
               <Link href="/jobs" className="text-gray-700 hover:text-slate-800 font-medium">
                 Jobs
@@ -76,12 +74,14 @@ export default function HomePage() {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-            <Buttons
-              size="lg"
-              className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 text-lg font-semibold rounded-lg"
-            >
-              Get Started
-            </Buttons>
+            <Link href='/user/dashboard'>
+              <Buttons
+                size="lg"
+                className="bg-slate-800 hover:bg-slate-700 text-white px-8 py-3 text-lg font-semibold rounded-lg"
+              >
+                Get Started
+              </Buttons>
+            </Link>
             <Buttons
               variant="outline"
               size="lg"
@@ -92,8 +92,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Stats Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
@@ -117,7 +115,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Features Section */}
+
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -170,7 +168,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* How It Works Section */}
+
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -179,7 +177,6 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            {/* For Students */}
             <div>
               <h3 className="text-2xl font-bold text-slate-800 mb-8 text-center">
                 For <span className="bg-slate-800 text-white px-3 py-1 rounded">Students</span>
@@ -210,14 +207,12 @@ export default function HomePage() {
                     3
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-800 mb-2">Apply & Connect</h4>
-                    <p className="text-gray-600">Apply to positions and connect directly with HR professionals.</p>
+                    <h4 className="font-semibold text-slate-800 mb-2">Apply & Connect  (Feature Coming Soon!)</h4>
+                    <p className="text-gray-600">Apply to positions and connect directly with HR professionals .</p>
                   </div>
                 </div>
               </div>
             </div>
-
-            {/* For HR */}
             <div>
               <h3 className="text-2xl font-bold text-slate-800 mb-8 text-center">
                 For <span className="bg-slate-800 text-white px-3 py-1 rounded">HR Teams</span>
@@ -261,8 +256,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Testimonials Section */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -342,8 +335,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Partner Companies Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -362,33 +353,44 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* CTA Section */}
       <section className="py-20 bg-slate-800">
         <div className="max-w-4xl mx-auto text-center px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-white mb-6">Ready to Start Your Journey?</h2>
           <p className="text-xl text-gray-300 mb-8">
             Join thousands of students and companies already using HiringNexus to build successful careers and teams.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Buttons
-              size="lg"
-              className="bg-white text-slate-800 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-lg"
-            >
-              Join as Student
-            </Buttons>
-            <Buttons
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-slate-800 px-8 py-3 text-lg font-semibold rounded-lg bg-transparent"
-            >
-              Post Jobs
-            </Buttons>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center cursor-pointer">
+            {user ?
+              <Link href={`/user/profile/${userId}`}>
+                <Buttons
+                  size="lg"
+                  className="bg-white cursor-pointer text-slate-800 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-lg"
+                >
+                  Join as Student
+                </Buttons>
+              </Link>
+              :
+              <Link href={`/user/login`}>
+                <Buttons
+                  size="lg"
+                  className="bg-white cursor-pointer text-slate-800 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-lg"
+                >
+                  Join as Student
+                </Buttons>
+              </Link>
+            }
+            <Link href={`/admin/signin`}>
+              <Buttons
+                variant="outline"
+                size="lg"
+                className="border-white cursor-pointer text-white hover:bg-white hover:text-slate-800 px-8 py-3 text-lg font-semibold rounded-lg bg-transparent"
+              >
+                Post Jobs
+              </Buttons>
+            </Link>
           </div>
         </div>
       </section>
-
-      {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -399,13 +401,35 @@ export default function HomePage() {
               </p>
               <div className="flex space-x-4 items-center justify-items-center">
                 <div className="w-8 h-6`  rounded-full items-center justify-items-center cursor-pointer">
-                  <FaLinkedin size="30" />
+                  <a
+                    href="https://www.linkedin.com/company/hiringnexus"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full cursor-pointer flex items-center justify-center"
+                  >
+                    <FaLinkedin size={30} />
+                  </a>
+                </div>
+                {/*  https://t.me/hiringNexus_team */}
+                <div className="w-8 h-8  rounded-full cursor-pointer">
+                  <a
+                    href="https://t.me/hiringNexus_team"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full cursor-pointer flex items-center justify-center"
+                  >
+                    <FaTelegram size={30} />
+                  </a>
                 </div>
                 <div className="w-8 h-8  rounded-full cursor-pointer">
-                  <FaTelegram size="30"/>
-                </div>
-                <div className="w-8 h-8  rounded-full cursor-pointer">
-                  <FaWhatsapp size="30"/>
+                  <a
+                    href="https://chat.whatsapp.com/DfrYQCQtEF25sfNKbPNFIX"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-8 h-8 rounded-full cursor-pointer flex items-center justify-center"
+                  >
+                    <FaWhatsapp size={30} />
+                  </a>
                 </div>
               </div>
             </div>
