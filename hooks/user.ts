@@ -27,7 +27,7 @@ export function useUserId() {
 
 export function useUserDetails() {
     const {userId,loading,err}=useUserId();
-    const [user, setUser] = useState<userDetail>();
+    const [completeUser, setCompleteUser] = useState<userDetail>();
     const [userloading,setUserLoading]=useState(false);
     console.log("userid from the hook = ",userId);
     useEffect(() => {
@@ -39,7 +39,7 @@ export function useUserDetails() {
                 }
                 const userdetail = await getDetailsofUser(userId);
                 if (userdetail) {
-                    setUser(userdetail);
+                    setCompleteUser(userdetail);
                 }
             } catch (e: any) {
                 return;
@@ -50,7 +50,7 @@ export function useUserDetails() {
         setUserLoading(false);
     }, [userId]);
 
-    return { user, err ,userloading};
+    return { completeUser, err ,userloading};
 }
 export function useUserFromParam() {
     const [user, setUser] = useState<userDetail>();

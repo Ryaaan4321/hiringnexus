@@ -57,7 +57,7 @@ export function RenderGithubProfile({ profile }: { profile: any }) {
                         Stock the GIThub
                     </a>
                 </div>
-            </div>) : (<input placeholder="Enter Your Github Username" />)}
+            </div>) : (<div>""</div>)}
         </>
     );
 }

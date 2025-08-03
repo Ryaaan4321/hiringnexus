@@ -4,7 +4,7 @@ import { Buttons } from "./ui/button"
 import { useUserDetails } from "@/hooks/user";
 import { useUserId } from '@/hooks/user';
 export default function Navigation() {
-    const { user, userloading } = useUserDetails();
+    const { completeUser, userloading } = useUserDetails();
     const { userId } = useUserId();
     return (
         <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
@@ -28,7 +28,7 @@ export default function Navigation() {
                         </Link>
                     </div>
 
-                    {user ?
+                    {completeUser ?
                         <div>
                             <Link href={`/user/profile/${userId}`}>
                                 <Buttons className="cursor-pointer bg-slate-800">Profile</Buttons>

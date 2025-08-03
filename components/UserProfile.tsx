@@ -19,7 +19,7 @@ export default function UserProfile() {
     const [loading, setLoading] = useState(false);
     const [userdata, setUserdata] = useState<userDetail | null>(null);
     const { userId, loading: useridLoading, err: useridError } = useUserId();
-    const { user, err } = useUserDetails();
+    const { completeUser, err } = useUserDetails();
     const {userGithubprofile,userGithubrepositories}=useGithub();
    
     const handleSearch = async (searchUsername: string) => {
@@ -62,7 +62,7 @@ export default function UserProfile() {
         fetchdata();
     }, [userId])
     return (
-        <div className="min-h-screen bg-gray-100 p-4">
+        <div className="min-h-screen bg-gray-100 p-4 mt-10">
             <div className="max-w-7xl mx-auto flex flex-col sm:flex-row gap-6">
                 <div className="w-full sm:w-64 flex-none relative">
                     {loading ? (
@@ -73,7 +73,7 @@ export default function UserProfile() {
                 </div>
                 <div className="flex-1">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {user && <UserBasicInfo user={user} />}
+                        {completeUser && <UserBasicInfo user={completeUser} />}
                         <div className={loading ? "opacity-50" : ""}>
                             <RenderGithubProfile profile={userGithubprofile} />
                         </div>
