@@ -30,7 +30,7 @@ export function UserSidebar({
     minExperience: null,
     salaryRange: null,
   });
-  const { user, err } = useUserDetails();
+  const { completeUser, err } = useUserDetails();
   const clearFilters = () => {
     setFilters({
       jobTypes: [],
@@ -38,20 +38,20 @@ export function UserSidebar({
       salaryRange: null,
     });
   };
-  console.log("user from the sidebar = ", user);
-  if (!user) {
+
+  if (!completeUser) {
    return "something went wrong in the login"
   }
 
   const data1 = {
     user: {
-      name: user.name,
-      email: user.email,
+      name: completeUser.name,
+      email: completeUser.email,
       avatar: ""
     },
     teams: [
       {
-        name: user.name,
+        name: completeUser.name,
         logo: Asterisk,
         plan: "",
       }

@@ -33,7 +33,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
         );
     }
     return (
-        <Card className="max-w-xl mx-auto border border-gray-100 shadow-sm hover:shadow-md transition-shadow mt-4">
+        <Card className="max-w-xl mx-auto border border-gray-100 shadow-sm hover:shadow-md transition-shadow mt-20">
             <CardHeader className="pb-3">
                 <CardTitle className="text-xl font-semibold text-gray-900">{job.title}</CardTitle>
                 <div className="font-medium text-gray-500 tracking-wider">

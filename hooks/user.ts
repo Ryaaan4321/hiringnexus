@@ -124,5 +124,6 @@ export function useRecentappliedJobs() {
         }
         fetchJobs();
     }, [userId]);
+    console.log("jobs from the hooks = ",jobs);
     return { jobs, loading, err }
 }

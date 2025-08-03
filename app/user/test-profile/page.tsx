@@ -11,8 +11,11 @@ import { useUserDetails } from "@/hooks/user"
 import { userDetail } from "@/interfaces/userinterface"
 import { useRecentappliedJobs } from "@/hooks/user";
 
+
+
+
 function UserProfileSidebar({ user }: { user: userDetail | null }) {
-    const {completeUser}=useUserDetails();
+    const { completeUser } = useUserDetails();
     if (!completeUser) {
         return (
             <Card className="w-full max-w-sm shadow-lg border-0">
@@ -27,7 +30,7 @@ function UserProfileSidebar({ user }: { user: userDetail | null }) {
             </Card>
         )
     }
-
+    console.log("jobs user has applied = ", completeUser.alreadyapplied)
     return (
         <Card className="w-full max-w-sm shadow-lg border-0 sticky top-6 ">
             <CardHeader className="pb-4">
@@ -47,15 +50,18 @@ function UserProfileSidebar({ user }: { user: userDetail | null }) {
                         </div>
                     </div>
                     <div className="flex gap-2 mt-4 w-full">
-                        <Buttons size="sm" className="flex-1 bg-slate-800 hover:bg-slate-700">
-                            <Edit3 className="w-4 h-4 mr-1" />
-                            Edit
-                        </Buttons>
-                        <Buttons size="sm" variant="outline" className="flex-1 border-slate-300 hover:bg-slate-50 bg-transparent">
-                            <ExternalLink className="w-4 h-4 mr-1" />
-                            View
-                        </Buttons>
+                        <Link href="/user/edit-page" className="flex-1">
+                            <Buttons
+                                size="sm"
+                                className="w-full bg-slate-800 hover:bg-slate-700 cursor-pointer flex items-center justify-center"
+                            >
+                                <Edit3 className="w-4 h-4 mr-1" />
+                                Edit Profile
+
+                            </Buttons>
+                        </Link>
                     </div>
+
                 </div>
             </CardHeader>
 
@@ -123,21 +129,22 @@ function UserProfileSidebar({ user }: { user: userDetail | null }) {
 
                     <div className="space-y-2">
                         {completeUser.alreadyapplied && completeUser.alreadyapplied.length > 0 ? (
-                            completeUser.alreadyapplied.slice(0, 4).map((job: any) => (
+                            completeUser.alreadyapplied.slice(0, 4)?.map((job) => (
                                 <Link
                                     key={job.id}
                                     href={`/user/job/${job.id}`}
                                     className="group block p-3 rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all"
                                 >
                                     <div className="flex items-start justify-between">
-                                        <div className="flex-1 min-w-0">
+                                        <div key={job.id} className="flex-1 min-w-0">
                                             <h4 className="text-sm font-medium text-slate-800 group-hover:text-slate-900 truncate">
                                                 {job.title}
                                             </h4>
-                                            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                                            <p className="text-xs text-slate-600 mt-1 flex items-center gap-1">
                                                 <Briefcase className="w-3 h-3" />
                                                 {job.companyname}
                                             </p>
+
                                         </div>
                                         <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-slate-600 flex-shrink-0 ml-2" />
                                     </div>

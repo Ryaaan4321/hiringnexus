@@ -44,6 +44,7 @@ export interface userDetail {
     id: string;
     title: string;
     descreption: string;
+    companyname:string;
     joblink: string;
     postedbyId: string;
     timestamps: Date;

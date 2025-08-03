@@ -75,6 +75,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                         joblink: true,
                         postedbyId: true,
                         timestamps: true,
+                        companyname:true,
                     },
                 },
                 githubprofile: {
@@ -150,6 +151,7 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
 }
 export async function visitedJobs(jobId: string, userId: string) {
     try {
+        console.log("visited jobs got calledddd");
         const alreadyApplied = await client.user.findFirst({
             where: { id: userId, alreadyapplied: { some: { id: jobId } } },
         });
@@ -182,6 +184,7 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
                 },
             }
         });
+        console.log("user with jobs from server actions = ",userwithjobs);
         return userwithjobs?.alreadyapplied || [];
     } catch (e: any) {
         return null;

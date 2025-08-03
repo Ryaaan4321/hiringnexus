@@ -133,7 +133,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                                             </h4>
                                             <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
                                                 <Briefcase className="w-3 h-3" />
-                                                Company name
+                                                {/* {job.} */}
                                             </p>
                                         </div>
                                         <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-slate-600 flex-shrink-0 ml-2" />

@@ -66,7 +66,9 @@ export default function Cards({ job }: { job: jobinterface[] }) {
                 <Card key={item.id} className="max-w-sm mb-4 hover:shadow-lg transition-shadow duration-300">
                     <CardHeader>
                         <Link href={`/user/job/${item.id}`} className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-black text-white flex items-center justify-center rounded-lg text-sm font-semibold">
+                            <div className="w-10 h-10 bg-black text-white flex items-center justify-center rounded-lg text-sm font-semibold"
+
+                            >
                                 {item.title?.[0] || "H"}
                             </div>
                             <div>
@@ -112,18 +114,6 @@ export default function Cards({ job }: { job: jobinterface[] }) {
 
                     <CardFooter className="flex justify-between border-t pt-1">
                         <div className="items-center">
-                            {/* {userId ? (
-                                <AlreadyApplied jobId={item.id} jobLink={item.joblink} />
-                            ) : (
-                                <Link
-                                    href={item.joblink || `https://github.com/Ryaaan4321/hiringnexus`}
-                                    target="_blank"
-                                >
-                                    <button className="px-1 py-1 cursor-pointer text-blue-900 hover:underline text-sm font-medium">
-                                        Visit the Link
-                                    </button>
-                                </Link>
-                            )} */}
                         </div>
                         <div>
                             {role === "admin" && canDeleteJob && <DeleteThisJob jobId={item.id} />}
