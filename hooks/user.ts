@@ -29,7 +29,6 @@ export function useUserDetails() {
     const {userId,loading,err}=useUserId();
     const [completeUser, setCompleteUser] = useState<userDetail>();
     const [userloading,setUserLoading]=useState(false);
-    console.log("userid from the hook = ",userId);
     useEffect(() => {
         setUserLoading(true);
         async function fetchUsers() {

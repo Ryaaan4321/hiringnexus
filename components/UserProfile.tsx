@@ -43,6 +43,8 @@ export default function UserProfile() {
             setLoading(false);
         }
     };
+    console.log("user github profile = ",userGithubprofile);
+    console.log("user github repositories = ",userGithubrepositories);
     useEffect(() => {
         async function fetchdata() {
             try {

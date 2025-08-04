@@ -22,18 +22,13 @@ export default function SignupPage() {
         username: "",
         email: "",
         password: "",
-        confirmPassword: "",
-        userType: "student",
+        profession: "",
         agreeToTerms: false,
+        phonenumber:"",
         subscribeNewsletter: false,
     })
-
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        if (formData.password !== formData.confirmPassword) {
-            alert("Passwords do not match");
-            return;
-        }
         if (!formData.agreeToTerms) {
             alert("Please agree to the terms and conditions");
             return;
@@ -50,8 +45,8 @@ export default function SignupPage() {
                     email: formData.email,
                     password: formData.password,
                     username: formData.username,
-                    phonenumber: "0000000000",
-                    profession: formData.userType === "student" ? "Student" : "HR Professional",
+                    phonenumber: formData.phonenumber,
+                    profession: formData.profession
                 }),
             });
             const result = await res.json();
@@ -59,8 +54,7 @@ export default function SignupPage() {
                 alert(result.msg || "Signup failed");
                 return;
             }
-            // localStorage.setItem("token", result.token);
-            window.location.href = "/dashboard";
+            window.location.href = "/user/dashboard";
         } catch (err) {
             console.error("Signup error:", err);
             alert("Something went wrong. Try again.");
@@ -78,13 +72,10 @@ export default function SignupPage() {
     return (
         <div className="mt-15 min-h-screen bg-gray-50 flex items-center justify-center px-4 py-8">
             <div className="w-full max-w-md">
-                {/* Back to Home */}
                 <Link href="/" className="inline-flex items-center text-slate-600 hover:text-slate-800 mb-6 transition-colors">
                     <ArrowLeft className="w-4 h-4 mr-2" />
                     Back to Home
                 </Link>
-
-                {/* Logo */}
                 <div className="text-center mb-6">
                     <Link href="/">
                         <h1 className="text-3xl font-black text-slate-800">HiringNexus</h1>
@@ -102,32 +93,9 @@ export default function SignupPage() {
 
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {/* User Type Selection */}
                             <div className="space-y-3">
-                                <Label className="text-slate-700 font-medium">I am a:</Label>
-                                <RadioGroup
-                                    value={formData.userType}
-                                    onValueChange={(value: any) => setFormData((prev) => ({ ...prev, userType: value }))}
-                                    className="flex space-x-6"
-                                >
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="student" id="student" />
-                                        <Label htmlFor="student" className="flex items-center cursor-pointer">
-                                            <User className="w-4 h-4 mr-2" />
-                                            Student
-                                        </Label>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                        <RadioGroupItem value="hr" id="hr" />
-                                        <Label htmlFor="hr" className="flex items-center cursor-pointer">
-                                            <Building className="w-4 h-4 mr-2" />
-                                            HR Professional
-                                        </Label>
-                                    </div>
-                                </RadioGroup>
+                                
                             </div>
-
-                            {/* Name Fields */}
                             <div className="grid grid-cols-2 gap-3">
                                 <div className="space-y-2">
                                     <Label htmlFor="Name" className="text-slate-700 font-medium">
@@ -161,7 +129,6 @@ export default function SignupPage() {
                                 </div>
                             </div>
 
-                            {/* Email */}
                             <div className="space-y-2">
                                 <Label htmlFor="email" className="text-slate-700 font-medium">
                                     Email Address
@@ -170,15 +137,13 @@ export default function SignupPage() {
                                     id="email"
                                     name="email"
                                     type="email"
-                                    placeholder={formData.userType === "student" ? "student@university.edu" : "hr@company.com"}
+                                    placeholder={ "student@university.edu"}
                                     value={formData.email}
                                     onChange={handleInputChange}
                                     required
                                     className="border-gray-300 focus:border-slate-500 focus:ring-slate-500"
                                 />
                             </div>
-
-                            {/* Password */}
                             <div className="space-y-2">
                                 <Label htmlFor="password" className="text-slate-700 font-medium">
                                     Password
@@ -203,34 +168,22 @@ export default function SignupPage() {
                                     </button>
                                 </div>
                             </div>
-
-                            {/* Confirm Password */}
                             <div className="space-y-2">
-                                <Label htmlFor="confirmPassword" className="text-slate-700 font-medium">
-                                    Confirm Password
+                                <Label htmlFor="phonenumber" className="text-slate-700 font-medium">
+                                    Phone Number
                                 </Label>
                                 <div className="relative">
                                     <Input
-                                        id="confirmPassword"
-                                        name="confirmPassword"
-                                        type={showConfirmPassword ? "text" : "password"}
-                                        placeholder="Confirm your password"
-                                        value={formData.confirmPassword}
+                                        id="phonenumber"
+                                        name="phonenumber"
+                                        placeholder="91-999999999"
+                                        value={formData.phonenumber}
                                         onChange={handleInputChange}
                                         required
                                         className="border-gray-300 focus:border-slate-500 focus:ring-slate-500 pr-10"
                                     />
-                                    <button
-                                        type="button"
-                                        onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
-                                    >
-                                        {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                                    </button>
                                 </div>
                             </div>
-
-                            {/* Terms and Newsletter */}
                             <div className="space-y-3">
                                 <div className="flex items-start space-x-2">
                                     <Checkbox
@@ -252,31 +205,16 @@ export default function SignupPage() {
                                         </Link>
                                     </Label>
                                 </div>
-
-                                <div className="flex items-start space-x-2">
-                                    <Checkbox
-                                        id="newsletter"
-                                        checked={formData.subscribeNewsletter}
-                                        onCheckedChange={(checked: any) =>
-                                            setFormData((prev) => ({ ...prev, subscribeNewsletter: checked as boolean }))
-                                        }
-                                    />
-                                    <Label htmlFor="newsletter" className="text-sm text-gray-600">
-                                        Subscribe to our newsletter for job updates and career tips
-                                    </Label>
-                                </div>
                             </div>
 
                             <Buttons
                                 type="submit"
-                                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5"
+                                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 cursor-pointer"
                                 disabled={isLoading}
                             >
                                 {isLoading ? "Creating Account..." : "Create Account"}
                             </Buttons>
                         </form>
-
-                        {/* Divider */}
                         <div className="relative my-6">
                             <div className="absolute inset-0 flex items-center">
                                 <span className="w-full border-t border-gray-300" />
@@ -285,15 +223,13 @@ export default function SignupPage() {
                                 <span className="bg-white px-2 text-gray-500">Or sign up with</span>
                             </div>
                         </div>
-
-                        {/* Social Signup */}
                         <div className="grid grid-cols-2 gap-3">
                             <Buttons
                                 variant="outline"
                                 className="border-gray-300 hover:bg-gray-50 bg-transparent cursor-pointer"
                                 onClick={async (e) => {
                                     e.preventDefault();
-                                    await signIn("google", { callbackUrl: "/dashboard" });
+                                    await signIn("google", { callbackUrl: "/user/dashboard" });
                                 }}
                             >
                                 <svg className="w-4 h-4 mr-2" viewBox="0 0 24 24">
