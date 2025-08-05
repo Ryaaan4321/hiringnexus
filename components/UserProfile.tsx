@@ -108,3 +108,4 @@ export default function UserProfile() {
         </div>
     );
 }
+// min-h-screen bg-transparent relative z-10

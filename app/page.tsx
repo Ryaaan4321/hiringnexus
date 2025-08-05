@@ -26,7 +26,7 @@ export default function HomePage() {
           backgroundSize: "8px 8px, 32px 32px, 32px 32px",
         }}
       />
-      <div className="min-h-screen bg-gray-50">
+      <div className="min-h-screen bg-transparent relative z-10">
         <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
