@@ -35,5 +35,6 @@ export async function POST(request: Request) {
             }
         }
     });
+    console.log("saved data from the backend = ",savedData);
     return NextResponse.json(savedData.githubprofile);
 }

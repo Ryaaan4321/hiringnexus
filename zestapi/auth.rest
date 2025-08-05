@@ -1,0 +1,13 @@
+POST http://localhost:3000/api/admin/signin
+Content-Type: application/json
+
+{
+  # "name":"kalu",
+  "email": "kalu@gmail.com",
+  "password": "111"
+  # "phonenumber":"987873523",
+  # "username":"kalu",
+  # "canPostJob":true,
+  # "canDeleteJob":true
+}
+

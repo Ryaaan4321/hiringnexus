@@ -57,7 +57,8 @@ export function UserSidebar({
       }
     ]
   }
-  console.log("sidebar got called")
+  console.log(completeUser.username);
+  console.log("sidebar got called");
   return (
     <Sidebar collapsible="offcanvas" variant="sidebar" {...props}>
       <SidebarHeader>

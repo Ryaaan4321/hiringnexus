@@ -34,13 +34,13 @@ export default function Filters({
             salaryRange: min !== null && max !== null ? [min, max] : null,
         });
     };
-    const { user } = useUserDetails();
+    const { completeUser } = useUserDetails();
     const { userId, loading, err } = useUserId();
-    if (!user || !userId) return null;
+    if (!completeUser || !userId) return null;
     return (
         <SidebarGroup>
             <Link href={`/user/profile/${userId}`}>
-                <span className='text-sm font-medium text-blue-950 underline'>{`Welcome ${user.name}`}</span>
+                <span className='text-sm font-medium text-blue-950 underline'>{`Welcome ${completeUser.name}`}</span>
             </Link>
             <SidebarMenu>
                 <div className='space-y-2'>

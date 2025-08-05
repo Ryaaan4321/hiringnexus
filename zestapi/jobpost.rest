@@ -1,0 +1,14 @@
+POST http://localhost:3000/api/admin/jobpost
+Content-Type: application/json
+
+
+{
+    "title":"Full Stack Developer",
+    "descreption":"Build things and break things",
+    "joblink":"http://google.com/",
+    "jobTypes":["FULLTIME"],
+    "experience":1,
+    "salary":19000000,
+    "companyname":"Salesforce"
+}
+
