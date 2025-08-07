@@ -30,6 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
             maxAge: 60 * 60,
             path: "/",
         });
+        console.log("response = ",response);
         return NextResponse.json({ response, token }, { status: 201 })
     } catch (e: any) {
         return NextResponse.json({ msg: e.message || "error in the user signup func" }, { status: 500 });
