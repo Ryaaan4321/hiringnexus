@@ -101,8 +101,7 @@ model jobschema {
   salary       Int
   timestamps   DateTime  @default(now())
   languageRequirement String[] @default([])
-
-
+  createdAt    DateTime  @default(now())
   @@index([timestamps])
   @@index([jobTypes])
   @@index([experience])

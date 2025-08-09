@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import Link from "next/link"
 import { Buttons } from "@/components/ui/button"
@@ -10,7 +9,6 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Eye, EyeOff, ArrowLeft } from "lucide-react"
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation"
 
 export default function LoginPage() {
@@ -121,9 +119,9 @@ export default function LoginPage() {
                                         Remember me
                                     </Label>
                                 </div>
-                                <Link href="/forgot-password" className="text-sm text-slate-600 hover:text-slate-800 hover:underline">
+                                {/* <Link href="/forgot-password" className="text-sm text-slate-600 hover:text-slate-800 hover:underline">
                                     Forgot password?
-                                </Link>
+                                </Link> */}
                             </div>
 
                             <Buttons
@@ -134,7 +132,7 @@ export default function LoginPage() {
                                 {isLoading ? "Signing In..." : "Sign In"}
                             </Buttons>
                         </form>
-                        <div className="relative my-6">
+                        {/* <div className="relative my-6">
                             <div className="absolute inset-0 flex items-center">
                                 <span className="w-full border-t border-gray-300" />
                             </div>
@@ -177,7 +175,7 @@ export default function LoginPage() {
                                 </svg>
                                 Twitter
                             </Buttons>
-                        </div>
+                        </div> */}
                     </CardContent>
                     <CardFooter className="flex flex-col space-y-4">
                         <div className="text-center text-sm text-gray-600">

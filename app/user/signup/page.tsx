@@ -215,15 +215,15 @@ export default function SignupPage() {
                                 {isLoading ? "Creating Account..." : "Create Account"}
                             </Buttons>
                         </form>
-                        <div className="relative my-6">
+                        {/* <div className="relative my-6">
                             <div className="absolute inset-0 flex items-center">
                                 <span className="w-full border-t border-gray-300" />
                             </div>
                             <div className="relative flex justify-center text-xs uppercase">
                                 <span className="bg-white px-2 text-gray-500">Or sign up with</span>
                             </div>
-                        </div>
-                        <div className="grid grid-cols-2 gap-3">
+                        </div> */}
+                        {/* <div className="grid grid-cols-2 gap-3">
                             <Buttons
                                 variant="outline"
                                 className="border-gray-300 hover:bg-gray-50 bg-transparent cursor-pointer"
@@ -258,7 +258,7 @@ export default function SignupPage() {
                                 </svg>
                                 Twitter
                             </Buttons>
-                        </div>
+                        </div> */}
                     </CardContent>
 
                     <CardFooter className="flex flex-col space-y-4">

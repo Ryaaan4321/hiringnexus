@@ -25,7 +25,9 @@ export interface jobinterface {
   companyname: string,
   experience: number,
   salary: number,
-  jobTypes: JobType[]
+  jobTypes: JobType[],
+  location:string,
+  createdAt:string
 };
 export interface recentappliedJob {
   id: string;
