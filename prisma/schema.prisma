@@ -15,7 +15,7 @@ model User {
   password       String
   phonenumber    String?        @default("")
   descreption    String?        @default("One Liner! Bt for HR this Time")
-  profession     String?
+  profession     String?        @default("") 
   alreadyapplied jobschema[]    @relation("UserTojobschema")
   githubprofile  GitHubProfile?
   ctc            String?
