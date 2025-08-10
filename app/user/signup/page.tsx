@@ -22,7 +22,6 @@ export default function SignupPage() {
         username: "",
         email: "",
         password: "",
-        profession: "",
         agreeToTerms: false,
         phonenumber:"",
         subscribeNewsletter: false,
@@ -45,8 +44,7 @@ export default function SignupPage() {
                     email: formData.email,
                     password: formData.password,
                     username: formData.username,
-                    phonenumber: formData.phonenumber,
-                    profession: formData.profession
+                    phonenumber: formData.phonenumber
                 }),
             });
             const result = await res.json();
