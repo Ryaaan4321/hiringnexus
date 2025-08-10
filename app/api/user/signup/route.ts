@@ -17,8 +17,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
                 email: body.email,
                 password: hashedpassword,
                 phonenumber: body.phonenumber,
-                username: body.username,
-                profession: body.profession
+                username: body.username
+                // profession: body.profession
             }
         })
         if (!process.env.SECRET_KEY) throw new Error("SECRET_KEY is not defined");

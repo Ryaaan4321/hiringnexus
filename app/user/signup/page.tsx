@@ -176,7 +176,7 @@ export default function SignupPage() {
                                     <Input
                                         id="phonenumber"
                                         name="phonenumber"
-                                        placeholder="91-999999999"
+                                        placeholder="999999999"
                                         value={formData.phonenumber}
                                         onChange={handleInputChange}
                                         required
