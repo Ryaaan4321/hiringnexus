@@ -4,9 +4,7 @@ export const JobType = {
   INTERNSHIP: 'INTERNSHIP',
   CONTRACT: 'CONTRACT'
 } as const;
-
 export type JobType = keyof typeof JobType;
-
 export enum EnumJobType {
   FULLTIME = 'FULLTIME',
   REMOTE = 'REMOTE',
