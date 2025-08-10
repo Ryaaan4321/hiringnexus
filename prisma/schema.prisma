@@ -92,7 +92,7 @@ model jobschema {
   timestamps          DateTime  @default(now())
   jobTypes            JobType[]
   languageRequirement String[]  @default([])
-  createdAt           DateTime  @default(now())
+  createdAt           DateTime?  @default(now())
   postedby            Admin     @relation(fields: [postedbyId], references: [id])
   appliedusers        User[]    @relation("UserTojobschema")
 
