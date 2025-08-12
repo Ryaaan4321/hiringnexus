@@ -51,7 +51,7 @@ export default function Navigation() {
 
                     {completeUser ?
                         <div className="flex items-center space-x-4">
-                            <Link href={`/user/profile/${userId}`}>
+                            <Link href={`/user/test-profile/${userId}`}>
                                 <Buttons className="cursor-pointer bg-slate-800">Profile</Buttons>
                             </Link>
                             <Buttons onClick={handleSubmit} className="bg-red-800 cursor-pointer hover:bg-red-800">{signoutLoading ? "Signing you Out":"Sign Out"}</Buttons>

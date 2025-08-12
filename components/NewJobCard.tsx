@@ -148,12 +148,12 @@ export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface
     }
     return colors[type] || "bg-slate-100 text-slate-700"
   }
-
-  const getTimeAgo = (createdAt?: string) => {
+  const getTimeAgo = (createdAt?: Date | null) => {
     if (!createdAt) return "Recently posted"
-    return "2 days ago"
+    const diffMs = Date.now() - createdAt.getTime()
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
+    return diffDays === 0 ? "Today" : `${diffDays} day${diffDays > 1 ? "s" : ""} ago`
   }
-
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {job.map((item) => (
@@ -164,11 +164,11 @@ export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface
           <CardHeader className="pb-4">
             <Link href={`/user/job/${item.id}`} className="block">
               <div className="flex items-start gap-3 mb-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center rounded-xl text-lg font-bold shadow-md group-hover:shadow-lg transition-shadow">
+                <div className="w-12 h-12 bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center rounded-xl text-lg font-bold shadow-md ">
                   {item.title?.[0]?.toUpperCase() || "H"}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-lg font-bold text-slate-800 group-hover:text-slate-900 transition-colors line-clamp-2">
+                  <CardTitle className="text-lg font-bold text-slate-800  transition-colors line-clamp-2">
                     {item.title}
                   </CardTitle>
                   <div className="flex items-center gap-1 mt-1 text-slate-600">
@@ -219,8 +219,6 @@ export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface
                 <span className="text-slate-600">{getTimeAgo(item.createdAt)}</span>
               </div>
             </div>
-
-            {/* Job Types */}
             <div className="flex flex-wrap gap-2">
               {item.jobTypes.map((type, i) => (
                 <Badge key={i} variant="secondary" className={`text-xs font-medium ${getJobTypeColor(type)}`}>

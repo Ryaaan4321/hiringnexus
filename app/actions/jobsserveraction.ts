@@ -2,7 +2,7 @@
 import client from '@/app/db'
 import { JWTPayload } from 'jose'
 import { jobFilters, jobinterface } from '@/interfaces/jobinterface'
-import { JobType, EnumJobType } from '@/interfaces/jobinterface'
+
 interface AdminPayload extends JWTPayload {
     id: string,
     email: string
@@ -33,6 +33,9 @@ export async function getalljobs(): Promise<jobinterface[]> {
                 jobTypes: true,
                 experience: true,
                 salary: true,
+                createdAt:true,
+                location:true
+                
             }
         });
         return jobs
@@ -59,6 +62,8 @@ export async function getSingleJob(id: string): Promise<jobinterface | null> {
                 jobTypes: true,
                 experience: true,
                 salary: true,
+                location:true,
+                createdAt:true
             }
         });
         return response;

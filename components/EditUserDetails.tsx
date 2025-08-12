@@ -48,7 +48,7 @@ export default function EditUserDetails() {
       setEditpageLoading(true);
       const updated = await updateUserDetails(userId, formdata);
       if (updated) {
-        router.push(`/user/profile/${userId}`);
+        router.push(`/user/test-profile/${userId}`);
       } else {
         alert("Failed to update profile!");
       }

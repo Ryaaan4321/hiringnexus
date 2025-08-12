@@ -35,7 +35,7 @@ export default function HomePage() {
               </Link>
 
               <div className="hidden md:flex items-center space-x-8">
-                <Link href="/jobs" className="text-gray-700 hover:text-slate-800 font-medium">
+                <Link href="/user/dashboard" className="text-gray-700 hover:text-slate-800 font-medium">
                   Jobs
                 </Link>
                 <Link href="/companies" className="text-gray-700 hover:text-slate-800 font-medium">

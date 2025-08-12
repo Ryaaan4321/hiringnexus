@@ -151,8 +151,8 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                                     <Briefcase className="w-6 h-6 text-slate-400" />
                                 </div>
                                 <p className="text-sm text-slate-500 mb-2">No recent applications</p>
-                                <Link href="/jobs">
-                                    <Buttons size="sm" variant="outline" className="text-xs bg-transparent">
+                                <Link href="/user/dashboard">
+                                    <Buttons size="sm" variant="outline" className="text-xs bg-transparent cursor-pointer">
                                         Browse Jobs
                                     </Buttons>
                                 </Link>

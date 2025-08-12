@@ -3,12 +3,12 @@ Content-Type: application/json
 
 
 {
-    "title":"Frontend Engineer",
+    "title":"Backend Engineer",
     "descreption":"Build things and break things",
     "joblink":"http://google.com/",
     "jobTypes":["FULLTIME"],
     "experience":1,
     "salary":19000000,
-    "companyname":"Amazon"
+    "companyname":"Blue Shark"
 }
 

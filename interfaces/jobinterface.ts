@@ -24,8 +24,8 @@ export interface jobinterface {
   experience: number,
   salary: number,
   jobTypes: JobType[],
-  location:string,
-  createdAt:string
+  location: string | null,
+  createdAt: Date | null,
 };
 export interface recentappliedJob {
   id: string;
@@ -46,5 +46,5 @@ export interface jobFilters {
 export interface DeleteJobInterface {
   success: boolean;
   msg?: string;
-  deletedJob?: any; 
+  deletedJob?: any;
 }
