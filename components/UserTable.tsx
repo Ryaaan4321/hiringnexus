@@ -4,7 +4,8 @@ import Link from "next/link";
 
 export default function UserTable({ users }: { users: userinterface[] }) {
     return (
-        <div className="overflow-x-auto">
+        
+        <div className="overflow-x-auto bg-white rounded-lg border border-gray-200 shadow-sm">
             <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                     <tr>
@@ -25,28 +26,25 @@ export default function UserTable({ users }: { users: userinterface[] }) {
                         </th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200 cursor-pointer">
+                <tbody className=" bg-sidebar divide-y divide-gray-200">
                     {users.map((item) => (
-                        <tr key={item.id} className="hover:bg-gray-50">
-                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                                {item.username}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {item.email}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                {item.profession}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
-                                {}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap text-sm text-blue-600 underline">
-                                {<Link href={`/admin/users/${item.id}`}>View Profile</Link>}
+                        <tr key={item.id} className="hover:bg-gray-50 transition-colors duration-150">
+                            <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{item.username}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.email}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{item.profession}</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">-</td>
+                            <td className="px-6 py-4 whitespace-nowrap text-sm">
+                                <Link
+                                    href={`/admin/users/${item.id}`}
+                                    className="text-blue-900  font-medium transition-colors duration-150"
+                                >
+                                    View Profile
+                                </Link>
                             </td>
                         </tr>
                     ))}
                 </tbody>
             </table>
         </div>
-    );
+    )
 }

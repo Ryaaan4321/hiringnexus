@@ -9,9 +9,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Eye, EyeOff, ArrowLeft, User, Building } from "lucide-react"
-import { signIn } from "next-auth/react";
+
 
 export default function SignupPage() {
     const [showPassword, setShowPassword] = useState(false)
@@ -54,7 +53,6 @@ export default function SignupPage() {
             }
             window.location.href = "/user/dashboard";
         } catch (err) {
-            console.error("Signup error:", err);
             alert("Something went wrong. Try again.");
         } finally {
             setIsLoading(false);

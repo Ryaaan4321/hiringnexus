@@ -14,7 +14,8 @@ export default function HomePage() {
   const { completeUser, userloading } = useUserDetails();
   const { userId } = useUserId();
   return (
-    <div className="min-h-screen w-full bg-[#faf9f6] relative">
+    <div className="min-h-screen w-full bg-[#faf9f6] relative ">
+      
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -26,6 +27,7 @@ export default function HomePage() {
           backgroundSize: "8px 8px, 32px 32px, 32px 32px",
         }}
       />
+      
       <div className="min-h-screen bg-transparent relative z-10">
         <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-b border-gray-200 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -77,6 +79,7 @@ export default function HomePage() {
               <h1 className="text-6xl md:text-8xl lg:text-9xl font-black text-black leading-none tracking-tight">
                 HiringNexus
               </h1>
+
             </div>
 
             <div className="mb-8">

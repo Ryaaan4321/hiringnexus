@@ -1,4 +1,4 @@
-// components/ui/DataTable.tsx
+
 "use client"
 
 import {
@@ -24,8 +24,8 @@ export function DataTable<TData, TValue>({
     })
 
     return (
-        <div className="rounded-md border">
-            <table className="min-w-full divide-y divide-gray-200">
+        <div className="border ">
+            <table className="min-w-full divide-y divide-gray-200 bg-red-900 ">
                 <thead className="bg-gray-50">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
@@ -43,7 +43,7 @@ export function DataTable<TData, TValue>({
                         </tr>
                     ))}
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-gray-200 ">
                     {table.getRowModel().rows.map((row) => (
                         <tr key={row.id} className="hover:bg-gray-50">
                             {row.getVisibleCells().map((cell) => (

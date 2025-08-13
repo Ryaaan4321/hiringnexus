@@ -117,7 +117,7 @@ export default function Auth() {
 
                     <CardContent>
                         <form onSubmit={handleSubmit} className="space-y-4">
-                            {path.includes("/admin/signup") && (
+                            {/* {path.includes("/admin/signup") && (
                                 <div className="space-y-2">
                                     <Label htmlFor="specailid" className="text-slate-700 font-medium">
                                         Admin Pass ID
@@ -132,7 +132,7 @@ export default function Auth() {
                                         className="border-gray-300 focus:border-slate-500 focus:ring-slate-500"
                                     />
                                 </div>
-                            )}
+                            )} */}
                             {isSignup && (
                                 <>
                                     <div className="grid grid-cols-2 gap-3">
@@ -226,7 +226,7 @@ export default function Auth() {
                                         />
                                     </div>
 
-                                    <div className="space-y-2">
+                                    {/* <div className="space-y-2">
                                         <Label htmlFor="profession" className="text-slate-700 font-medium">
                                             Profession
                                         </Label>
@@ -255,13 +255,13 @@ export default function Auth() {
                                                 </SelectItem>
                                             </SelectContent>
                                         </Select>
-                                    </div>
+                                    </div> */}
                                 </>
                             )}
 
                             <Buttons
                                 type="submit"
-                                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 mt-6"
+                                className="w-full bg-slate-800 hover:bg-slate-700 text-white font-semibold py-2.5 mt-6 cursor-pointer"
                                 disabled={isLoading}
                             >
                                 {isLoading
