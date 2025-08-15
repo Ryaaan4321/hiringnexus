@@ -1,20 +1,29 @@
 # Job Posting Website
 
-A modern job posting platform built with **Next.js**, **Prisma**, **NextAuth**, and a UI component library (**Shadcn/UI** or **Material UI**).
+A modern job posting platform built with **Next.js**, **Prisma**, **NextAuth**, and a UI component library (**Shadcn/UI** ).
 
 ## Features
-User authentication with **NextAuth** (Google, GitHub, and email login)
-Secure database integration using **Prisma ORM** and **PostgreSQL**
-Job listing management (Create, Read, Update, Delete jobs)
-Role-based access (Admin & Job Seekers)
-Server Actions for seamless backend integration
+
+**User Side**
+
+Authentication: Login & Signup
+Job Browsing: View all available jobs
+Profile Management: Create and edit profile details
+GitHub Integration: Add GitHub profile link
+Email Notifications: Receive emails whenever an admin posts a new job
+**Admin Side**
+Job Management: Post new jobs, delete jobs
+User Management: View all registered users
+Activity Tracking: See how many jobs each user has viewed
+Admin Management: View all admins
+Access Control: Delete jobs only if the admin has required permissions
 
 ## Tech Stack
 - **Frontend:** Next.js, React, Shadcn/UI (or Material UI)
 - **Backend:** Next.js API Routes, Prisma ORM
 - **Authentication:** NextAuth.js
-- **Database:** PostgreSQL (Neon.tech or Supabase)
-- **Styling:** Tailwind CSS
+- **Database:** PostgreSQL (Neon Tech)
+- **Styling:** Tailwind CSS ,ShadCn
 
 ## Installation
 1. Clone the repository:
@@ -30,10 +39,9 @@ Server Actions for seamless backend integration
    - Create a `.env` file in the root directory and add:
      ```env
      DATABASE_URL="your_postgresql_connection_string"
-     NEXTAUTH_SECRET="your_secret_key"
-     NEXTAUTH_URL="http://localhost:3000"
-     GITHUB_CLIENT_ID="your_github_client_id"
-     GITHUB_CLIENT_SECRET="your_github_client_secret"
+     JWT_SECRET=your_jwt_secret
+     EMAIL_USER=your_email@example.com
+     EMAIL_PASS=your_email_password
      ```
 4. Run Prisma migrations:
    ```sh
@@ -41,6 +49,27 @@ Server Actions for seamless backend integration
    ```
 5. Start the development server:
    npm run dev
+
+## Usage
+**For Users**:
+
+Sign up or log in
+Complete your profile (add GitHub link if available)
+Browse jobs in the jobs section
+Get email alerts for newly posted jobs
+
+**For Admins**:
+Log in with admin credentials
+Post or delete jobs
+View all users and their activity
+Manage other admins and permissions
+
+
+## Future Improvements
+Resume upload and parsing
+AI-powered job recommendations
+Role-based dashboard analytics
+Advanced search & filtering for jobs
 
 - Visit `http://localhost:3000`
 - Sign in using Google/GitHub
