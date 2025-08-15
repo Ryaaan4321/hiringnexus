@@ -2,6 +2,7 @@ import { JobType } from '@/interfaces/jobinterface';
 import { SidebarGroup, SidebarGroupLabel, SidebarMenu } from './ui/sidebar';
 import { useUserDetails, useUserId } from '@/hooks/user';
 import Link from 'next/link';
+console.log("filters got calledddddd");
 export default function Filters({
     filters,
     onChange,
@@ -36,31 +37,32 @@ export default function Filters({
     };
     const { completeUser } = useUserDetails();
     const { userId, loading, err } = useUserId();
-    if (!completeUser || !userId) return (
-        <div className="flex justify-center items-center p-4">
-        <svg
-          className="animate-spin h-5 w-5 text-gray-500"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-        >
-          <circle
-            className="opacity-25"
-            cx="12"
-            cy="12"
-            r="10"
-            stroke="currentColor"
-            strokeWidth="4"
-          />
-          <path
-            className="opacity-75"
-            fill="currentColor"
-            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-          />
-        </svg>
-      </div>      
+    if (!completeUser || !userId)
+        return (
+            <div className="flex justify-center items-center p-4">
+                <svg
+                    className="animate-spin h-5 w-5 text-gray-500"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                >
+                    <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                    />
+                    <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                </svg>
+            </div>
 
-    );
+        );
     return (
         <SidebarGroup>
             <Link href={`/user/profile/${userId}`}>
@@ -111,7 +113,7 @@ export default function Filters({
                                 { label: "4-6 LPA", value: [4, 6] },
                                 { label: "7-12 LPA", value: [7, 12] },
                                 { label: "12-30 LPA", value: [12, 30] },
-                                { label: "30-90 LPA", value: [30, 90] },
+                                { label: "30-90 LPA", value: [30, 100] },
                             ].map(({ label, value }) => (
                                 <label key={label} className="flex items-center gap-2">
                                     <input

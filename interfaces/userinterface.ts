@@ -20,7 +20,7 @@ export interface userDetail {
   name: string;
   username: string;
   email: string;
-  profession: string;
+  profession: string | null;
   phonenumber: string | null;
   descreption: string | null;
   location:string |null;

@@ -39,8 +39,9 @@ export function UserSidebar({
     });
   };
 
+
   if (!completeUser) {
-   return "something went wrong in the login"
+    return "something went wrong in the login"
   }
 
   const data1 = {
@@ -57,8 +58,6 @@ export function UserSidebar({
       }
     ]
   }
-  console.log(completeUser.username);
-  console.log("sidebar got called");
   return (
     <Sidebar collapsible="offcanvas" variant="sidebar" {...props}>
       <SidebarHeader>

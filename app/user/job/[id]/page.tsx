@@ -1,4 +1,3 @@
-// "use client"
 import { Typography } from "@/components/ui/typography"
 import { getSingleJob } from "@/app/actions/jobsserveraction";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"

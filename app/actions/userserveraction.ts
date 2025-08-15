@@ -108,31 +108,16 @@ export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
-        if (!token || typeof token !== "string" || token.split('.').length !== 3) {
-            const session = await getServerSession(NEXT_AUTH_CONFIG);
-            return session?.user?.id || null;
-        }
-        if (!process.env.SECRET_KEY) {
-            console.error("SECRET_KEY is not defined");
-            const session = await getServerSession(NEXT_AUTH_CONFIG);
-            return session?.user?.id || null;
-        }
         try {
             const secret = new TextEncoder().encode(process.env.SECRET_KEY);
             const { payload } = await jwtVerify(token, secret);
-            if (!payload?.id) {
-                const session = await getServerSession(NEXT_AUTH_CONFIG);
-                return session?.user?.id || null;
-            }
             return payload.id as string;
         } catch (jwtError) {
             console.error("error verifying JWT: ", jwtError);
-            const session = await getServerSession(NEXT_AUTH_CONFIG);
-            return session?.user?.id || null;
+            return null;
         }
 
     } catch (e: any) {
-        console.error("error in getidOfUser: ", e.message);
         return null;
     }
 }
@@ -151,7 +136,6 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
 }
 export async function visitedJobs(jobId: string, userId: string) {
     try {
-        console.log("visited jobs got calledddd");
         const alreadyApplied = await client.user.findFirst({
             where: { id: userId, alreadyapplied: { some: { id: jobId } } },
         });

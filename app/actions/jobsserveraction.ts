@@ -33,9 +33,9 @@ export async function getalljobs(): Promise<jobinterface[]> {
                 jobTypes: true,
                 experience: true,
                 salary: true,
-                createdAt:true,
-                location:true
-                
+                createdAt: true,
+                location: true
+
             }
         });
         return jobs
@@ -62,8 +62,8 @@ export async function getSingleJob(id: string): Promise<jobinterface | null> {
                 jobTypes: true,
                 experience: true,
                 salary: true,
-                location:true,
-                createdAt:true
+                location: true,
+                createdAt: true
             }
         });
         return response;
@@ -73,31 +73,37 @@ export async function getSingleJob(id: string): Promise<jobinterface | null> {
 }
 
 export async function getFilteredJobs(filters: jobFilters) {
-    return await client.jobschema.findMany({
-        where: {
-            AND: [
-                filters.jobTypes?.length ? {
-                    jobTypes: {
-                        hasSome: filters.jobTypes
-                    }
-                } : {},
-                filters.minExperience ? {
-                    experience: {
-                        gte: filters.minExperience
-                    }
-                } : {},
-                filters.salaryRange ? {
-                    salary: {
-                        gte: filters.salaryRange[0] * 100000,
-                        lte: filters.salaryRange[1] * 100000
-                    }
-                } : {}
-            ].filter(condition => Object.keys(condition).length > 0)
-        },
-        orderBy: { timestamps: 'desc' },
-        include: {
-            postedby: { select: { name: true } }
-        }
-    });
+    try {
+        const jobs_res = await client.jobschema.findMany({
+            where: {
+                AND: [
+                    filters.jobTypes?.length ? {
+                        jobTypes: {
+                            hasSome: filters.jobTypes
+                        }
+                    } : {},
+                    filters.minExperience ? {
+                        experience: {
+                            gte: filters.minExperience
+                        }
+                    } : {},
+                    filters.salaryRange ? {
+                        salary: {
+                            gte: filters.salaryRange[0] * 100000,
+                            lte: filters.salaryRange[1] * 100000
+                        }
+                    } : {}
+                ].filter(condition => Object.keys(condition).length > 0)
+            },
+            orderBy: { timestamps: 'desc' },
+            include: {
+                postedby: { select: { name: true } }
+            }
+        })
+        return jobs_res;
+    } catch {
+        return [];
+    }
+
 }
 

@@ -4,6 +4,7 @@ import { getFilteredJobs } from "@/app/actions/jobsserveraction"
 import { EnumJobType, JobType, jobinterface, jobFilters } from "@/interfaces/jobinterface";
 import { SidebarTrigger } from "@/components/ui/sidebar"
 import JobCards from "@/components/NewJobCard"
+import { UserSidebar } from "@/components/UserSidebar";
 function useDebouncedEffect(callback: () => void, delay: number, deps: any[]) {
     useEffect(() => {
         const handler = setTimeout(() => callback(), delay);
@@ -42,9 +43,10 @@ export default function Page() {
     };
     return (
         <div className="flex">
+            <UserSidebar onApply={handleApplyFilters} />
             <div className="flex-1 p-4">
                 <SidebarTrigger />
-                {jobs.length>0 ? <JobCards job={jobs} /> : <div>There are no jobs with this Filters:Please Refresh the Page</div>}
+                {jobs.length > 0 ? <JobCards job={jobs} /> : <div>There are no jobs with this Filters:Please Refresh the Page</div>}
             </div>
         </div>
     )

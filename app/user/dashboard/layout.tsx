@@ -6,7 +6,7 @@ export default function UserLayout({ children }: { children: React.ReactNode }) 
   return (
     <SidebarProvider>
       <div className="flex h-screen w-full">
-        <UserSidebar onApply={() => {}} /> {/* Move it here */}
+        {/* <UserSidebar onApply={() => {}} /> */}
         <main className="flex-1 overflow-y-auto p-4">
           {children}
         </main>
