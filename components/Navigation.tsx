@@ -38,7 +38,7 @@ export default function Navigation() {
                         <span className="text-2xl font-bold text-slate-800">HiringNexus</span>
                     </Link>
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="/user/jobs" className="text-gray-700 hover:text-slate-800 font-medium">
+                        <Link href="/user/dashboard" className="text-gray-700 hover:text-slate-800 font-medium">
                             Jobs
                         </Link>
                         <Link href="/" className="text-gray-700 hover:text-slate-800 font-medium">
