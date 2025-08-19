@@ -65,7 +65,7 @@ export default function EditUserDetails() {
         <CardContent className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h2 className="text-xl font-bold text-gray-800">Edit Profile</h2>
-            <Link href={`/user/profile/${userId}`}>
+            <Link href={`/user/test-profile/${userId}`}>
               <Buttons variant="secondary" className="text-black font-semibold cursor-pointer">Back</Buttons>
             </Link>
           </div>
