@@ -10,7 +10,7 @@ import { User, Briefcase, MapPin, Mail, Phone, ExternalLink, Plus, Edit3, Clock 
 import { useUserDetails } from "@/hooks/user"
 import { userDetail } from "@/interfaces/userinterface"
 
-export default function UserProfileSidebar({ userr }: { userr: userDetail | null }) {
+export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
     const { completeUser } = useUserDetails();
     if (!completeUser) {
         return (

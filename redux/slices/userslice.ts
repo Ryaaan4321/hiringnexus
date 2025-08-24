@@ -5,13 +5,13 @@ import { PayloadAction } from "@reduxjs/toolkit";
 import { getidOfUser } from "@/app/actions/userserveraction";
 import { getDetailsofUser } from "@/app/actions/userserveraction";
 import App from "next/app";
-interface UserState {
+interface UserReduxState {
     user: userDetail | null;
     userId: string | null;
     loading: boolean;
     err: string | null;
 }
-const initialState: UserState = {
+const initialState: UserReduxState = {
     user: null,
     userId: null,
     loading: false,
@@ -69,7 +69,7 @@ const userSlice = createSlice({
                 state.loading = false;
                 state.err = action.payload as string;
             }
-            )
+        )
 
     }
 });

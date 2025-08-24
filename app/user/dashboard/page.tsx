@@ -1,53 +1,54 @@
 "use client"
-import { useState, useTransition, useEffect } from "react"
-import { getFilteredJobs } from "@/app/actions/jobsserveraction"
-import { EnumJobType, JobType, jobinterface, jobFilters } from "@/interfaces/jobinterface";
-import { SidebarTrigger } from "@/components/ui/sidebar"
-import JobCards from "@/components/NewJobCard"
+import { useAppDispatch, useAppSelector } from "@/hooks/redux-hooks";
+import { fetchFilteredJobs, setfilters } from "@/redux/slices/jobs/filteredJobsSlice";
+import { EnumJobType, jobFilters } from "@/interfaces/jobinterface";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import JobCards from "@/components/NewJobCard";
 import { UserSidebar } from "@/components/UserSidebar";
-function useDebouncedEffect(callback: () => void, delay: number, deps: any[]) {
-    useEffect(() => {
-        const handler = setTimeout(() => callback(), delay);
+import { useEffect } from "react";
+import { selectFilteredJobs } from "@/redux/slices/jobs/jobsSelector";
 
-        return () => clearTimeout(handler);
-    }, [...deps, delay]);
-}
 export default function Page() {
-    const [filters, setFilters] = useState<{
-        jobTypes: JobType[];
+    const dispatch = useAppDispatch();
+    const jobs = useAppSelector(selectFilteredJobs);
+    const { filters, loading, error } = useAppSelector((state) => state.filteredJobs);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            dispatch(fetchFilteredJobs(filters));
+        }, 200);
+
+        return () => clearTimeout(timer);
+    }, [filters, dispatch]);
+
+    const handleApplyFilters = (newFilters: {
+        jobTypes: string[];
         minExperience: number | null;
         salaryRange: [number, number] | null;
-    }>({
-        jobTypes: [],
-        minExperience: null,
-        salaryRange: null,
-    });
-
-    const [jobs, setJobs] = useState<jobinterface[]>([]);
-    const [isPending, startTransition] = useTransition();
-    useDebouncedEffect(() => {
+    }) => {
         const convertedFilters: jobFilters = {
-            jobTypes: filters.jobTypes.map((type) => EnumJobType[type]),
-            minExperience: filters.minExperience || undefined,
-            salaryRange: filters.salaryRange || undefined,
+            jobTypes: newFilters.jobTypes.map((type) => EnumJobType[type as keyof typeof EnumJobType]),
+            minExperience: newFilters.minExperience || undefined,
+            salaryRange: newFilters.salaryRange || undefined,
         };
 
-        startTransition(async () => {
-            const result = await getFilteredJobs(convertedFilters);
-            setJobs(result);
-        });
-    }, 100, [filters]);
-
-    const handleApplyFilters = (newFilters: typeof filters) => {
-        setFilters(newFilters);
+        dispatch(setfilters(convertedFilters));
     };
+
     return (
         <div className="flex">
             <UserSidebar onApply={handleApplyFilters} />
             <div className="flex-1 p-4">
                 <SidebarTrigger />
-                {jobs.length > 0 ? <JobCards job={jobs} /> : <div>There are no jobs with this Filters:Please Refresh the Page</div>}
+                {loading ? (
+                    <div>Loading jobs...</div>
+                ) : error ? (
+                    <div>{error}</div>
+                ) : jobs.length > 0 ? (
+                    <JobCards job={jobs} />
+                ) : (
+                    <div>No jobs match these filters. Try adjusting filters.</div>
+                )}
             </div>
         </div>
-    )
+    );
 }

@@ -8,8 +8,8 @@ import { useRouter } from "next/navigation";
 export default function Navigation() {
     const { completeUser, userloading } = useUserDetails();
     const { userId } = useUserId();
-    const router=useRouter();
-    const [signoutLoading,setSignoutLoading]=useState(false);
+    const router = useRouter();
+    const [signoutLoading, setSignoutLoading] = useState(false);
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
         setSignoutLoading(true);
@@ -20,11 +20,12 @@ export default function Navigation() {
             const data = await res.json()
             if (res.ok) {
                 router.push('/user/login')
+                setSignoutLoading(false);
             } else {
                 setSignoutLoading(false);
                 console.error("Sign out failed", data.message)
             }
-            setSignoutLoading(false);
+
         } catch (error) {
             setSignoutLoading(false);
             console.error("Error signing out", error)
@@ -54,7 +55,7 @@ export default function Navigation() {
                             <Link href={`/user/test-profile/${userId}`}>
                                 <Buttons className="cursor-pointer bg-slate-800">Profile</Buttons>
                             </Link>
-                            <Buttons onClick={handleSubmit} className="bg-red-800 cursor-pointer hover:bg-red-800">{signoutLoading ? "Signing you Out":"Sign Out"}</Buttons>
+                            <Buttons onClick={handleSubmit} className="bg-red-800 cursor-pointer hover:bg-red-800">{signoutLoading ? "Signing you Out" : "Sign Out"}</Buttons>
                         </div> :
                         <div className="flex items-center space-x-4">
                             <Link href='/user/login'>

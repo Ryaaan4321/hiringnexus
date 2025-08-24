@@ -8,7 +8,6 @@ import { cookies } from 'next/headers'
 import { revalidatePath } from 'next/cache'
 export interface AdminPayload extends JWTPayload {
   id: string,
-  // email: string
   role: string
   canDeleteJob: boolean
 }
