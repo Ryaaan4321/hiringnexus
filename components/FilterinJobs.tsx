@@ -65,7 +65,7 @@ export default function Filters({
         );
     return (
         <SidebarGroup>
-            <Link href={`/user/profile/${userId}`}>
+            <Link href={`/user/test-profile/${userId}`}>
                 <span className='text-sm font-medium text-blue-950 underline'>{`Welcome ${completeUser.name}`}</span>
             </Link>
             <SidebarMenu>

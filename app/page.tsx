@@ -49,7 +49,7 @@ export default function HomePage() {
               </div>
               {completeUser ?
                 <div>
-                  <Link href={`/user/profile/${userId}`}>
+                  <Link href={`/user/test-profile/${userId}`}>
                     <Buttons className="cursor-pointer bg-slate-800">Profile</Buttons>
                   </Link>
                 </div> :
@@ -376,7 +376,7 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center cursor-pointer">
               {completeUser ?
-                <Link href={`/user/profile/${userId}`}>
+                <Link href={`/user/test-profile/${userId}`}>
                   <Buttons
                     size="lg"
                     className="bg-white cursor-pointer text-slate-800 hover:bg-gray-100 px-8 py-3 text-lg font-semibold rounded-lg"

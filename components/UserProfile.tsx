@@ -21,7 +21,6 @@ export default function UserProfile() {
     const { userId, loading: useridLoading, err: useridError } = useUserId();
     const { completeUser, err } = useUserDetails();
     const {userGithubprofile,userGithubrepositories}=useGithub();
-   
     const handleSearch = async (searchUsername: string) => {
         try {
             setLoading(true);
@@ -70,7 +69,7 @@ export default function UserProfile() {
                     {loading ? (
                         <div className="h-full bg-gray-200 animate-pulse rounded"></div>
                     ) : (
-                        <UserProfileSidebar user={userdata} />
+                        <UserProfileSidebar userr={userdata} />
                     )}
                 </div>
                 <div className="flex-1">
@@ -108,4 +107,3 @@ export default function UserProfile() {
         </div>
     );
 }
-// min-h-screen bg-transparent relative z-10

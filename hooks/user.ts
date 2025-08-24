@@ -6,6 +6,8 @@ import { DB_GitHubProfile, DB_Repository, GitHubRepository } from "@/interfaces/
 import { getSavedGithubData } from "@/lib/github";
 import { recentappliedJob } from "@/interfaces/jobinterface";
 import { getRecentappliedJobsOfUser } from "@/app/actions/userserveraction";
+import { useAppDispatch, useAppSelector } from "./redux-hooks";
+import { fetchUser } from "@/redux/slices/userslice";
 export function useUserId() {
     const [userId, setUserId] = useState<string | null>(null);
     const [loading, setLoading] = useState(true);
@@ -24,32 +26,20 @@ export function useUserId() {
     }, []);
     return { userId, loading, err };
 }
-
 export function useUserDetails() {
-    const {userId,loading,err}=useUserId();
+    const dispatch = useAppDispatch();
+    const { user, userId, loading, err } = useAppSelector(
+        (state) => state.user
+    );
     const [completeUser, setCompleteUser] = useState<userDetail>();
-    const [userloading,setUserLoading]=useState(false);
+    const [userloading, setUserLoading] = useState(false);
     useEffect(() => {
-        setUserLoading(true);
-        async function fetchUsers() {
-            try {
-                if (!userId) {
-                    return;
-                }
-                const userdetail = await getDetailsofUser(userId);
-                if (userdetail) {
-                    setCompleteUser(userdetail);
-                }
-            } catch (e: any) {
-                return;
-            }
-        }
-
-        fetchUsers();
-        setUserLoading(false);
+       if(!user && !loading){
+        dispatch(fetchUser())
+       }
     }, [userId]);
 
-    return { completeUser, err ,userloading};
+    return { completeUser:user, userId, userloading:loading,err:err };
 }
 export function useUserFromParam() {
     const [user, setUser] = useState<userDetail>();
@@ -123,6 +113,6 @@ export function useRecentappliedJobs() {
         }
         fetchJobs();
     }, [userId]);
-    console.log("jobs from the hooks = ",jobs);
+    console.log("jobs from the hooks = ", jobs);
     return { jobs, loading, err }
 }

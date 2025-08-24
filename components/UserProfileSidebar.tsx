@@ -10,7 +10,7 @@ import { User, Briefcase, MapPin, Mail, Phone, ExternalLink, Plus, Edit3, Clock 
 import { useUserDetails } from "@/hooks/user"
 import { userDetail } from "@/interfaces/userinterface"
 
-export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
+export default function UserProfileSidebar({ userr }: { userr: userDetail | null }) {
     const { completeUser } = useUserDetails();
     if (!completeUser) {
         return (
@@ -92,7 +92,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
 
                     <div className="flex flex-wrap gap-2">
                         {completeUser.skills?.length > 0 ? (
-                            completeUser.skills.map((skill, index) => (
+                            completeUser.skills.map((skill:any, index:any) => (
                                 <Badge
                                     key={index}
                                     variant="secondary"
@@ -124,7 +124,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
 
                     <div className="space-y-2">
                         {completeUser.alreadyapplied && completeUser.alreadyapplied.length > 0 ? (
-                            completeUser.alreadyapplied.slice(0, 4)?.map((job) => (
+                            completeUser.alreadyapplied.slice(0, 4)?.map((job:any) => (
                                 <Link
                                     key={job.id}
                                     href={`/user/job/${job.id}`}

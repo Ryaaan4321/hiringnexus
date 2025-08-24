@@ -15,7 +15,7 @@ export default function UserCard({ userId }: { userId: string }) {
         fetchdata();
     },[])
     return (
-        <Link href={`/user/profile/${userId}`}>
+        <Link href={`/user/test-profile/${userId}`}>
             <div
                 className="mt-6 p-1 rounded-2xl bg-gray-100 shadow-sm flex items-center gap-4 group hover:bg-blue-100 transition-colors duration-200 cursor-pointer relative"
             >

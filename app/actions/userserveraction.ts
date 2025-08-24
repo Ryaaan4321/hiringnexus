@@ -75,7 +75,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                         joblink: true,
                         postedbyId: true,
                         timestamps: true,
-                        companyname:true,
+                        companyname: true,
                     },
                 },
                 githubprofile: {
@@ -108,6 +108,9 @@ export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
+        // if (!token) {
+        //     return null;
+        // }
         try {
             const secret = new TextEncoder().encode(process.env.SECRET_KEY);
             const { payload } = await jwtVerify(token, secret);
@@ -128,7 +131,7 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
             where: { id },
             data: fieldstoupdate
         })
-        revalidatePath(`/user/profile/${id}`)
+        revalidatePath(`/user/test-profile/${id}`)
         return updated;
     } catch (e: any) {
         return null;
@@ -168,7 +171,7 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
                 },
             }
         });
-        console.log("user with jobs from server actions = ",userwithjobs);
+        console.log("user with jobs from server actions = ", userwithjobs);
         return userwithjobs?.alreadyapplied || [];
     } catch (e: any) {
         return null;
