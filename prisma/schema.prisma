@@ -21,6 +21,7 @@ model User {
   skills         String[]       @default([])
   githubprofile  GitHubProfile?
   alreadyapplied jobschema[]    @relation("UserTojobschema")
+  Applications   Applications[]
 
   @@index([username, email])
 }
@@ -81,7 +82,7 @@ model Admin {
 }
 
 model jobschema {
-  id                  String    @id @default(uuid())
+  id                  String         @id @default(uuid())
   title               String
   descreption         String
   joblink             String
@@ -89,18 +90,29 @@ model jobschema {
   companyname         String
   experience          Int
   salary              Int
-  timestamps          DateTime  @default(now())
+  timestamps          DateTime       @default(now())
   jobTypes            JobType[]
-  languageRequirement String[]  @default([])
-  createdAt           DateTime? @default(now())
-  postedby            Admin     @relation(fields: [postedbyId], references: [id])
-  appliedusers        User[]    @relation("UserTojobschema")
-  location            String?   @default("")
+  languageRequirement String[]       @default([])
+  createdAt           DateTime?      @default(now())
+  postedby            Admin          @relation(fields: [postedbyId], references: [id])
+  appliedusers        User[]         @relation("UserTojobschema")
+  location            String?        @default("")
+  Applications        Applications[]
 
   @@index([timestamps])
   @@index([jobTypes])
   @@index([experience])
   @@index([salary])
+}
+
+// for the leaderboard bt may be i need to learn about the redis and those queues first
+model Applications {
+  id        String    @id @default(uuid())
+  student   User      @relation(fields: [studentId], references: [id])
+  studentId String
+  job       jobschema @relation(fields: [jobId], references: [id])
+  jobId     String
+  appliedAt DateTime?
 }
 
 enum JobType {

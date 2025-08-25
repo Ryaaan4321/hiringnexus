@@ -40,10 +40,10 @@ export default function HomePage() {
                 <Link href="/user/dashboard" className="text-gray-700 hover:text-slate-800 font-medium">
                   Jobs
                 </Link>
-                <Link href="/companies" className="text-gray-700 hover:text-slate-800 font-medium">
+                <Link href="/" className="text-gray-700 hover:text-slate-800 font-medium">
                   Companies
                 </Link>
-                <Link href="/students" className="text-gray-700 hover:text-slate-800 font-medium">
+                <Link href="/" className="text-gray-700 hover:text-slate-800 font-medium">
                   Students
                 </Link>
               </div>

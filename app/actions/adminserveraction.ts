@@ -1,4 +1,3 @@
-// C:\Users\aryan\Desktop\hiringnexus\app\admin\adminlist\page.tsx
 "use server"
 import client from '@/app/db'
 import { JWTPayload } from 'jose'
