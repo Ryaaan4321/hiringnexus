@@ -22,8 +22,7 @@ const getLanguageColor = (language: string | null): string => {
 }
 
 export function RenderGithubProfile({ profile }: { profile: any }) {
-    if (!profile) return null
-
+    if (!profile) return null;
     return (
         <Card className="border-0 mb-6">
             <CardContent className="p-6">

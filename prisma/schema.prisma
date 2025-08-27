@@ -20,6 +20,7 @@ model User {
   location       String?
   skills         String[]       @default([])
   githubprofile  GitHubProfile?
+  resumeURL      String?
   alreadyapplied jobschema[]    @relation("UserTojobschema")
   Applications   Applications[]
 

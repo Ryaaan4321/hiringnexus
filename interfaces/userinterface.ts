@@ -26,6 +26,7 @@ export interface userDetail {
   location:string |null;
   ctc:string|null;
   skills:string[]|[]
+  resumeURL:string|null;
   githubprofile: {
     id: string;
     username: string;

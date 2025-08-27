@@ -67,6 +67,7 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
                 location: true,
                 ctc: true,
                 skills: true,
+                resumeURL:true,
                 alreadyapplied: {
                     select: {
                         id: true,
@@ -175,6 +176,23 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
         return userwithjobs?.alreadyapplied || [];
     } catch (e: any) {
         return null;
+    }
+}
+export async function saveResume(userId: string, resumeUrl: string) {
+    if (!userId || !resumeUrl) {
+        throw new Error("user id or the resumeurl is missing")
+    }
+    console.log("user id = ",userId);
+    try {
+        const updatedUser = await client.user.update({
+            where: { id: userId },
+            data: { resumeURL:resumeUrl },
+        })
+
+        return { success: true, user: updatedUser }
+    } catch (err:any) {
+        console.log("there is an error on saving the resume ", err.message)
+        throw new Error("serrver errr")
     }
 }
 export async function userLogout() {

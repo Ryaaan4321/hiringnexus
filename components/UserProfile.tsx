@@ -69,7 +69,7 @@ export default function UserProfile() {
                     {loading ? (
                         <div className="h-full bg-gray-200 animate-pulse rounded"></div>
                     ) : (
-                        <UserProfileSidebar userr={userdata} />
+                        <UserProfileSidebar user={userdata} />
                     )}
                 </div>
                 <div className="flex-1">

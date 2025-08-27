@@ -10,7 +10,7 @@ import { GitHubRepository, GitHubProfile, DB_Repository, DB_GitHubProfile } from
 import { RenderGithubProfile } from "@/components/GithubProfileComponent"
 import { RenderGithubRepositories } from "@/components/GithubProfileComponent"
 import { useEffect } from "react";
-import { getDetailsofUser, getidOfUser } from "@/app/actions/userserveraction";
+import ResumeUploadTest from "@/components/UploadResume"
 import { userDetail } from "@/interfaces/userinterface";
 import UserProfileSidebar from "@/components/UserProfileSidebar"
 import GithubUserSearch from "@/components/GithubUserSearch"
@@ -57,7 +57,7 @@ export default function ProfilePreview() {
             setProfile(profileData);
             setRepositories(repoData);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to fetch data');
+            setError(err instanceof Error ? err.message : 'failed to fetch data');
             setProfile(null);
             setRepositories([]);
         } finally {
@@ -98,8 +98,12 @@ export default function ProfilePreview() {
                             </div>
                         </div>
                     </div> : <GithubUserSearch onSearch={handleSearch} />}
+                    {/* <div className="text-black rounded-lg  p-6">
+                        <ResumeUploadTest />
+                    </div> */}
                 </div>
             </div>
+
         </div>
     )
 }
