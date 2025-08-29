@@ -9,6 +9,8 @@ import Link from "next/link"
 import { User, Briefcase, MapPin, Mail, Phone, ExternalLink, Plus, Edit3, Clock } from "lucide-react"
 import { useUserDetails } from "@/hooks/user"
 import { userDetail } from "@/interfaces/userinterface"
+import { File } from 'lucide-react';
+import { Linkedin } from 'lucide-react';
 
 export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
     const { completeUser } = useUserDetails();
@@ -26,11 +28,12 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
             </Card>
         )
     }
+    console.log("complete user= ", completeUser);
     return (
         <Card className="w-full max-w-sm shadow-lg border-0 sticky top-6 ">
             <CardHeader className="pb-4">
                 <div className="flex flex-col items-center text-center">
-                    <div className="relative mb-4">
+                    <div className="relative mb-6">
                         <div className="w-20 h-20 bg-gradient-to-br from-slate-700 to-slate-900 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
                             {completeUser.name ? completeUser.name[0].toUpperCase() : "H"}
                         </div>
@@ -60,7 +63,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                 </div>
             </CardHeader>
 
-            <CardContent className="space-y-6">
+            <CardContent className="space-y-4">
                 {completeUser.descreption && (
                     <div>
                         <h3 className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
@@ -70,7 +73,23 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                         <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg">{completeUser.descreption}</p>
                     </div>
                 )}
-
+                <Separator />
+                {completeUser.resumeURL && (
+                    <div>
+                        <h3 className="text-sm font-semibold text-slate-700  flex items-center gap-2">
+                            <File className="w-4 h-4" />
+                            Resume
+                        </h3>
+                        <a
+                            href={completeUser.resumeURL}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-900  text-sm"
+                        >
+                            View Resume
+                        </a>
+                    </div>
+                )}
                 <Separator />
                 <div>
                     <div className="flex items-center justify-between mb-3">
@@ -86,13 +105,13 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                             Skills
                         </h3>
                         <Buttons size="sm" variant="ghost" className="h-6 px-2 text-slate-500 hover:text-slate-700">
-                            <Plus className="w-3 h-3" />
+                            {/* <Plus className="w-3 h-3" /> */}
                         </Buttons>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
                         {completeUser.skills?.length > 0 ? (
-                            completeUser.skills.map((skill:any, index:any) => (
+                            completeUser.skills.map((skill: any, index: any) => (
                                 <Badge
                                     key={index}
                                     variant="secondary"
@@ -124,7 +143,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
 
                     <div className="space-y-2">
                         {completeUser.alreadyapplied && completeUser.alreadyapplied.length > 0 ? (
-                            completeUser.alreadyapplied.slice(0, 4)?.map((job:any) => (
+                            completeUser.alreadyapplied.slice(0, 4)?.map((job: any) => (
                                 <Link
                                     key={job.id}
                                     href={`/user/job/${job.id}`}
@@ -199,11 +218,11 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                 </div>
                 {/* may be not now bt in future we will add this feature in our application */}
                 {/* <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 rounded-lg"> */}
-                    {/* <div className="flex items-center justify-between mb-2">
+                {/* <div className="flex items-center justify-between mb-2">
                         <span className="text-sm font-medium text-slate-700">Profile Completion</span>
                         <span className="text-sm font-bold text-slate-800">75%</span>
                     </div> */}
-                    {/* <div className="w-full bg-slate-200 rounded-full h-2">
+                {/* <div className="w-full bg-slate-200 rounded-full h-2">
                         <div className="bg-slate-800 h-2 rounded-full" style={{ width: "75%" }}></div>
                     </div>
                     <p className="text-xs text-slate-500 mt-2">Add more details to improve your visibility</p> */}

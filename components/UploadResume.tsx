@@ -13,7 +13,6 @@ export default function ResumeUploadTest() {
     if(!completeUser){
         return null;
     }
-
     async function uploadResume(file: File, userId: string) {
         const sigRes = await fetch("/api/resume/upload", {
             method: "POST",
@@ -21,7 +20,7 @@ export default function ResumeUploadTest() {
             headers: { "Content-Type": "application/json" },
         });
         if (!sigRes.ok) {
-            throw new Error("failed to get cloudinar signature");
+            throw new Error("failed to get cloudinary signature");
         }
         const sigData = await sigRes.json();
         console.log("sigData = ", sigData);

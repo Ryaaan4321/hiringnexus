@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "./ui/stateful-button";
 import { Buttons } from "./ui/button";
+import UploadResume from "./TestUploadResume";
 
 export default function EditUserDetails() {
   const router = useRouter();
@@ -56,7 +57,7 @@ export default function EditUserDetails() {
       console.error("Error updating profile:", e);
       alert("Something went wrong!");
     } finally {
-      setEditpageLoading(false); 
+      setEditpageLoading(false);
     }
   }
   return (
@@ -100,6 +101,8 @@ export default function EditUserDetails() {
                 onChange={(e) => handlechange("skills", e.target.value)}
               />
             </div>
+            <Separator className="my-6" />
+            <UploadResume />
 
             <div className="flex justify-end">
               <Button className="bg-blue-900 hover:ring-blue-900">

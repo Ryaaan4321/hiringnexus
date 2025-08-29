@@ -98,9 +98,6 @@ export default function ProfilePreview() {
                             </div>
                         </div>
                     </div> : <GithubUserSearch onSearch={handleSearch} />}
-                    {/* <div className="text-black rounded-lg  p-6">
-                        <ResumeUploadTest />
-                    </div> */}
                 </div>
             </div>
 
