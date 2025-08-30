@@ -34,15 +34,12 @@ export default function ElegantJobForm() {
         const form = event.currentTarget
         const formData = new FormData(form)
         const data: any = {}
-
         formData.forEach((value, key) => {
             data[key] = value
         })
-
         data.jobTypes = [data.jobTypes]
         data.experience = Number.parseInt(data.experience)
         data.salary = Number.parseInt(data.salary)
-
         try {
             const response = await fetch("/api/admin/jobpost", {
                 method: "POST",

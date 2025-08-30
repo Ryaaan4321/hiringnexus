@@ -7,10 +7,13 @@ import JobCards from "@/components/NewJobCard";
 import { UserSidebar } from "@/components/UserSidebar";
 import { useEffect } from "react";
 import { selectFilteredJobs } from "@/redux/slices/jobs/jobsSelector";
+import { useUserDetails } from "@/hooks/user";
+import { redirect } from "next/navigation";
 
 export default function Page() {
     const dispatch = useAppDispatch();
     const jobs = useAppSelector(selectFilteredJobs);
+    const { completeUser, err } = useUserDetails();
     const { filters, loading, error } = useAppSelector((state) => state.filteredJobs);
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -33,6 +36,9 @@ export default function Page() {
 
         dispatch(setfilters(convertedFilters));
     };
+    if(!completeUser){
+        redirect("/user/login")
+    }
 
     return (
         <div className="flex">

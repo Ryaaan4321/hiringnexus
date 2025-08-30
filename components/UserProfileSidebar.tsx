@@ -126,9 +126,11 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
                                     <Plus className="w-8 h-8 mx-auto" />
                                 </div>
                                 <p className="text-sm text-slate-500">No skills added yet</p>
-                                <Buttons size="sm" variant="outline" className="mt-2 text-xs bg-transparent">
-                                    Add Skills
-                                </Buttons>
+                                <Link href='/user/edit-page'>
+                                    <Buttons size="sm" variant="outline" className="mt-2 text-xs bg-transparent cursor-pointer">
+                                        Add Skills
+                                    </Buttons>
+                                </Link>
                             </div>
                         )}
                     </div>

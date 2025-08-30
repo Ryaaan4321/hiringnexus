@@ -2,6 +2,7 @@
 "use client";
 
 import Filters from "./FilterinJobs";
+import { redirect } from "next/navigation";
 import { useState } from "react";
 import { useUserId } from "@/hooks/user";
 import { FilterState } from "./SidebarII";
@@ -41,7 +42,7 @@ export function UserSidebar({
 
 
   if (!completeUser) {
-    return "something went wrong in the login"
+    redirect("/user/login")
   }
 
   const data1 = {
