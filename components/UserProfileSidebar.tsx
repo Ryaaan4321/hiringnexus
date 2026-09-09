@@ -1,235 +1,209 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Buttons } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import Link from "next/link"
-import { User, Briefcase, MapPin, Mail, Phone, ExternalLink, Plus, Edit3, Clock } from "lucide-react"
-import { useUserDetails } from "@/hooks/user"
-import { userDetail } from "@/interfaces/userinterface"
-import { File } from 'lucide-react';
-import { Linkedin } from 'lucide-react';
+import Link from "next/link";
+import { userDetail } from "@/interfaces/userinterface";
+import { useUserId } from "@/hooks/user";
+import {
+  Briefcase,
+  MapPin,
+  Mail,
+  Phone,
+  ExternalLink,
+  Edit3,
+  Clock,
+  FileText,
+  ShieldCheck,
+  Code2,
+} from "lucide-react";
 
 export default function UserProfileSidebar({ user }: { user: userDetail | null }) {
-    const { completeUser } = useUserDetails();
-    if (!completeUser) {
-        return (
-            <Card className="w-full max-w-sm shadow-lg border-0">
-                <CardContent className="flex items-center justify-center py-12">
-                    <div className="text-center">
-                        <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                            <User className="w-6 h-6 text-slate-400" />
-                        </div>
-                        <p className="text-slate-500 font-medium">Please login or wait!</p>
-                    </div>
-                </CardContent>
-            </Card>
-        )
-    }
-    console.log("complete user= ", completeUser);
+  const { userId } = useUserId();
+
+  if (!user) {
     return (
-        <Card className="w-full max-w-sm shadow-lg border-0 sticky top-6 ">
-            <CardHeader className="pb-4">
-                <div className="flex flex-col items-center text-center">
-                    <div className="relative mb-6">
-                        <div className="w-20 h-20 bg-gradient-to-br from-slate-700 to-slate-900 text-white rounded-full flex items-center justify-center text-2xl font-bold shadow-lg">
-                            {completeUser.name ? completeUser.name[0].toUpperCase() : "H"}
-                        </div>
-                        <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
-                    </div>
+      <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-8 text-center space-y-3">
+        <div className="w-10 h-10 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center mx-auto text-neutral-400">
+          <ShieldCheck className="w-5 h-5" />
+        </div>
+        <p className="text-xs font-mono text-neutral-500">
+          [ WAITING_FOR_CANDIDATE_DATA ]
+        </p>
+      </div>
+    );
+  }
 
-                    <div className="space-y-1">
-                        <h2 className="text-xl font-bold text-slate-800">{completeUser.name}</h2>
-                        <div className="flex items-center gap-1 text-slate-600">
-                            <Briefcase className="w-4 h-4" />
-                            <span className="text-sm font-medium capitalize">{completeUser.profession}</span>
-                        </div>
-                    </div>
-                    <div className="flex gap-2 mt-4 w-full">
-                        <Link href="/user/edit-page" className="flex-1">
-                            <Buttons
-                                size="sm"
-                                className="w-full bg-slate-800 hover:bg-slate-700 cursor-pointer flex items-center justify-center"
-                            >
-                                <Edit3 className="w-4 h-4 mr-1" />
-                                Edit Profile
+  const isOwner = userId === user.id;
 
-                            </Buttons>
-                        </Link>
-                    </div>
+  return (
+    <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 shadow-sm p-6 space-y-6 sticky top-20">
+      {/* Profile Header */}
+      <div className="flex flex-col items-center text-center pb-6 border-b border-neutral-100 dark:border-neutral-800">
+        <div className="relative mb-4">
+          <div className="w-20 h-20 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center text-2xl font-bold font-mono shadow-sm">
+            {user.name ? user.name[0].toUpperCase() : "U"}
+          </div>
+          <div className="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-emerald-500 border-2 border-white dark:border-neutral-900 flex items-center justify-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
+          </div>
+        </div>
 
-                </div>
-            </CardHeader>
+        <div className="space-y-1">
+          <div className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-400 mb-1">
+            <ShieldCheck className="w-3 h-3 text-emerald-500" />
+            <span>VERIFIED_ENGINEER</span>
+          </div>
+          <h2 className="text-xl font-bold tracking-tight text-neutral-900 dark:text-white">
+            {user.name}
+          </h2>
+          <p className="text-xs font-mono text-neutral-500 capitalize">
+            {user.profession || "Software Engineer"}
+          </p>
+        </div>
 
-            <CardContent className="space-y-4">
-                {completeUser.descreption && (
-                    <div>
-                        <h3 className="text-sm font-semibold text-slate-700 mb-2 flex items-center gap-2">
-                            <User className="w-4 h-4" />
-                            About
-                        </h3>
-                        <p className="text-sm text-slate-600 leading-relaxed bg-slate-50 p-3 rounded-lg">{completeUser.descreption}</p>
-                    </div>
-                )}
-                <Separator />
-                {completeUser.resumeURL && (
-                    <div>
-                        <h3 className="text-sm font-semibold text-slate-700  flex items-center gap-2">
-                            <File className="w-4 h-4" />
-                            Resume
-                        </h3>
-                        <a
-                            href={completeUser.resumeURL}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-900  text-sm"
-                        >
-                            View Resume
-                        </a>
-                    </div>
-                )}
-                <Separator />
-                <div>
-                    <div className="flex items-center justify-between mb-3">
-                        <h3 className="text-sm font-semibold text-slate-700 flex items-center gap-2">
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth={2}
-                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
-                                />
-                            </svg>
-                            Skills
-                        </h3>
-                        <Buttons size="sm" variant="ghost" className="h-6 px-2 text-slate-500 hover:text-slate-700">
-                            {/* <Plus className="w-3 h-3" /> */}
-                        </Buttons>
-                    </div>
+        {isOwner && (
+          <div className="mt-4 w-full">
+            <Link
+              href="/user/edit-page"
+              className="hb-bracket w-full inline-flex items-center justify-center gap-1.5 py-2 px-4 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-950 text-xs font-mono text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all cursor-pointer"
+            >
+              <Edit3 className="w-3.5 h-3.5" />
+              <span className="bracket">[ </span>
+              <span>Edit Coordinates</span>
+              <span className="bracket"> ]</span>
+            </Link>
+          </div>
+        )}
+      </div>
 
-                    <div className="flex flex-wrap gap-2">
-                        {completeUser.skills?.length > 0 ? (
-                            completeUser.skills.map((skill: any, index: any) => (
-                                <Badge
-                                    key={index}
-                                    variant="secondary"
-                                    className="bg-slate-100 text-slate-700 hover:bg-slate-200 transition-colors"
-                                >
-                                    {skill}
-                                </Badge>
-                            ))
-                        ) : (
-                            <div className="w-full text-center py-4">
-                                <div className="text-slate-400 mb-2">
-                                    <Plus className="w-8 h-8 mx-auto" />
-                                </div>
-                                <p className="text-sm text-slate-500">No skills added yet</p>
-                                <Link href='/user/edit-page'>
-                                    <Buttons size="sm" variant="outline" className="mt-2 text-xs bg-transparent cursor-pointer">
-                                        Add Skills
-                                    </Buttons>
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-                </div>
+      {/* About / Manifesto */}
+      {user.descreption && (
+        <div className="space-y-2 pb-4 border-b border-neutral-100 dark:border-neutral-800">
+          <span className="block font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
+            [ TECHNICAL_MANIFESTO ]
+          </span>
+          <p className="text-xs text-neutral-600 dark:text-neutral-400 leading-relaxed font-sans bg-neutral-50/60 dark:bg-neutral-950/60 p-3 rounded-lg border border-neutral-100 dark:border-neutral-800">
+            {user.descreption}
+          </p>
+        </div>
+      )}
 
-                <Separator />
-                <div>
-                    <h3 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
-                        <Clock className="w-4 h-4" />
-                        Recent Jobs You Viewed
-                    </h3>
+      {/* Core Verified Skills */}
+      <div className="space-y-2 pb-4 border-b border-neutral-100 dark:border-neutral-800">
+        <div className="flex items-center justify-between">
+          <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
+            [ VERIFIED_SKILLS ]
+          </span>
+          <span className="text-[10px] font-mono text-neutral-400">
+            {user.skills?.length || 0} indexed
+          </span>
+        </div>
 
-                    <div className="space-y-2">
-                        {completeUser.alreadyapplied && completeUser.alreadyapplied.length > 0 ? (
-                            completeUser.alreadyapplied.slice(0, 4)?.map((job: any) => (
-                                <Link
-                                    key={job.id}
-                                    href={`/user/job/${job.id}`}
-                                    className="group block p-3 rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-all"
-                                >
-                                    <div className="flex items-start justify-between">
-                                        <div key={job.id} className="flex-1 min-w-0">
-                                            <h4 className="text-sm font-medium text-slate-800 group-hover:text-slate-900 truncate">
-                                                {job.title}
-                                            </h4>
-                                            <p className="text-xs text-slate-600 mt-1 flex items-center gap-1">
-                                                <Briefcase className="w-3 h-3" />
-                                                {job.companyname}
-                                            </p>
+        <div className="flex flex-wrap gap-1.5">
+          {user.skills && user.skills.length > 0 ? (
+            user.skills.map((skill: string, index: number) => (
+              <span
+                key={index}
+                className="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700"
+              >
+                {skill}
+              </span>
+            ))
+          ) : (
+            <span className="text-xs font-mono text-neutral-400">
+              No technical skills cataloged yet
+            </span>
+          )}
+        </div>
+      </div>
 
-                                        </div>
-                                        <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-slate-600 flex-shrink-0 ml-2" />
-                                    </div>
-                                </Link>
-                            ))
-                        ) : (
-                            <div className="text-center py-6">
-                                <div className="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                                    <Briefcase className="w-6 h-6 text-slate-400" />
-                                </div>
-                                <p className="text-sm text-slate-500 mb-2">No recent applications</p>
-                                <Link href="/user/dashboard">
-                                    <Buttons size="sm" variant="outline" className="text-xs bg-transparent cursor-pointer">
-                                        Browse Jobs
-                                    </Buttons>
-                                </Link>
-                            </div>
-                        )}
-                    </div>
-                    {completeUser.alreadyapplied && completeUser.alreadyapplied.length > 4 && (
-                        <div className="mt-3 text-center">
-                            <Link href="/user/applications">
-                                <Buttons size="sm" variant="ghost" className="text-xs text-slate-600 hover:text-slate-800">
-                                    View All Applications
-                                </Buttons>
-                            </Link>
-                        </div>
-                    )}
-                </div>
-                <Separator />
-                <div>
-                    <h3 className="text-sm font-semibold text-slate-700 mb-3 flex items-center gap-2">
-                        <Mail className="w-4 h-4" />
-                        Contact
-                    </h3>
+      {/* Resume Artifact */}
+      {user.resumeURL && (
+        <div className="space-y-2 pb-4 border-b border-neutral-100 dark:border-neutral-800">
+          <span className="block font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
+            [ RESUME_TELEMETRY ]
+          </span>
+          <a
+            href={user.resumeURL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-between p-2.5 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors group"
+          >
+            <div className="flex items-center gap-2">
+              <FileText className="w-4 h-4 text-neutral-500" />
+              <span className="text-xs font-mono font-medium text-neutral-800 dark:text-neutral-200">
+                Verified Resume PDF
+              </span>
+            </div>
+            <ExternalLink className="w-3.5 h-3.5 text-neutral-400 group-hover:text-neutral-800 dark:group-hover:text-white transition-colors" />
+          </a>
+        </div>
+      )}
 
-                    <div className="space-y-2 text-sm">
-                        {completeUser.email && (
-                            <div className="flex items-center gap-2 text-slate-600">
-                                <Mail className="w-3 h-3" />
-                                <span className="truncate">{completeUser.email}</span>
-                            </div>
-                        )}
-                        {completeUser.phonenumber && (
-                            <div className="flex items-center gap-2 text-slate-600">
-                                <Phone className="w-3 h-3" />
-                                <span>{completeUser.phonenumber}</span>
-                            </div>
-                        )}
-                        {completeUser.location && (
-                            <div className="flex items-center gap-2 text-slate-600">
-                                <MapPin className="w-3 h-3" />
-                                <span>{completeUser.location}</span>
-                            </div>
-                        )}
-                    </div>
-                </div>
-                {/* may be not now bt in future we will add this feature in our application */}
-                {/* <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 rounded-lg"> */}
-                {/* <div className="flex items-center justify-between mb-2">
-                        <span className="text-sm font-medium text-slate-700">Profile Completion</span>
-                        <span className="text-sm font-bold text-slate-800">75%</span>
-                    </div> */}
-                {/* <div className="w-full bg-slate-200 rounded-full h-2">
-                        <div className="bg-slate-800 h-2 rounded-full" style={{ width: "75%" }}></div>
-                    </div>
-                    <p className="text-xs text-slate-500 mt-2">Add more details to improve your visibility</p> */}
-                {/* </div> */}
-            </CardContent>
-        </Card>
-    )
+      {/* Compensation & Location Coordinates */}
+      <div className="space-y-2.5 pb-4 border-b border-neutral-100 dark:border-neutral-800 text-xs font-mono">
+        <span className="block font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
+          [ PARAMETERS & COORDINATES ]
+        </span>
+
+        {user.ctc && (
+          <div className="flex items-center justify-between text-neutral-700 dark:text-neutral-300">
+            <span className="text-neutral-400">Target CTC:</span>
+            <span className="font-semibold text-neutral-900 dark:text-white">
+              {user.ctc}
+            </span>
+          </div>
+        )}
+
+        {user.location && (
+          <div className="flex items-center justify-between text-neutral-700 dark:text-neutral-300">
+            <span className="text-neutral-400 flex items-center gap-1">
+              <MapPin className="w-3 h-3" /> Base:
+            </span>
+            <span className="text-right truncate max-w-[160px]">{user.location}</span>
+          </div>
+        )}
+
+        {user.email && (
+          <div className="flex items-center justify-between text-neutral-700 dark:text-neutral-300">
+            <span className="text-neutral-400 flex items-center gap-1">
+              <Mail className="w-3 h-3" /> Email:
+            </span>
+            <span className="truncate max-w-[160px]">{user.email}</span>
+          </div>
+        )}
+
+        {user.phonenumber && (
+          <div className="flex items-center justify-between text-neutral-700 dark:text-neutral-300">
+            <span className="text-neutral-400 flex items-center gap-1">
+              <Phone className="w-3 h-3" /> Phone:
+            </span>
+            <span>{user.phonenumber}</span>
+          </div>
+        )}
+      </div>
+
+      {/* Recent Viewed Roles */}
+      {user.alreadyapplied && user.alreadyapplied.length > 0 && (
+        <div className="space-y-2">
+          <span className="block font-mono text-[10px] text-neutral-400 uppercase tracking-wider">
+            [ RECENT_ROLES_EXPLORED ]
+          </span>
+          <div className="space-y-1.5">
+            {user.alreadyapplied.slice(0, 3).map((job: any) => (
+              <Link
+                key={job.id}
+                href={`/user/job/${job.id}`}
+                className="flex items-center justify-between p-2 rounded border border-neutral-100 dark:border-neutral-800 hover:bg-neutral-50 dark:hover:bg-neutral-850 text-xs transition-colors group"
+              >
+                <span className="truncate font-medium text-neutral-800 dark:text-neutral-200 group-hover:text-neutral-900 dark:group-hover:text-white">
+                  {job.title}
+                </span>
+                <ExternalLink className="w-3 h-3 text-neutral-400 shrink-0 ml-1" />
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
