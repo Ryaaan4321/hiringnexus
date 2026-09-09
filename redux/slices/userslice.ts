@@ -49,6 +49,8 @@ const userSlice = createSlice({
         clearUser: (state) => {
             state.user = null;
             state.userId = null;
+            state.err = null;
+            state.loading = false;
         },
     },
     extraReducers: (builder) => {

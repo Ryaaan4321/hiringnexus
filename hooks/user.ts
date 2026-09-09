@@ -31,15 +31,14 @@ export function useUserDetails() {
     const { user, userId, loading, err } = useAppSelector(
         (state) => state.user
     );
-    const [completeUser, setCompleteUser] = useState<userDetail>();
-    const [userloading, setUserLoading] = useState(false);
-    useEffect(() => {
-       if(!user && !loading){
-        dispatch(fetchUser())
-       }
-    }, [userId]);
 
-    return { completeUser:user, userId, userloading:loading,err:err };
+    useEffect(() => {
+        if (!user && !loading && !err) {
+            dispatch(fetchUser());
+        }
+    }, [user, loading, err, dispatch]);
+
+    return { completeUser: user, userId, userloading: loading, err };
 }
 export function useUserFromParam() {
     const [user, setUser] = useState<userDetail>();

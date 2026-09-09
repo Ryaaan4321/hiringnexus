@@ -45,6 +45,17 @@ export default function Page() {
         }
     }, [userloading, completeUser, err, router]);
 
+    if (userloading || (!completeUser && !err)) {
+        return (
+            <div className="min-h-[60vh] flex items-center justify-center text-neutral-500 font-mono text-xs">
+                <div className="flex items-center gap-2">
+                    <span className="inline-block w-2 h-2 rounded-full bg-neutral-900 dark:bg-white animate-pulse" />
+                    <span>[ Verifying verified candidate credentials... ]</span>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex">
             <UserSidebar onApply={handleApplyFilters} />
