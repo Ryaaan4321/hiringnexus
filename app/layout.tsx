@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "./StoreProvider";
-import Navigation from "@/components/Navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,9 +13,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#111827" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
-  title: "HiringNexus",
-  description: "",
+  title: "HiringNexus — Verified Engineering Talent & Real-time Hiring Signals",
+  description:
+    "A human-centered hiring platform evaluating real engineering artifacts, GitHub telemetry, and direct employer connections without recruiter noise.",
+  keywords: ["engineering hiring", "developer jobs", "github verification", "technical recruitment"],
+  openGraph: {
+    title: "HiringNexus — Verified Engineering Talent",
+    description: "Evaluated by proof, not keyword-stuffed resumes.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

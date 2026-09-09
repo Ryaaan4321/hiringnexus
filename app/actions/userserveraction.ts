@@ -109,9 +109,9 @@ export async function getidOfUser(): Promise<string | null> {
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;
-        // if (!token) {
-        //     return null;
-        // }
+        if (!token) {
+            return null;
+        }
         try {
             const secret = new TextEncoder().encode(process.env.SECRET_KEY);
             const { payload } = await jwtVerify(token, secret);

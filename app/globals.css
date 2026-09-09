@@ -256,6 +256,24 @@ td {
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
   * {
     @apply border-border outline-ring/50;
   }
@@ -264,3 +282,54 @@ td {
     @apply bg-background text-foreground;
   }
 }
+
+/* humanbehavior.co inspired bracket micro-interaction */
+.hb-bracket {
+  display: inline-flex;
+  align-items: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hb-bracket::before {
+  content: '[';
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin 0.2s ease;
+  margin-right: 0;
+  color: currentColor;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.hb-bracket::after {
+  content: ']';
+  max-width: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-width 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, margin 0.2s ease;
+  margin-left: 0;
+  color: currentColor;
+  font-family: var(--font-geist-mono), monospace;
+}
+
+.hb-bracket:hover::before,
+.group:hover .hb-bracket::before {
+  max-width: 1em;
+  opacity: 0.8;
+  margin-right: 0.35rem;
+}
+
+.hb-bracket:hover::after,
+.group:hover .hb-bracket::after {
+  max-width: 1em;
+  opacity: 0.8;
+  margin-left: 0.35rem;
+}
+
+/* Subtle architectural dashed guideline */
+.hb-dashed-border {
+  background-image: repeating-linear-gradient(to bottom, #e4e4e7 0, #e4e4e7 6px, transparent 6px, transparent 12px);
+}
+.dark .hb-dashed-border {
+  background-image: repeating-linear-gradient(to bottom, #27272a 0, #27272a 6px, transparent 6px, transparent 12px);
+}

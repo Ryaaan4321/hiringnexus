@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from "uuid";
 import jwt from 'jsonwebtoken';
 import { cookies } from "next/headers";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
         const body = await req.json();
         const cookiestore = await cookies();
@@ -36,7 +36,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         return NextResponse.json({ msg: e.message || "error in the admin signup func" }, { status: 500 });
     }
 }
-export async function GET(req: NextResponse) {
+export async function GET(req: NextRequest) {
     try {
         const response = await client.user.findMany({});
         return NextResponse.json({ response });
