@@ -44,10 +44,12 @@ export function TeamSwitcher({
       await fetch('/api/logout', {
         method: 'POST',
         cache: 'no-store'
-      })
-      await userLogout
-      router.push('/user/dashboard')
+      });
+      await userLogout();
+      router.push('/user/login');
+      router.refresh();
     } catch (e: any) {
+      console.error("Logout error:", e);
     }
   }
 

@@ -127,12 +127,16 @@ export async function getidOfUser(): Promise<string | null> {
 }
 export async function updateUserDetails(id: string, fieldstoupdate: Partial<safeuserupdateinput>) {
     try {
-        if (!id) return { success: false, msg: "please please login first!" };
+        const callerId = await getidOfUser();
+        if (!callerId) return { success: false, msg: "Please login first!" };
+        if (id && id !== callerId) {
+            return { success: false, msg: "Unauthorized: Cannot modify another user's profile" };
+        }
         const updated = await client.user.update({
-            where: { id },
+            where: { id: callerId },
             data: fieldstoupdate
-        })
-        revalidatePath(`/user/test-profile/${id}`)
+        });
+        revalidatePath(`/user/test-profile/${callerId}`);
         return updated;
     } catch (e: any) {
         return null;
@@ -179,20 +183,22 @@ export async function getRecentappliedJobsOfUser(userId: string): Promise<recent
     }
 }
 export async function saveResume(userId: string, resumeUrl: string) {
-    if (!userId || !resumeUrl) {
-        throw new Error("user id or the resumeurl is missing")
+    const callerId = await getidOfUser();
+    if (!callerId) {
+        throw new Error("Authentication required to save resume");
     }
-    console.log("user id = ",userId);
+    if (userId && userId !== callerId) {
+        throw new Error("Unauthorized to update this user's resume");
+    }
     try {
         const updatedUser = await client.user.update({
-            where: { id: userId },
-            data: { resumeURL:resumeUrl },
-        })
+            where: { id: callerId },
+            data: { resumeURL: resumeUrl },
+        });
 
-        return { success: true, user: updatedUser }
-    } catch (err:any) {
-        console.log("there is an error on saving the resume ", err.message)
-        throw new Error("serrver errr")
+        return { success: true, user: updatedUser };
+    } catch (err: any) {
+        throw new Error("Server error saving resume");
     }
 }
 export async function userLogout() {

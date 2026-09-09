@@ -19,8 +19,7 @@ export async function POST(req: NextRequest) {
         const body = await req.json();
       
         const admin = await client.admin.findUnique({
-            where: { id: adminId, canDeleteJob: true },
-
+            where: { id: adminId, canPostJob: true },
         });
         if (!admin) {
             return NextResponse.json({ msg: "admin not found from the token or you are not authorized please refresh the page if u are logged in" }, { status: 404 });

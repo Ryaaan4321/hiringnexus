@@ -88,10 +88,20 @@ export async function getFilteredJobs(filters: jobFilters) {
                         }
                     } : {},
                     filters.salaryRange ? {
-                        salary: {
-                            gte: filters.salaryRange[0] * 100000,
-                            lte: filters.salaryRange[1] * 100000
-                        }
+                        OR: [
+                            {
+                                salary: {
+                                    gte: filters.salaryRange[0],
+                                    lte: filters.salaryRange[1]
+                                }
+                            },
+                            {
+                                salary: {
+                                    gte: filters.salaryRange[0] * 100000,
+                                    lte: filters.salaryRange[1] * 100000
+                                }
+                            }
+                        ]
                     } : {}
                 ].filter(condition => Object.keys(condition).length > 0)
             },

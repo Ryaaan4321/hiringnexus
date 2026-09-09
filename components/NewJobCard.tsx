@@ -24,10 +24,10 @@ export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface
   function AlreadyApplied({ jobId, jobLink }: { jobId: string; jobLink: string }) {
     if (!userId || !isLoggedIn) {
       return (
-        <Link href="/login">
-          <Buttons size="sm" className="bg-slate-800 hover:bg-slate-700 text-white">
-            <ExternalLink className="w-4 h-4 mr-1" />
-            Sign in to Apply
+        <Link href="/user/login">
+          <Buttons size="sm" className="bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 dark:text-neutral-900 text-white rounded-md">
+            <ExternalLink className="w-3.5 h-3.5 mr-1" />
+            <span className="hb-bracket">Sign in to Apply</span>
           </Buttons>
         </Link>
       )
@@ -155,31 +155,31 @@ export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface
     return diffDays === 0 ? "Today" : `${diffDays} day${diffDays > 1 ? "s" : ""} ago`
   }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
       {job.map((item) => (
         <Card
           key={item.id}
-          className="group hover:shadow-xl transition-all duration-300 border-0 shadow-lg hover:-translate-y-1"
+          className="group hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xs hover:shadow-sm"
         >
-          <CardHeader className="pb-4">
+          <CardHeader className="pb-3">
             <Link href={`/user/job/${item.id}`} className="block">
-              <div className="flex items-start gap-3 mb-3">
-                <div className="w-12 h-12 bg-gradient-to-br from-slate-700 to-slate-900 text-white flex items-center justify-center rounded-xl text-lg font-bold shadow-md ">
+              <div className="flex items-start gap-3 mb-2.5">
+                <div className="w-10 h-10 bg-neutral-950 dark:bg-neutral-100 text-white dark:text-neutral-950 flex items-center justify-center rounded-lg text-sm font-bold font-mono shadow-xs">
                   {item.title?.[0]?.toUpperCase() || "H"}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <CardTitle className="text-lg font-bold text-slate-800  transition-colors line-clamp-2">
+                  <CardTitle className="text-base font-semibold text-neutral-900 dark:text-white transition-colors line-clamp-1">
                     {item.title}
                   </CardTitle>
-                  <div className="flex items-center gap-1 mt-1 text-slate-600">
-                    <Building2 className="w-4 h-4" />
-                    <span className="text-sm font-medium">{item.companyname}</span>
+                  <div className="flex items-center gap-1 mt-0.5 text-neutral-500 text-xs">
+                    <Building2 className="w-3.5 h-3.5" />
+                    <span className="font-medium truncate">{item.companyname}</span>
                   </div>
                 </div>
               </div>
 
               {item.descreption && (
-                <p className="text-sm text-slate-600 line-clamp-2 leading-relaxed">{item.descreption}</p>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed">{item.descreption}</p>
               )}
             </Link>
           </CardHeader>
@@ -203,7 +203,9 @@ export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface
               <div className="flex items-center gap-2 text-sm">
                 <DollarSign className="w-4 h-4 text-slate-500" />
                 <span className="text-slate-600">Salary</span>
-                <span className="font-semibold text-green-600">{item.salary}</span>
+                <span className="font-semibold text-emerald-600 font-mono text-xs">
+                  ₹{item.salary > 150 ? (item.salary / 100000).toFixed(0) : item.salary} LPA
+                </span>
               </div>
 
               {item.location && (

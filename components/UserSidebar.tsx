@@ -41,21 +41,17 @@ export function UserSidebar({
   };
 
 
-  if (!completeUser) {
-    redirect("/user/login")
-  }
-
   const data1 = {
     user: {
-      name: completeUser.name,
-      email: completeUser.email,
+      name: completeUser?.name || "User",
+      email: completeUser?.email || "",
       avatar: ""
     },
     teams: [
       {
-        name: completeUser.name,
+        name: completeUser?.name || "User Account",
         logo: Asterisk,
-        plan: "",
+        plan: completeUser?.profession || "Developer",
       }
     ]
   }

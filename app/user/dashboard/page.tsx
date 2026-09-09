@@ -8,13 +8,15 @@ import { UserSidebar } from "@/components/UserSidebar";
 import { useEffect } from "react";
 import { selectFilteredJobs } from "@/redux/slices/jobs/jobsSelector";
 import { useUserDetails } from "@/hooks/user";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
+    const router = useRouter();
     const dispatch = useAppDispatch();
     const jobs = useAppSelector(selectFilteredJobs);
-    const { completeUser, err } = useUserDetails();
+    const { completeUser, userloading, err } = useUserDetails();
     const { filters, loading, error } = useAppSelector((state) => state.filteredJobs);
+
     useEffect(() => {
         const timer = setTimeout(() => {
             dispatch(fetchFilteredJobs(filters));
@@ -36,9 +38,12 @@ export default function Page() {
 
         dispatch(setfilters(convertedFilters));
     };
-    if(!completeUser){
-        redirect("/user/login")
-    }
+
+    useEffect(() => {
+        if (!userloading && !completeUser && err) {
+            router.push("/user/login");
+        }
+    }, [userloading, completeUser, err, router]);
 
     return (
         <div className="flex">

@@ -96,6 +96,9 @@ export async function deleteJob(jobId: string) {
       return { succes: false, msg: "permission denied,you cannot delete the jobs" }
     }
     const deleteRelation = await client.$transaction([
+      client.applications.deleteMany({
+        where: { jobId }
+      }),
       client.$executeRaw`
         DELETE FROM "_UserTojobschema" 
         WHERE "B" = ${jobId}
