@@ -1,19 +1,11 @@
-"use client";
-
-import Navigation from "@/components/Navigation";
-import { usePathname } from "next/navigation";
-
-export default function UsersLayout({ children }: { children: React.ReactNode }) {
-  const pathname = usePathname();
-  const isAuthPage = pathname === "/user/login" || pathname === "/user/signup";
-
+export default function UsersLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <section className="min-h-screen">
-      {!isAuthPage && <Navigation />}
-      <div className={!isAuthPage ? "pt-16" : ""}>
-        {children}
-      </div>
-    </section>
+    <div className="min-h-screen bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 antialiased">
+      {children}
+    </div>
   );
 }
-  

@@ -1,253 +1,148 @@
-"use client"
+"use client";
 
-import Link from "next/link"
-import { useState } from "react"
-import type { jobinterface } from "@/interfaces/jobinterface"
-import { useUserId } from "@/hooks/user"
-import { visitedJobs } from "@/app/actions/userserveraction"
-import { deleteJob } from "@/app/actions/adminserveraction"
-import { useAdmin } from "@/hooks/admin"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Buttons } from "@/components/ui/button"
-import { Building2, User, Clock, DollarSign, MapPin, ExternalLink, Trash2, Calendar, Briefcase } from "lucide-react"
+import Link from "next/link";
+import { useState } from "react";
+import type { jobinterface } from "@/interfaces/jobinterface";
+import { useUserId } from "@/hooks/user";
+import { visitedJobs } from "@/app/actions/userserveraction";
+import {
+  Building2,
+  ExternalLink,
+  Calendar,
+  Briefcase,
+  ShieldCheck,
+  CheckCircle2,
+  ArrowUpRight,
+} from "lucide-react";
 
-export default function JobCards({ job, isLoggedIn = true }: { job: jobinterface[]; isLoggedIn?: boolean }) {
-  const { userId, loading, err } = useUserId()
-  const { admindata } = useAdmin()
-  const [deletingJobs, setDeletingJobs] = useState<Set<string>>(new Set())
-  const [visitingJobs, setVisitingJobs] = useState<Set<string>>(new Set())
+export default function JobCards({
+  job,
+  isLoggedIn = true,
+}: {
+  job: jobinterface[];
+  isLoggedIn?: boolean;
+}) {
+  const { userId } = useUserId();
+  const [visitingJobs, setVisitingJobs] = useState<Set<string>>(new Set());
 
-  const role = admindata?.role
-  const canDeleteJob = admindata?.canDeleteJob
+  const formatSalary = (salary: number) => {
+    if (!salary) return "Competitive";
+    if (salary < 100) return `₹${salary} LPA`;
+    return `₹${(salary / 100000).toFixed(0)} LPA`;
+  };
 
-  function AlreadyApplied({ jobId, jobLink }: { jobId: string; jobLink: string }) {
-    if (!userId || !isLoggedIn) {
-      return (
-        <Link href="/user/login">
-          <Buttons size="sm" className="bg-neutral-900 hover:bg-neutral-800 dark:bg-neutral-100 dark:hover:bg-neutral-200 dark:text-neutral-900 text-white rounded-md">
-            <ExternalLink className="w-3.5 h-3.5 mr-1" />
-            <span className="hb-bracket">Sign in to Apply</span>
-          </Buttons>
-        </Link>
-      )
+  const handleApplyClick = async (jobId: string, e: React.MouseEvent) => {
+    if (!userId) return;
+    setVisitingJobs((prev) => new Set(prev).add(jobId));
+    try {
+      await visitedJobs(jobId, userId);
+    } catch (err) {
+      console.error("Application telemetry error:", err);
     }
+  };
 
-    const isVisiting = visitingJobs.has(jobId)
-
-    const handleClick = async () => {
-      setVisitingJobs((prev) => new Set(prev).add(jobId))
-      try {
-        const result = await visitedJobs(jobId, userId)
-        setTimeout(() => {
-          setVisitingJobs((prev) => {
-            const newSet = new Set(prev)
-            newSet.delete(jobId)
-            return newSet
-          })
-        }, 1000)
-      } catch (error) {
-        setVisitingJobs((prev) => {
-          const newSet = new Set(prev)
-          newSet.delete(jobId)
-          return newSet
-        })
-      }
-    }
-
-    return (
-      <Link href={jobLink || "https://hiringnexus.vercel.app/"} target="_blank" onClick={handleClick}>
-        <Buttons size="sm" className="bg-slate-800 hover:bg-slate-700 text-white cursor-pointer" disabled={isVisiting}>
-          {isVisiting ? (
-            <>
-              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                ></path>
-              </svg>
-              Applying...
-            </>
-          ) : (
-            <>
-              <ExternalLink className="w-4 h-4 mr-1" />
-              Apply Now
-            </>
-          )}
-        </Buttons>
-      </Link>
-    )
-  }
-
-  function DeleteThisJob({ jobId }: { jobId: string }) {
-    if (!jobId) {
-      return null
-    }
-
-    const isDeleting = deletingJobs.has(jobId)
-
-    const handleClick = async () => {
-      setDeletingJobs((prev) => new Set(prev).add(jobId))
-      try {
-        const result = await deleteJob(jobId)
-        setTimeout(() => {
-          setDeletingJobs((prev) => {
-            const newSet = new Set(prev)
-            newSet.delete(jobId)
-            return newSet
-          })
-        }, 1000)
-      } catch (error) {
-        setDeletingJobs((prev) => {
-          const newSet = new Set(prev)
-          newSet.delete(jobId)
-          return newSet
-        })
-      }
-    }
-
-    return (
-      <Buttons
-        size="sm"
-        variant="outline"
-        className="border-red-300 text-red-600 hover:bg-red-50 hover:border-red-400 bg-transparent"
-        onClick={handleClick}
-        disabled={isDeleting}
-      >
-        {isDeleting ? (
-          <>
-            <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              ></path>
-            </svg>
-            Deleting...
-          </>
-        ) : (
-          <>
-            <Trash2 className="w-4 h-4 mr-1" />
-            Delete
-          </>
-        )}
-      </Buttons>
-    )
-  }
-
-  const getJobTypeColor = (type: string) => {
-    const colors: { [key: string]: string } = {
-      FullTime: "bg-green-100 text-green-800",
-      PartTime: "bg-blue-100 text-blue-800",
-      Internship: "bg-purple-100 text-purple-800",
-      Contract: "bg-orange-100 text-orange-800",
-      Remote: "bg-indigo-100 text-indigo-800",
-    }
-    return colors[type] || "bg-slate-100 text-slate-700"
-  }
-  const getTimeAgo = (createdAt?: Date | null) => {
-    if (!createdAt) return "Recently posted"
-    const diffMs = Date.now() - createdAt.getTime()
-    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24))
-    return diffDays === 0 ? "Today" : `${diffDays} day${diffDays > 1 ? "s" : ""} ago`
-  }
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {job.map((item) => (
-        <Card
-          key={item.id}
-          className="group hover:border-neutral-400 dark:hover:border-neutral-600 transition-all duration-200 border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xs hover:shadow-sm"
-        >
-          <CardHeader className="pb-3">
-            <Link href={`/user/job/${item.id}`} className="block">
-              <div className="flex items-start gap-3 mb-2.5">
-                <div className="w-10 h-10 bg-neutral-950 dark:bg-neutral-100 text-white dark:text-neutral-950 flex items-center justify-center rounded-lg text-sm font-bold font-mono shadow-xs">
-                  {item.title?.[0]?.toUpperCase() || "H"}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <CardTitle className="text-base font-semibold text-neutral-900 dark:text-white transition-colors line-clamp-1">
-                    {item.title}
-                  </CardTitle>
-                  <div className="flex items-center gap-1 mt-0.5 text-neutral-500 text-xs">
-                    <Building2 className="w-3.5 h-3.5" />
-                    <span className="font-medium truncate">{item.companyname}</span>
+    <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+      {job.map((item) => {
+        const isVisiting = visitingJobs.has(item.id);
+
+        return (
+          <div
+            key={item.id}
+            className="group rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all p-5 flex flex-col justify-between space-y-4 shadow-xs hover:shadow-md"
+          >
+            {/* Card Header: Company Monogram + Title */}
+            <div>
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center font-bold font-mono text-sm shadow-xs shrink-0">
+                    {item.companyname?.[0]?.toUpperCase() || item.title?.[0]?.toUpperCase() || "H"}
+                  </div>
+                  <div className="min-w-0">
+                    <span className="text-xs font-mono text-neutral-400 block truncate uppercase tracking-wider">
+                      {item.companyname}
+                    </span>
+                    <Link
+                      href={`/user/job/${item.id}`}
+                      className="font-bold text-base text-neutral-900 dark:text-white hover:underline underline-offset-2 truncate block"
+                    >
+                      {item.title}
+                    </Link>
                   </div>
                 </div>
+
+                <Link
+                  href={`/user/job/${item.id}`}
+                  className="p-1 rounded-md text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
+                  title="View Full Specification"
+                >
+                  <ArrowUpRight className="w-4 h-4" />
+                </Link>
               </div>
 
+              {/* Description Preview */}
               {item.descreption && (
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed">{item.descreption}</p>
+                <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed font-sans mb-3">
+                  {item.descreption}
+                </p>
               )}
-            </Link>
-          </CardHeader>
 
-          <CardContent className="space-y-4">
-            <div className="space-y-3">
-              <div className="flex items-center gap-2 text-sm">
-                <User className="w-4 h-4 text-slate-500" />
-                <span className="text-slate-600">Posted by</span>
-                <span className="font-medium text-slate-800">{item.postedby.name}</span>
+              {/* Modality Chips & Experience */}
+              <div className="flex flex-wrap items-center gap-1.5 pt-1">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">
+                  {item.experience === 0 ? "Fresher Friendly" : `${item.experience} yr${item.experience > 1 ? "s" : ""} exp`}
+                </span>
+
+                {item.jobTypes && item.jobTypes.length > 0 && (
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
+                    {item.jobTypes[0]}
+                  </span>
+                )}
+
+                {item.location && (
+                  <span className="text-[11px] font-mono text-neutral-500 truncate max-w-[120px]">
+                    · {item.location}
+                  </span>
+                )}
               </div>
+            </div>
 
-              <div className="flex items-center gap-2 text-sm">
-                <Clock className="w-4 h-4 text-slate-500" />
-                <span className="text-slate-600">Experience</span>
-                <span className="font-medium text-slate-800">
-                  {item.experience === 0 ? "Fresher" : `${item.experience} year${item.experience > 1 ? "s" : ""}`}
+            {/* Card Footer: Compensation + Direct Action */}
+            <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+              <div>
+                <span className="block text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
+                  Compensation
+                </span>
+                <span className="text-sm font-bold font-mono text-neutral-900 dark:text-white">
+                  {formatSalary(item.salary)}
                 </span>
               </div>
 
-              <div className="flex items-center gap-2 text-sm">
-                <DollarSign className="w-4 h-4 text-slate-500" />
-                <span className="text-slate-600">Salary</span>
-                <span className="font-semibold text-emerald-600 font-mono text-xs">
-                  ₹{item.salary > 150 ? (item.salary / 100000).toFixed(0) : item.salary} LPA
-                </span>
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`/user/job/${item.id}`}
+                  className="px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-800 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+                >
+                  [ Details ]
+                </Link>
+
+                <Link
+                  href={item.joblink || `/user/job/${item.id}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => handleApplyClick(item.id, e)}
+                  className="hb-bracket px-3 py-1.5 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer flex items-center gap-1"
+                >
+                  <span className="bracket">[ </span>
+                  <span>{isVisiting ? "Opening..." : "Apply"}</span>
+                  <ExternalLink className="w-3 h-3" />
+                  <span className="bracket"> ]</span>
+                </Link>
               </div>
-
-              {item.location && (
-                <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="w-4 h-4 text-slate-500" />
-                  <span className="text-slate-600">Location</span>
-                  <span className="font-medium text-slate-800">{item.location}</span>
-                </div>
-              )}
-
-              <div className="flex items-center gap-2 text-sm">
-                <Calendar className="w-4 h-4 text-slate-500" />
-                <span className="text-slate-600">{getTimeAgo(item.createdAt)}</span>
-              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {item.jobTypes.map((type, i) => (
-                <Badge key={i} variant="secondary" className={`text-xs font-medium ${getJobTypeColor(type)}`}>
-                  {type}
-                </Badge>
-              ))}
-            </div>
-          </CardContent>
-
-          <CardFooter className="flex justify-between items-center pt-4 border-t border-slate-100">
-            <div className="flex items-center gap-2">
-              <Briefcase className="w-4 h-4 text-slate-400" />
-              <span className="text-xs text-slate-500">Job ID: {item.id.slice(0, 8)}</span>
-            </div>
-
-            <div className="flex gap-2">
-              {role === "admin" && canDeleteJob && <DeleteThisJob jobId={item.id} />}
-              <AlreadyApplied jobId={item.id} jobLink={item.joblink || ""} />
-            </div>
-          </CardFooter>
-        </Card>
-      ))}
+          </div>
+        );
+      })}
     </div>
-  )
-}
-
-// Component for non-logged-in users
-export function PublicJobCards({ job }: { job: jobinterface[] }) {
-  return <JobCards job={job} isLoggedIn={false} />
+  );
 }
