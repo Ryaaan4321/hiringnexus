@@ -21,6 +21,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-newsreader);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -332,4 +333,297 @@ td {
 }
 .dark .hb-dashed-border {
   background-image: repeating-linear-gradient(to bottom, #27272a 0, #27272a 6px, transparent 6px, transparent 12px);
+}
+
+/* ==========================================================================
+   Editorial Design System (Inspired by TryGlen)
+   ========================================================================== */
+
+:root {
+  --home-page: #f9f9f9;
+  --home-white: #ffffff;
+  --home-ink: #0a0e19;
+  --home-ink-hover: #1a2030;
+  --home-grey-400: #f2f2f2;
+  --home-grey-450: #ececec;
+  --home-grey-500: #e1e1e1;
+  --home-grey-600: #cecece;
+  --home-grey-700: #818181;
+  --home-grey-800: #636363;
+  --home-grey-900: #1f1f1f;
+  --home-moss: #1e3c2c;
+  --home-moss-hover: #2a5038;
+  --home-pistachio: #dbefdb;
+  --home-link-green: #397554;
+  --home-fern: #3e7f5c;
+  --home-border: 0.5px solid var(--home-grey-500);
+}
+
+.home-serif {
+  font-family: var(--font-newsreader), "Newsreader", Georgia, serif !important;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+.home-mono {
+  font-family: var(--font-spline-mono), "Spline Sans Mono", ui-monospace, monospace;
+}
+
+.home-card {
+  background: var(--home-white);
+  border: var(--home-border);
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.625rem;
+  border-radius: 0.375rem;
+  border: 1px solid transparent;
+  font-size: 1rem;
+  line-height: 1;
+  letter-spacing: -0.019em;
+  cursor: pointer;
+  transition: background 0.3s, border 0.3s, color 0.3s, transform 0.1s;
+}
+
+@media (min-width: 768px) {
+  .home-btn {
+    padding: 0.4375rem 0.625rem;
+    border-radius: 0.5rem;
+  }
+}
+
+.home-btn:active {
+  transform: scale(0.97);
+}
+
+.home-btn:focus-visible {
+  outline: 2px solid var(--home-ink);
+  outline-offset: 3px;
+}
+
+.home-btn-fill {
+  background: var(--home-ink);
+  border-color: var(--home-ink);
+  color: #fff;
+}
+
+.home-btn-fill:hover {
+  background: var(--home-ink-hover);
+  border-color: var(--home-ink-hover);
+}
+
+.home-btn-outline {
+  background: transparent;
+  border-color: var(--home-ink);
+  color: var(--home-ink);
+}
+
+.home-btn-outline:hover {
+  background: var(--home-ink);
+  color: #fff;
+}
+
+.home-btn-glass {
+  background: linear-gradient(rgba(206, 206, 206, 0.3), rgba(206, 206, 206, 0.3)),
+    rgba(255, 255, 255, 0.85);
+  border-color: rgba(206, 206, 206, 0.22);
+  color: var(--home-ink);
+}
+
+.home-btn-glass:hover {
+  background: linear-gradient(rgba(206, 206, 206, 0.45), rgba(206, 206, 206, 0.45)),
+    rgba(255, 255, 255, 0.85);
+}
+
+.home-btn-moss {
+  background: var(--home-moss);
+  border-color: var(--home-moss);
+  color: #fff;
+}
+
+.home-btn-moss:hover {
+  background: var(--home-moss-hover);
+  border-color: var(--home-moss-hover);
+}
+
+.home-arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--home-link-green);
+  font-size: 1rem;
+  line-height: 1.1;
+}
+
+.home-arrow-link .home-arrow {
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.home-arrow-link:hover .home-arrow {
+  transform: translateX(2px);
+}
+
+.home-nav-pill:has(a:hover, button:hover) > :not(:hover) {
+  opacity: 0.4;
+}
+
+.home-nav-pill > * {
+  transition: opacity 0.2s;
+}
+
+.home-footer-link {
+  position: relative;
+  display: inline-block;
+}
+
+.home-footer-link:before {
+  content: "";
+  position: absolute;
+  inset: -0.2rem -0.4rem;
+  border-radius: 0.375rem;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.home-footer-link:hover:before {
+  opacity: 0.08;
+}
+
+.home-row-arrow {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s, transform 0.2s ease-out;
+}
+
+.home-template-row:hover .home-row-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.home-marquee {
+  overflow: hidden;
+  mask: linear-gradient(90deg, transparent, #000 12% 88%, transparent);
+  -webkit-mask: linear-gradient(90deg, transparent, #000 12% 88%, transparent);
+}
+
+.home-marquee-track {
+  display: flex;
+  gap: 0.625rem;
+  width: max-content;
+  animation: home-marquee 48s linear infinite;
+}
+
+.home-marquee-reverse .home-marquee-track {
+  animation-direction: reverse;
+}
+
+.home-marquee:hover .home-marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes home-marquee {
+  0% {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.home-flow-dash {
+  stroke-dasharray: 3 5;
+  animation: home-flow 1.4s linear infinite;
+}
+
+@keyframes home-flow {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
+.home-node {
+  animation: home-node-fill 7.2s linear infinite;
+}
+
+@keyframes home-node-fill {
+  0%,
+  14% {
+    fill: #dbefdb;
+  }
+  22%,
+  to {
+    fill: #ffffff;
+  }
+}
+
+.home-detail {
+  overflow: hidden;
+  max-height: 0;
+  transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.home-detail-open {
+  max-height: 1400px;
+}
+
+.home-detail-inner {
+  opacity: 0;
+  transform: translateX(20px);
+  padding-top: 12px;
+  transition: opacity 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s,
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+.home-detail-open .home-detail-inner {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (min-width: 1200px) {
+  .home-detail {
+    max-height: none;
+    width: 0;
+  }
+  .home-detail-open {
+    max-height: none;
+    width: min(392px, 38vw);
+  }
+  .home-detail-inner {
+    width: min(392px, 38vw);
+    height: 100%;
+    padding-top: 0;
+    padding-left: 12px;
+  }
+}
+
+.home-globe-bleed {
+  -webkit-mask-image: radial-gradient(ellipse 65% 50% at 50% 50%, #000 60%, transparent 100%);
+  mask-image: radial-gradient(ellipse 65% 50% at 50% 50%, #000 60%, transparent 100%);
+}
+
+.home-logo-box {
+  border: 0.5px solid #cecece;
+  background: #ffffff;
+}
+
+.home-logo-box:hover {
+  border-color: #0a0e19;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-flow-dash,
+  .home-marquee-track,
+  .home-node {
+    animation: none !important;
+  }
+  .home-detail,
+  .home-detail-inner {
+    transition: none !important;
+  }
 }
