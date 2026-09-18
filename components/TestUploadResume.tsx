@@ -156,61 +156,54 @@ export default function UploadResume() {
         return `${mb.toFixed(2)} MB`
     }
     return (
-        <Card className="shadow-lg border-0 bg-white overflow-hidden mt-15">
-            <CardHeader className="pb-0">
-                <div className="flex items-center gap-3">
-                    <div
-                        className={cn(
-                            "w-10 h-10 rounded-full flex items-center justify-center shadow",
-                            "bg-gradient-to-br from-slate-700 to-slate-900",
-                        )}
-                    >
-                        <FileText className="w-5 h-5 text-white" />
-                    </div>
-                    <div>
-                        <CardTitle className="text-xl font-bold text-slate-800">Resume</CardTitle>
-                        <CardDescription className="text-slate-600">
-                            Upload your latest resume (PDF, DOC, DOCX · max {MAX_SIZE_MB} MB)
-                        </CardDescription>
-                    </div>
+        <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white overflow-hidden mt-4 p-6 shadow-xs space-y-5">
+            <div className="flex items-center gap-3 border-b border-[#e1e1e1] pb-4">
+                <div className="w-10 h-10 rounded-full bg-[#0a0e19] text-white flex items-center justify-center shrink-0">
+                    <FileText className="w-5 h-5" />
                 </div>
-            </CardHeader>
+                <div>
+                    <h3 className="home-serif text-xl font-normal text-[#0a0e19]">Candidate Resume</h3>
+                    <p className="text-xs text-[#636363]">
+                        Upload your latest resume (PDF, DOC, DOCX · max {MAX_SIZE_MB} MB)
+                    </p>
+                </div>
+            </div>
 
-            <CardContent className="pt-6">
+            <div className="space-y-4">
                 {uploadState === "success" && message && (
-                    <div className="mb-4 rounded-lg border border-green-200 bg-green-50 px-3 py-2 text-green-800 flex items-center gap-2">
-                        <CheckCircle2 className="w-4 h-4" />
-                        <span className="text-sm font-medium">{message}</span>
+                    <div className="rounded-xl border border-[#b8dfb8] bg-[#dbefdb] px-3.5 py-2.5 text-[#1e3c2c] flex items-center gap-2 text-xs font-mono">
+                        <CheckCircle2 className="w-4 h-4 text-[#397554]" />
+                        <span>{message}</span>
                     </div>
                 )}
                 {uploadState === "error" && message && (
-                    <div className="mb-4 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-red-800 flex items-center gap-2">
-                        <XCircle className="w-4 h-4" />
-                        <span className="text-sm font-medium">{message}</span>
+                    <div className="rounded-xl border border-red-200 bg-red-50 px-3.5 py-2.5 text-red-800 flex items-center gap-2 text-xs font-mono">
+                        <XCircle className="w-4 h-4 text-red-600" />
+                        <span>{message}</span>
                     </div>
                 )}
                 {uploadState === "invalid" && message && (
-                    <div className="mb-4 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-amber-800 flex items-center gap-2">
-                        <ShieldAlert className="w-4 h-4" />
-                        <span className="text-sm font-medium">{message}</span>
+                    <div className="rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-2.5 text-amber-800 flex items-center gap-2 text-xs font-mono">
+                        <ShieldAlert className="w-4 h-4 text-amber-600" />
+                        <span>{message}</span>
                     </div>
                 )}
+
                 <div
                     onDragOver={onDragOver}
                     onDragLeave={onDragLeave}
                     onDrop={onDrop}
                     className={cn(
-                        "relative w-full rounded-2xl border-2 border-dashed transition-colors",
+                        "relative w-full rounded-2xl border border-dashed transition-all",
                         "p-6 text-center flex flex-col items-center justify-center",
-                        uploadState === "drag" ? "border-slate-700 bg-slate-50" : "border-slate-200 bg-white",
-                        uploadState === "invalid" && "border-amber-300 bg-amber-50/50",
-                        uploadState === "uploading" && "opacity-90",
+                        uploadState === "drag" ? "border-[#0a0e19] bg-[#f5f5f5]" : "border-[#cecece] bg-[#fcfcfc]",
+                        uploadState === "invalid" && "border-amber-300 bg-amber-50/40",
+                        uploadState === "uploading" && "opacity-80",
                     )}
                 >
-                    <div className="pointer-events-none absolute inset-[-2px] rounded-2xl bg-gradient-to-br from-slate-100/0 via-slate-100/0 to-slate-100/0" />
-                    <UploadCloud className={cn("w-10 h-10 mb-3", uploadState === "drag" ? "text-slate-800" : "text-slate-400")} />
-                    <p className="text-slate-700 font-medium">Drag and drop your resume here</p>
-                    <p className="text-sm text-slate-500 mt-1">or</p>
+                    <UploadCloud className={cn("w-9 h-9 mb-2.5", uploadState === "drag" ? "text-[#0a0e19]" : "text-[#818181]")} />
+                    <p className="text-sm font-medium text-[#0a0e19]">Drag and drop your resume file here</p>
+                    <p className="text-xs text-[#818181] mt-0.5">or</p>
                     <div className="mt-3">
                         <input
                             ref={inputRef}
@@ -220,117 +213,120 @@ export default function UploadResume() {
                             className="sr-only"
                             onChange={(e) => onFileSelect(e.target.files?.[0] || null)}
                         />
-                        <Buttons
+                        <button
                             type="button"
-                            variant="outline"
-                            className="border-slate-300 text-slate-700 hover:bg-slate-50 bg-transparent"
+                            className="home-btn home-btn-glass text-xs cursor-pointer"
                             onClick={() => inputRef.current?.click()}
                             disabled={uploadState === "uploading"}
                         >
                             Browse Files
-                        </Buttons>
+                        </button>
                     </div>
-                    <p className="text-xs text-slate-500 mt-3">Accepted: PDF, DOC, DOCX · Max {MAX_SIZE_MB} MB</p>
+                    <p className="text-[11px] font-mono text-[#818181] mt-3">Accepted: PDF, DOC, DOCX · Max {MAX_SIZE_MB} MB</p>
                 </div>
+
                 {file && (
-                    <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                    <div className="rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] p-4">
                         <div className="flex items-start justify-between gap-3">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-md bg-white border border-slate-200 flex items-center justify-center">
-                                    <FileText className="w-5 h-5 text-slate-700" />
+                                <div className="w-10 h-10 rounded-lg bg-white border border-[#e1e1e1] flex items-center justify-center">
+                                    <FileText className="w-5 h-5 text-[#0a0e19]" />
                                 </div>
                                 <div>
-                                    <div className="text-slate-800 font-medium">{file.name}</div>
-                                    <div className="text-xs text-slate-500">{prettySize(file.size)}</div>
+                                    <div className="text-sm font-medium text-[#0a0e19]">{file.name}</div>
+                                    <div className="text-xs font-mono text-[#818181]">{prettySize(file.size)}</div>
                                 </div>
                             </div>
-                            <Buttons
-                                variant="ghost"
-                                size="sm"
-                                className="h-8 px-2 text-slate-500 hover:text-slate-800"
+                            <button
+                                type="button"
+                                className="text-[#818181] hover:text-red-600 transition-colors p-1 cursor-pointer"
                                 onClick={clearFile}
                                 disabled={uploadState === "uploading"}
                             >
                                 <Trash2 className="w-4 h-4" />
                                 <span className="sr-only">Remove file</span>
-                            </Buttons>
+                            </button>
                         </div>
                         {uploadState === "uploading" && (
                             <div className="mt-4">
-                                <div className="h-2 w-full rounded-full bg-slate-200 overflow-hidden">
+                                <div className="h-1.5 w-full rounded-full bg-[#e1e1e1] overflow-hidden">
                                     <div
-                                        className="h-2 rounded-full bg-gradient-to-r from-slate-700 to-slate-900 transition-all"
+                                        className="h-1.5 rounded-full bg-[#0a0e19] transition-all"
                                         style={{ width: `${progress}%` }}
                                     />
                                 </div>
-                                <div className="flex items-center justify-between text-xs text-slate-500 mt-2">
+                                <div className="flex items-center justify-between text-xs font-mono text-[#818181] mt-2">
                                     <span>Uploading...</span>
                                     <span>{progress}%</span>
                                 </div>
                             </div>
                         )}
                         <div className="mt-4 flex items-center gap-2">
-                            <Buttons
+                            <button
+                                type="button"
                                 onClick={handleUpload}
                                 disabled={uploadState === "uploading"}
-                                className="bg-slate-800 hover:bg-slate-700"
+                                className="home-btn home-btn-fill text-xs cursor-pointer"
                             >
                                 {uploadState === "uploading" ? (
                                     <>
-                                        <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                        Uploading
+                                        <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
+                                        Uploading...
                                     </>
                                 ) : (
                                     <>
-                                        <UploadCloud className="w-4 h-4 mr-2" />
+                                        <UploadCloud className="w-3.5 h-3.5 mr-1.5" />
                                         Upload Resume
                                     </>
                                 )}
-                            </Buttons>
-                            <Buttons
-                                variant="outline"
-                                className="border-slate-300 text-slate-700 hover:bg-slate-50 bg-transparent"
+                            </button>
+                            <button
+                                type="button"
+                                className="home-btn home-btn-glass text-xs cursor-pointer"
                                 onClick={() => inputRef.current?.click()}
                                 disabled={uploadState === "uploading"}
                             >
                                 Choose Another
-                            </Buttons>
+                            </button>
                         </div>
                     </div>
                 )}
+
                 {uploadedUrl && (
-                    <div className="mt-6 rounded-lg border border-slate-200 bg-white p-4">
+                    <div className="rounded-xl border border-[#b8dfb8] bg-[#dbefdb]/40 p-4">
                         <div className="flex items-center justify-between gap-3">
                             <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-md bg-green-100 text-green-700 flex items-center justify-center">
+                                <div className="w-8 h-8 rounded-full bg-[#dbefdb] text-[#1e3c2c] border border-[#b8dfb8] flex items-center justify-center">
                                     <CheckCircle2 className="w-4 h-4" />
                                 </div>
-                                <div className="text-sm">
-                                    <div className="text-slate-800 font-medium">Resume uploaded</div>
-                                    <div className="text-xs text-slate-500">Your resume is saved to your profile</div>
+                                <div>
+                                    <div className="text-sm font-medium text-[#1e3c2c]">Resume uploaded</div>
+                                    <div className="text-xs text-[#1e3c2c]/80">Your resume is indexed on your profile</div>
                                 </div>
                             </div>
-                            <Buttons asChild variant="ghost" size="sm" className="h-8 px-2 text-slate-600 hover:text-slate-800">
-                                <Link href={uploadedUrl} target="_blank" rel="noopener noreferrer">
-                                    <LinkIcon className="w-4 h-4 mr-1" />
-                                    View
-                                </Link>
-                            </Buttons>
+                            <Link
+                                href={uploadedUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="home-btn home-btn-glass text-xs inline-flex items-center gap-1 text-[#1e3c2c]"
+                            >
+                                <LinkIcon className="w-3.5 h-3.5 mr-1" />
+                                View
+                            </Link>
                         </div>
                     </div>
                 )}
+
                 {!userId && (
-                    <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 p-4">
-                        <p className="text-sm text-slate-600">
-                            Please{" "}
-                            <Link href="/login" className="text-slate-800 font-medium hover:underline">
-                                sign in
-                            </Link>{" "}
-                            to upload your resume.
-                        </p>
+                    <div className="rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] p-4 text-xs font-mono text-[#636363]">
+                        Please{" "}
+                        <Link href="/user/login" className="text-[#0a0e19] font-medium underline underline-offset-2">
+                            sign in
+                        </Link>{" "}
+                        to upload your resume.
                     </div>
                 )}
-            </CardContent>
-        </Card>
-    )
+            </div>
+        </div>
+    );
 }

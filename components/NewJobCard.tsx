@@ -6,12 +6,7 @@ import type { jobinterface } from "@/interfaces/jobinterface";
 import { useUserId } from "@/hooks/user";
 import { visitedJobs } from "@/app/actions/userserveraction";
 import {
-  Building2,
   ExternalLink,
-  Calendar,
-  Briefcase,
-  ShieldCheck,
-  CheckCircle2,
   ArrowUpRight,
 } from "lucide-react";
 
@@ -49,22 +44,22 @@ export default function JobCards({
         return (
           <div
             key={item.id}
-            className="group rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all p-5 flex flex-col justify-between space-y-4 shadow-xs hover:shadow-md"
+            className="home-card rounded-2xl p-5 hover:border-[#0a0e19] transition-all shadow-xs hover:shadow-md flex flex-col justify-between space-y-4"
           >
             {/* Card Header: Company Monogram + Title */}
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center font-bold font-mono text-sm shadow-xs shrink-0">
+                  <div className="w-10 h-10 rounded-xl bg-[#0a0e19] text-white flex items-center justify-center font-bold font-mono text-sm shadow-xs shrink-0">
                     {item.companyname?.[0]?.toUpperCase() || item.title?.[0]?.toUpperCase() || "H"}
                   </div>
                   <div className="min-w-0">
-                    <span className="text-xs font-mono text-neutral-400 block truncate uppercase tracking-wider">
+                    <span className="text-xs font-mono text-[#818181] block truncate uppercase tracking-wider">
                       {item.companyname}
                     </span>
                     <Link
                       href={`/user/job/${item.id}`}
-                      className="font-bold text-base text-neutral-900 dark:text-white hover:underline underline-offset-2 truncate block"
+                      className="font-semibold text-base text-[#0a0e19] hover:text-[#397554] transition-colors truncate block"
                     >
                       {item.title}
                     </Link>
@@ -73,7 +68,7 @@ export default function JobCards({
 
                 <Link
                   href={`/user/job/${item.id}`}
-                  className="p-1 rounded-md text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors shrink-0"
+                  className="p-1 rounded-md text-[#818181] hover:text-[#0a0e19] hover:bg-[#f2f2f2] transition-colors shrink-0"
                   title="View Full Specification"
                 >
                   <ArrowUpRight className="w-4 h-4" />
@@ -82,25 +77,25 @@ export default function JobCards({
 
               {/* Description Preview */}
               {item.descreption && (
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed font-sans mb-3">
+                <p className="text-xs text-[#636363] line-clamp-2 leading-relaxed mb-3">
                   {item.descreption}
                 </p>
               )}
 
               {/* Modality Chips & Experience */}
               <div className="flex flex-wrap items-center gap-1.5 pt-1">
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 font-medium">
+                <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[#f2f2f2] text-[#0a0e19] font-medium border border-[#e1e1e1]">
                   {item.experience === 0 ? "Fresher Friendly" : `${item.experience} yr${item.experience > 1 ? "s" : ""} exp`}
                 </span>
 
                 {item.jobTypes && item.jobTypes.length > 0 && (
-                  <span className="text-[11px] font-mono px-2 py-0.5 rounded border border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400">
+                  <span className="text-[11px] font-mono px-2 py-0.5 rounded-md border border-[#e1e1e1] text-[#636363]">
                     {item.jobTypes[0]}
                   </span>
                 )}
 
                 {item.location && (
-                  <span className="text-[11px] font-mono text-neutral-500 truncate max-w-[120px]">
+                  <span className="text-[11px] font-mono text-[#818181] truncate max-w-[120px]">
                     · {item.location}
                   </span>
                 )}
@@ -108,12 +103,12 @@ export default function JobCards({
             </div>
 
             {/* Card Footer: Compensation + Direct Action */}
-            <div className="pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+            <div className="pt-3 border-t border-[#e1e1e1] flex items-center justify-between">
               <div>
-                <span className="block text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
+                <span className="block text-[10px] font-mono text-[#818181] uppercase tracking-wider">
                   Compensation
                 </span>
-                <span className="text-sm font-bold font-mono text-neutral-900 dark:text-white">
+                <span className="text-sm font-bold font-mono text-[#0a0e19]">
                   {formatSalary(item.salary)}
                 </span>
               </div>
@@ -121,9 +116,9 @@ export default function JobCards({
               <div className="flex items-center gap-2">
                 <Link
                   href={`/user/job/${item.id}`}
-                  className="px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-800 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+                  className="home-btn home-btn-outline text-xs px-2.5 py-1"
                 >
-                  [ Details ]
+                  Details
                 </Link>
 
                 <Link
@@ -131,12 +126,10 @@ export default function JobCards({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => handleApplyClick(item.id, e)}
-                  className="hb-bracket px-3 py-1.5 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer flex items-center gap-1"
+                  className="home-btn home-btn-fill text-xs px-3 py-1 flex items-center gap-1 cursor-pointer"
                 >
-                  <span className="bracket">[ </span>
                   <span>{isVisiting ? "Opening..." : "Apply"}</span>
                   <ExternalLink className="w-3 h-3" />
-                  <span className="bracket"> ]</span>
                 </Link>
               </div>
             </div>

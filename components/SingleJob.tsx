@@ -48,43 +48,52 @@ export default function SingleJob({ job }: { job: jobinterface }) {
   };
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 py-8 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f9] text-[#0a0e19] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center justify-between">
           <Link
             href="/user/dashboard"
-            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>[ Back to Opportunities ]</span>
+            <span>Back to Opportunities</span>
           </Link>
-          <span className="text-xs font-mono text-neutral-400">
-            [ ROLE_SPECIFICATION // {job.id.slice(0, 8)} ]
+          <span className="text-xs font-mono text-[#818181] uppercase tracking-wider">
+            Role Specification · {job.id.slice(0, 8)}
           </span>
         </div>
 
         {/* Hero Role Card */}
-        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 shadow-sm p-6 sm:p-8 space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-neutral-100 dark:border-neutral-800 pb-6">
+        <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white shadow-xs p-6 sm:p-8 space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#e1e1e1] pb-6">
             <div className="space-y-2">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider">
-                  [ COMPANY // {job.companyname} ]
-                </span>
-                <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2 py-0.5 rounded bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800">
-                  <ShieldCheck className="w-3 h-3" />
-                  <span>VERIFIED</span>
-                </span>
-              </div>
-              <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-neutral-900 dark:text-white">
-                {job.title}
-              </h1>
-              <div className="flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400">
-                <Building2 className="w-4 h-4 text-neutral-400" />
-                <span className="font-medium text-neutral-800 dark:text-neutral-200">
+                <span className="font-mono text-xs text-[#636363] uppercase tracking-wider">
                   {job.companyname}
                 </span>
+                <span className="inline-flex items-center gap-1 text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-[#dbefdb] text-[#1e3c2c] border border-[#b8dfb8]">
+                  <ShieldCheck className="w-3 h-3" />
+                  <span>Verified Direct Post</span>
+                </span>
+              </div>
+              <h1 className="home-serif text-3xl sm:text-4xl font-normal tracking-tight text-[#0a0e19]">
+                {job.title}
+              </h1>
+              <div className="flex items-center gap-2 text-sm text-[#636363]">
+                <Building2 className="w-4 h-4 text-[#818181]" />
+                <span className="font-medium text-[#0a0e19]">
+                  {job.companyname}
+                </span>
+                {job.location && (
+                  <>
+                    <span>·</span>
+                    <span className="flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#818181]" />
+                      {job.location}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
 
@@ -92,17 +101,17 @@ export default function SingleJob({ job }: { job: jobinterface }) {
             <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0">
               <button
                 onClick={handleCopyLink}
-                className="px-3 py-1.5 rounded-md border border-neutral-200 dark:border-neutral-800 text-xs font-mono text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800 flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="home-btn home-btn-glass text-xs flex items-center gap-1.5 cursor-pointer"
               >
                 {copied ? (
                   <>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
-                    <span>[ Link Copied ]</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-[#397554]" />
+                    <span>Link Copied</span>
                   </>
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>[ Share Role ]</span>
+                    <span>Share Role</span>
                   </>
                 )}
               </button>
@@ -111,28 +120,28 @@ export default function SingleJob({ job }: { job: jobinterface }) {
 
           {/* Key Engineering Telemetry Grid */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            <div className="p-4 rounded-lg border border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/50 space-y-1">
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider block">
+            <div className="p-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] space-y-1">
+              <span className="font-mono text-[10px] text-[#818181] uppercase tracking-wider block">
                 Compensation
               </span>
-              <span className="text-base font-semibold text-neutral-900 dark:text-white">
+              <span className="home-serif text-xl font-normal text-[#0a0e19] block">
                 {formatSalary(job.salary)}
               </span>
             </div>
 
-            <div className="p-4 rounded-lg border border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/50 space-y-1">
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider block">
+            <div className="p-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] space-y-1">
+              <span className="font-mono text-[10px] text-[#818181] uppercase tracking-wider block">
                 Required Experience
               </span>
-              <span className="text-base font-semibold text-neutral-900 dark:text-white">
+              <span className="home-serif text-xl font-normal text-[#0a0e19] block">
                 {job.experience === 0
                   ? "Fresher Friendly"
                   : `${job.experience} yr${job.experience > 1 ? "s" : ""}`}
               </span>
             </div>
 
-            <div className="p-4 rounded-lg border border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/50 space-y-1">
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider block">
+            <div className="p-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] space-y-1">
+              <span className="font-mono text-[10px] text-[#818181] uppercase tracking-wider block">
                 Role Modality
               </span>
               <div className="flex flex-wrap gap-1 mt-0.5">
@@ -140,22 +149,22 @@ export default function SingleJob({ job }: { job: jobinterface }) {
                   job.jobTypes.map((type: string, idx: number) => (
                     <span
                       key={idx}
-                      className="text-xs font-mono font-medium text-neutral-800 dark:text-neutral-200"
+                      className="text-xs font-mono font-medium text-[#0a0e19]"
                     >
                       {type}
                     </span>
                   ))
                 ) : (
-                  <span className="text-xs font-mono text-neutral-500">Full-time</span>
+                  <span className="text-xs font-mono text-[#636363]">Full-time</span>
                 )}
               </div>
             </div>
 
-            <div className="p-4 rounded-lg border border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/50 space-y-1">
-              <span className="font-mono text-[10px] text-neutral-400 uppercase tracking-wider block">
+            <div className="p-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] space-y-1">
+              <span className="font-mono text-[10px] text-[#818181] uppercase tracking-wider block">
                 Hiring Lead
               </span>
-              <span className="text-sm font-semibold text-neutral-900 dark:text-white truncate block">
+              <span className="text-sm font-semibold text-[#0a0e19] truncate block">
                 {job.postedby?.name || "Direct Employer"}
               </span>
             </div>
@@ -163,20 +172,20 @@ export default function SingleJob({ job }: { job: jobinterface }) {
 
           {/* Description Section */}
           <div className="space-y-3 pt-2">
-            <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider block">
-              [ ROLE_MANDATE // TECHNICAL_SCOPE ]
+            <span className="font-mono text-xs text-[#636363] uppercase tracking-wider block">
+              Role Mandate · Technical Scope
             </span>
-            <div className="rounded-lg border border-neutral-100 dark:border-neutral-800 bg-neutral-50/30 dark:bg-neutral-950/30 p-5">
-              <p className="text-sm text-neutral-700 dark:text-neutral-300 leading-relaxed whitespace-pre-line font-sans">
+            <div className="rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] p-6">
+              <p className="text-sm text-[#0a0e19]/80 leading-relaxed whitespace-pre-line font-sans">
                 {job.descreption}
               </p>
             </div>
           </div>
 
           {/* Primary Action CTA Footer */}
-          <div className="pt-4 border-t border-neutral-100 dark:border-neutral-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-xs font-mono text-neutral-500">
-              <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+          <div className="pt-4 border-t border-[#e1e1e1] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#636363]">
+              <ShieldCheck className="w-4 h-4 text-[#397554] shrink-0" />
               <span>Direct application · No recruiter intermediation</span>
             </div>
 
@@ -185,12 +194,10 @@ export default function SingleJob({ job }: { job: jobinterface }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleApplyClick}
-              className="hb-bracket inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-sm font-semibold hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer text-center"
+              className="home-btn home-btn-fill px-7 py-3 text-sm font-medium inline-flex items-center justify-center gap-2 text-center"
             >
-              <span className="bracket">[ </span>
               <span>{hasApplied ? "Open Application Portal Again" : "Apply on Official Portal"}</span>
               <ExternalLink className="w-4 h-4" />
-              <span className="bracket"> ]</span>
             </Link>
           </div>
         </div>

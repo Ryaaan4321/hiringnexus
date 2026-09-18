@@ -91,17 +91,17 @@ export default function UserDashboard() {
 
   if (userloading || (!completeUser && !err)) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50/50 dark:bg-neutral-950 text-neutral-500 font-mono text-xs">
+      <div className="min-h-screen flex items-center justify-center bg-[#f9f9f9] text-[#636363] font-mono text-xs">
         <div className="flex items-center gap-2">
-          <span className="inline-block w-2 h-2 rounded-full bg-neutral-900 dark:bg-white animate-pulse" />
-          <span>[ Authenticating candidate session... ]</span>
+          <span className="inline-block w-2 h-2 rounded-full bg-[#0a0e19] animate-pulse" />
+          <span>Authenticating candidate session...</span>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100">
+    <div className="flex min-h-screen bg-[#f9f9f9] text-[#0a0e19]">
       {/* CRM Sidebar Navigation */}
       <UserSidebar onApply={handleApplyFilters} />
 
@@ -116,22 +116,22 @@ export default function UserDashboard() {
           onSortChange={setSortBy}
         />
 
-        {/* CRM Overview Metrics Bar (Inspired by User Screenshot) */}
+        {/* CRM Overview Metrics Bar */}
         <UserDashboardMetrics
           totalJobs={rawJobs.length}
           activeFiltersCount={activeFiltersCount}
         />
 
         {/* Board Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4 border-b border-neutral-200/60 dark:border-neutral-800/60">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-[#e1e1e1]">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="font-mono text-xs text-neutral-400 uppercase tracking-wider">
-                [ OPPORTUNITY_PIPELINE // DIRECT_POSTS ]
+            <div className="flex items-center gap-2 mb-1">
+              <span className="font-mono text-[11px] uppercase tracking-wider text-[#636363]">
+                Opportunity Pipeline · Direct Posts
               </span>
-              <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-500" />
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#397554]" />
             </div>
-            <h2 className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white mt-0.5">
+            <h2 className="home-serif text-2xl sm:text-3xl font-normal tracking-tight text-[#0a0e19]">
               Available Engineering Roles
             </h2>
           </div>
@@ -140,12 +140,12 @@ export default function UserDashboard() {
             {(activeFiltersCount > 0 || searchQuery.trim()) && (
               <button
                 onClick={clearAllFilters}
-                className="text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white underline underline-offset-4 transition-colors cursor-pointer"
+                className="text-xs font-mono text-[#636363] hover:text-[#0a0e19] underline underline-offset-4 transition-colors cursor-pointer"
               >
-                [ Reset All Filters ]
+                Reset All Filters
               </button>
             )}
-            <span className="text-xs font-mono px-2.5 py-1 rounded-md border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-400">
+            <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#cecece] bg-white text-[#636363]">
               Showing {displayedJobs.length} of {rawJobs.length} Roles
             </span>
           </div>
@@ -157,57 +157,57 @@ export default function UserDashboard() {
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="p-5 rounded-xl border border-neutral-200/70 dark:border-neutral-800/70 bg-white dark:bg-neutral-900 animate-pulse space-y-4"
+                className="home-card p-5 rounded-2xl border border-[#e1e1e1] bg-white animate-pulse space-y-4"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-neutral-200 dark:bg-neutral-800 rounded-lg" />
+                  <div className="w-10 h-10 bg-[#e1e1e1] rounded-xl" />
                   <div className="space-y-1.5 flex-1">
-                    <div className="h-3.5 w-1/3 bg-neutral-200 dark:bg-neutral-800 rounded" />
-                    <div className="h-4.5 w-2/3 bg-neutral-200 dark:bg-neutral-800 rounded" />
+                    <div className="h-3.5 w-1/3 bg-[#e1e1e1] rounded-md" />
+                    <div className="h-4.5 w-2/3 bg-[#e1e1e1] rounded-md" />
                   </div>
                 </div>
-                <div className="h-3.5 w-full bg-neutral-100 dark:bg-neutral-850 rounded" />
+                <div className="h-3.5 w-full bg-[#f0f0f0] rounded-md" />
                 <div className="flex gap-2 pt-2">
-                  <div className="h-5 w-16 bg-neutral-200 dark:bg-neutral-800 rounded" />
-                  <div className="h-5 w-20 bg-neutral-200 dark:bg-neutral-800 rounded" />
+                  <div className="h-5 w-16 bg-[#e1e1e1] rounded-full" />
+                  <div className="h-5 w-20 bg-[#e1e1e1] rounded-full" />
                 </div>
               </div>
             ))}
           </div>
         ) : error ? (
-          <div className="rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50/50 dark:bg-red-950/20 p-8 text-center space-y-3">
-            <div className="font-mono text-xs text-red-600 dark:text-red-400">
-              [ PIPELINE_QUERY_FAILED ]
+          <div className="rounded-2xl border border-red-200 bg-red-50/60 p-8 text-center space-y-3">
+            <div className="font-mono text-xs uppercase text-red-600">
+              Pipeline Query Interrupted
             </div>
-            <p className="text-sm text-red-700 dark:text-red-300">{error}</p>
+            <p className="text-sm text-red-800">{error}</p>
             <button
               onClick={() => dispatch(fetchFilteredJobs(filters))}
-              className="px-3 py-1.5 rounded-md border border-red-300 dark:border-red-800 bg-white dark:bg-neutral-900 text-xs font-mono text-red-700 dark:text-red-300 hover:bg-red-50 transition-colors cursor-pointer"
+              className="home-btn home-btn-glass text-xs font-mono text-red-700 cursor-pointer"
             >
-              [ Retry Query ]
+              Retry Query
             </button>
           </div>
         ) : displayedJobs.length > 0 ? (
           <JobCards job={displayedJobs} />
         ) : (
-          <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-12 text-center max-w-lg mx-auto space-y-4 my-8 shadow-xs">
-            <div className="font-mono text-xs text-neutral-400">
-              [ ZERO_MATCHES_IDENTIFIED ]
+          <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white p-12 text-center max-w-lg mx-auto space-y-4 my-8">
+            <div className="font-mono text-xs text-[#818181] uppercase tracking-wider">
+              Zero Matches Identified
             </div>
-            <h3 className="text-lg font-bold tracking-tight text-neutral-900 dark:text-white">
+            <h3 className="home-serif text-2xl font-normal tracking-tight text-[#0a0e19]">
               No Positions Match Search & Filter Criteria
             </h3>
-            <p className="text-xs text-neutral-500 leading-relaxed font-sans">
+            <p className="text-sm text-[#636363] leading-relaxed">
               Try adjusting your query term, expanding required experience, or resetting salary parameters to view all active engineering postings.
             </p>
-            <button
-              onClick={clearAllFilters}
-              className="hb-bracket px-4 py-2 text-xs font-mono rounded-md bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer"
-            >
-              <span className="bracket">[ </span>
-              <span>Reset All Search & Filters</span>
-              <span className="bracket"> ]</span>
-            </button>
+            <div className="pt-2">
+              <button
+                onClick={clearAllFilters}
+                className="home-btn home-btn-fill text-xs"
+              >
+                Reset All Search & Filters
+              </button>
+            </div>
           </div>
         )}
       </main>

@@ -12,8 +12,6 @@ import {
   User,
   LogOut,
   Edit3,
-  Briefcase,
-  MapPin,
   ExternalLink,
   ShieldCheck,
   Check,
@@ -89,58 +87,60 @@ export default function UserCRMTopBar({
     : "U";
 
   return (
-    <div className="w-full pb-6 pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 border-b border-neutral-200/80 dark:border-neutral-800/80">
-      {/* Search Input Bar (CRM style) */}
+    <div className="w-full pb-6 pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 border-b border-[#e1e1e1]">
+      {/* Search Input Bar */}
       <div className="relative flex-1 max-w-lg">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-neutral-400">
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#818181]">
           <Search className="w-4 h-4" />
         </div>
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search roles, technologies, companies..."
-          className="w-full h-10 pl-10 pr-12 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-xs sm:text-sm text-neutral-900 dark:text-neutral-100 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all shadow-xs"
+          placeholder="Search roles, engineering domains, companies..."
+          className="w-full h-10 pl-10 pr-12 rounded-lg border border-[#cecece] bg-white text-xs sm:text-sm text-[#0a0e19] placeholder:text-[#818181] focus:outline-2 focus:outline-[#0a0e19] transition-all shadow-xs"
         />
         <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-neutral-400 border border-neutral-200 dark:border-neutral-700 rounded bg-neutral-50 dark:bg-neutral-800">
+          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-[#818181] border border-[#cecece] rounded bg-[#f2f2f2]">
             ⌘K
           </kbd>
         </div>
       </div>
 
-      {/* Right Controls: Sort, Filter Button & Interactive User Avatar */}
+      {/* Right Controls: Sort, Filters & Avatar */}
       <div className="flex items-center gap-2.5 sm:gap-3 self-end sm:self-auto">
         {/* Sort Trigger */}
         <div className="relative" ref={sortRef}>
           <button
+            type="button"
             onClick={() => setIsSortOpen(!isSortOpen)}
-            className="h-10 px-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-xs font-mono text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-850 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            className="home-btn home-btn-glass text-xs flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
-            <ArrowUpDown className="w-3.5 h-3.5 text-neutral-400" />
-            <span className="hidden md:inline">Sort:</span>
-            <span className="font-semibold">
+            <ArrowUpDown className="w-3.5 h-3.5 text-[#818181]" />
+            <span className="hidden md:inline text-[#636363]">Sort:</span>
+            <span className="font-semibold text-[#0a0e19]">
               {sortOptions.find((o) => o.value === sortBy)?.label || "Latest"}
             </span>
           </button>
 
           {isSortOpen && (
-            <div className="absolute right-0 mt-1.5 w-44 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-lg py-1 z-30 font-mono text-xs">
+            <div className="home-card absolute right-0 mt-1.5 w-44 rounded-xl shadow-xl py-1 z-30 font-mono text-xs">
               {sortOptions.map((opt) => (
                 <button
                   key={opt.value}
+                  type="button"
                   onClick={() => {
                     onSortChange(opt.value);
                     setIsSortOpen(false);
                   }}
-                  className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors cursor-pointer ${
+                  className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-[#f2f2f2] transition-colors cursor-pointer ${
                     sortBy === opt.value
-                      ? "text-neutral-900 dark:text-white font-bold"
-                      : "text-neutral-600 dark:text-neutral-400"
+                      ? "text-[#0a0e19] font-bold"
+                      : "text-[#636363]"
                   }`}
                 >
                   <span>{opt.label}</span>
-                  {sortBy === opt.value && <Check className="w-3.5 h-3.5 text-emerald-500" />}
+                  {sortBy === opt.value && <Check className="w-3.5 h-3.5 text-[#397554]" />}
                 </button>
               ))}
             </div>
@@ -150,80 +150,82 @@ export default function UserCRMTopBar({
         {/* Filters Toggle Button */}
         {onToggleFilters && (
           <button
+            type="button"
             onClick={onToggleFilters}
-            className="h-10 px-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 text-xs font-mono text-neutral-700 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-850 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
+            className="home-btn home-btn-glass text-xs flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5 text-neutral-400" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#818181]" />
             <span>Filters</span>
             {activeFilterCount > 0 && (
-              <span className="w-4 h-4 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-[10px] font-bold flex items-center justify-center">
+              <span className="w-4 h-4 rounded-full bg-[#0a0e19] text-white text-[10px] font-bold flex items-center justify-center">
                 {activeFilterCount}
               </span>
             )}
           </button>
         )}
 
-        {/* Interactive Avatar "Magic" Dropdown */}
+        {/* Interactive Avatar Dropdown */}
         <div className="relative" ref={avatarRef}>
           <button
+            type="button"
             onClick={() => setIsAvatarOpen(!isAvatarOpen)}
-            className="h-10 pl-2 pr-3 rounded-lg border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all flex items-center gap-2 cursor-pointer shadow-xs group"
+            className="home-btn home-btn-glass p-1.5 flex items-center gap-2 cursor-pointer shadow-xs group"
             aria-label="Open User Profile Menu"
           >
             <div className="relative">
-              <div className="w-7 h-7 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center text-xs font-bold font-mono">
+              <div className="w-7 h-7 rounded-full bg-[#0a0e19] text-white flex items-center justify-center text-xs font-bold font-mono">
                 {candidateInitials}
               </div>
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 border border-white dark:border-neutral-900" />
+              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-[#397554] border border-white" />
             </div>
             <div className="text-left hidden md:block">
-              <span className="block text-xs font-medium text-neutral-900 dark:text-white truncate max-w-[100px]">
+              <span className="block text-xs font-medium text-[#0a0e19] truncate max-w-[100px]">
                 {completeUser?.name?.split(" ")[0] || "Candidate"}
               </span>
             </div>
           </button>
 
-          {/* Magic Dropdown Modal */}
+          {/* Dropdown Modal */}
           {isAvatarOpen && (
-            <div className="absolute right-0 mt-2 w-72 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-xl p-4 z-40 space-y-3.5">
+            <div className="home-card absolute right-0 mt-2 w-72 rounded-2xl shadow-xl p-4 z-40 space-y-3.5 border-[#e1e1e1]">
               {/* User Identity Header */}
-              <div className="flex items-center gap-3 pb-3 border-b border-neutral-100 dark:border-neutral-800">
-                <div className="w-10 h-10 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center text-sm font-bold font-mono shrink-0">
+              <div className="flex items-center gap-3 pb-3 border-b border-[#e1e1e1]">
+                <div className="w-10 h-10 rounded-full bg-[#0a0e19] text-white flex items-center justify-center text-sm font-bold font-mono shrink-0">
                   {candidateInitials}
                 </div>
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-1.5">
-                    <span className="font-semibold text-sm text-neutral-900 dark:text-white truncate">
+                    <span className="font-semibold text-sm text-[#0a0e19] truncate">
                       {completeUser?.name || "Verified Candidate"}
                     </span>
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <ShieldCheck className="w-3.5 h-3.5 text-[#397554] shrink-0" />
                   </div>
-                  <span className="block text-xs text-neutral-500 truncate font-mono">
+                  <span className="block text-xs text-[#818181] truncate font-mono">
                     {completeUser?.email || "candidate@hiringnexus.io"}
                   </span>
                 </div>
               </div>
 
-              {/* Coordinates Pill Details */}
-              <div className="p-2.5 rounded-lg border border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/50 space-y-1.5 text-xs font-mono">
-                <div className="flex items-center justify-between text-neutral-600 dark:text-neutral-400">
+              {/* Coordinates Details */}
+              <div className="p-2.5 rounded-lg border border-[#e1e1e1] bg-[#f9f9f9] space-y-1.5 text-xs font-mono">
+                <div className="flex items-center justify-between text-[#636363]">
                   <span>Discipline:</span>
-                  <span className="font-medium text-neutral-900 dark:text-neutral-200 truncate max-w-[130px]">
+                  <span className="font-medium text-[#0a0e19] truncate max-w-[130px]">
                     {completeUser?.profession || "Developer"}
                   </span>
                 </div>
                 {completeUser?.ctc && (
-                  <div className="flex items-center justify-between text-neutral-600 dark:text-neutral-400">
+                  <div className="flex items-center justify-between text-[#636363]">
                     <span>Target CTC:</span>
-                    <span className="font-medium text-neutral-900 dark:text-neutral-200">
+                    <span className="font-medium text-[#0a0e19]">
                       {completeUser.ctc}
                     </span>
                   </div>
                 )}
                 {completeUser?.location && (
-                  <div className="flex items-center justify-between text-neutral-600 dark:text-neutral-400">
+                  <div className="flex items-center justify-between text-[#636363]">
                     <span>Base:</span>
-                    <span className="font-medium text-neutral-900 dark:text-neutral-200 truncate max-w-[130px]">
+                    <span className="font-medium text-[#0a0e19] truncate max-w-[130px]">
                       {completeUser.location}
                     </span>
                   </div>
@@ -231,44 +233,45 @@ export default function UserCRMTopBar({
               </div>
 
               {/* Navigation Actions */}
-              <div className="space-y-1 font-mono text-xs">
+              <div className="space-y-1 text-xs font-medium">
                 <Link
                   href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
                   onClick={() => setIsAvatarOpen(false)}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#f2f2f2] text-[#0a0e19] transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    <User className="w-3.5 h-3.5 text-neutral-400" />
+                    <User className="w-3.5 h-3.5 text-[#818181]" />
                     <span>View Public Profile</span>
                   </div>
-                  <ExternalLink className="w-3 h-3 text-neutral-400" />
+                  <ExternalLink className="w-3 h-3 text-[#818181]" />
                 </Link>
 
                 <Link
                   href="/user/edit-page"
                   onClick={() => setIsAvatarOpen(false)}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md hover:bg-neutral-50 dark:hover:bg-neutral-800 text-neutral-700 dark:text-neutral-300 transition-colors"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#f2f2f2] text-[#0a0e19] transition-colors"
                 >
                   <div className="flex items-center gap-2">
-                    <Edit3 className="w-3.5 h-3.5 text-neutral-400" />
-                    <span>Edit Coordinates</span>
+                    <Edit3 className="w-3.5 h-3.5 text-[#818181]" />
+                    <span>Edit Profile Details</span>
                   </div>
-                  <span className="text-[10px] text-neutral-400">[ EDIT ]</span>
+                  <span className="text-[10px] font-mono text-[#818181]">EDIT</span>
                 </Link>
               </div>
 
               {/* Logout Trigger */}
-              <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
+              <div className="pt-2 border-t border-[#e1e1e1]">
                 <button
+                  type="button"
                   onClick={handleSignOut}
                   disabled={isSigningOut}
-                  className="w-full flex items-center justify-between px-3 py-2 rounded-md text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/30 transition-colors font-mono text-xs cursor-pointer disabled:opacity-50"
+                  className="w-full flex items-center justify-between px-3 py-2 rounded-lg text-red-600 hover:bg-red-50 transition-colors text-xs font-medium cursor-pointer disabled:opacity-50"
                 >
                   <div className="flex items-center gap-2">
                     <LogOut className="w-3.5 h-3.5" />
                     <span>{isSigningOut ? "Signing Out..." : "Sign Out"}</span>
                   </div>
-                  <span className="text-[10px] text-red-400">[ END_SESSION ]</span>
+                  <span className="text-[10px] font-mono text-red-400">EXIT</span>
                 </button>
               </div>
             </div>

@@ -13,25 +13,26 @@ export default async function JobDetailPage({
 
   if (!job) {
     return (
-      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-neutral-50/50 dark:bg-neutral-950 p-6">
-        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 p-8 text-center max-w-md space-y-4">
-          <span className="font-mono text-xs text-neutral-400">
-            [ 404 // ROLE_NOT_FOUND ]
+      <div className="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-[#f9f9f9] p-6">
+        <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white p-10 text-center max-w-md space-y-4">
+          <span className="font-mono text-xs text-[#818181] uppercase tracking-wider">
+            404 · Position Not Found
           </span>
-          <h2 className="text-xl font-bold text-neutral-900 dark:text-white">
+          <h2 className="home-serif text-2xl font-normal text-[#0a0e19]">
             Position Unavailable
           </h2>
-          <p className="text-xs text-neutral-500 leading-relaxed">
+          <p className="text-sm text-[#636363] leading-relaxed">
             This role may have been filled, unlisted, or expired by the hiring manager.
           </p>
-          <Link
-            href="/user/dashboard"
-            className="hb-bracket inline-flex items-center gap-2 px-4 py-2 rounded-md bg-neutral-900 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer"
-          >
-            <span className="bracket">[ </span>
-            <span>Return to Live Pipeline</span>
-            <span className="bracket"> ]</span>
-          </Link>
+          <div className="pt-2">
+            <Link
+              href="/user/dashboard"
+              className="home-btn home-btn-fill text-xs inline-flex items-center gap-2"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Return to Pipeline</span>
+            </Link>
+          </div>
         </div>
       </div>
     );

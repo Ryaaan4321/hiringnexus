@@ -9,17 +9,10 @@ import { FilterState } from "./SidebarII";
 import { JobType } from "@/interfaces/jobinterface";
 import {
   LayoutDashboard,
-  Briefcase,
   User,
   Edit3,
   SlidersHorizontal,
   LogOut,
-  ChevronRight,
-  ShieldCheck,
-  Building2,
-  DollarSign,
-  Clock,
-  Sparkles,
 } from "lucide-react";
 
 interface UserSidebarProps {
@@ -39,8 +32,6 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
     minExperience: null,
     salaryRange: null,
   });
-
-  const [filterSectionOpen, setFilterSectionOpen] = useState(true);
 
   const clearFilters = () => {
     const cleared = {
@@ -113,7 +104,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
       active: pathname.startsWith("/user/test-profile"),
     },
     {
-      title: "Edit Coordinates",
+      title: "Edit Profile",
       href: "/user/edit-page",
       icon: Edit3,
       active: pathname === "/user/edit-page",
@@ -143,30 +134,31 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
   ];
 
   return (
-    <aside className="w-64 shrink-0 border-r border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/95 flex flex-col justify-between min-h-screen sticky top-0 z-30 transition-all select-none">
+    <aside className="w-64 shrink-0 border-r border-[#e1e1e1] bg-white flex flex-col justify-between min-h-screen sticky top-0 z-30 transition-all select-none">
       {/* Top Section: Brand & Primary Navigation */}
       <div className="p-5 space-y-6 overflow-y-auto">
         {/* Brand Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-neutral-100 dark:border-neutral-800">
+        <div className="flex items-center justify-between pb-4 border-b border-[#e1e1e1]">
           <Link href="/user/dashboard" className="flex items-center gap-2.5 group">
-            <span className="w-8 h-8 rounded-lg bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center font-mono font-bold text-xs shadow-xs">
-              HX
-            </span>
+            <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 26L2 12C2 12 6 12 9 16C12 20 14 26 14 26H2Z" fill="#0a0e19" opacity="0.9" />
+              <path d="M30 26L30 8C30 8 26 8 22 14C18 20 18 26 18 26H30Z" fill="#0a0e19" />
+            </svg>
             <div>
-              <span className="font-bold text-sm tracking-tight text-neutral-900 dark:text-white block group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors">
+              <span className="font-semibold text-sm tracking-tight text-[#0a0e19] block group-hover:text-[#397554] transition-colors">
                 HiringNexus
               </span>
-              <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">
-                ENGINEERING CRM
+              <span className="text-[10px] font-mono text-[#818181] uppercase tracking-wider block">
+                Engineering CRM
               </span>
             </div>
           </Link>
         </div>
 
-        {/* Navigation Links (CRM Style) */}
+        {/* Navigation Links */}
         <div className="space-y-1">
-          <span className="block text-[10px] font-mono text-neutral-400 uppercase tracking-wider px-2 mb-1.5">
-            [ WORKSPACE ]
+          <span className="block text-[10px] font-mono text-[#818181] uppercase tracking-wider px-2 mb-1.5">
+            Workspace
           </span>
           {navigationItems.map((item) => {
             const Icon = item.icon;
@@ -174,34 +166,34 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
               <Link
                 key={item.title}
                 href={item.href}
-                className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-mono transition-all ${
+                className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
                   item.active
-                    ? "bg-neutral-100 dark:bg-neutral-800 text-neutral-950 dark:text-white font-semibold"
-                    : "text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-850 hover:text-neutral-900 dark:hover:text-white"
+                    ? "bg-[#0a0e19] text-white font-semibold shadow-xs"
+                    : "text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Icon className="w-4 h-4 text-neutral-500" />
+                  <Icon className="w-4 h-4" />
                   <span>{item.title}</span>
                 </div>
-                {item.active && <span className="w-1.5 h-1.5 rounded-full bg-neutral-950 dark:bg-white" />}
+                {item.active && <span className="w-1.5 h-1.5 rounded-full bg-[#dbefdb]" />}
               </Link>
             );
           })}
         </div>
 
-        {/* Quick Filters / Modality Section (like "Projects" in CRM image) */}
-        <div className="space-y-4 pt-4 border-t border-neutral-100 dark:border-neutral-800">
+        {/* Quick Filters */}
+        <div className="space-y-4 pt-4 border-t border-[#e1e1e1]">
           <div className="flex items-center justify-between px-2">
-            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
-              [ PIPELINE_FILTERS ]
+            <span className="text-[10px] font-mono text-[#818181] uppercase tracking-wider">
+              Pipeline Filters
             </span>
-            <SlidersHorizontal className="w-3 h-3 text-neutral-400" />
+            <SlidersHorizontal className="w-3.5 h-3.5 text-[#818181]" />
           </div>
 
           {/* Modality Chips */}
           <div className="space-y-1.5">
-            <span className="block text-[11px] font-mono text-neutral-500 px-2">
+            <span className="block text-[11px] font-mono text-[#636363] px-2">
               Modality:
             </span>
             <div className="flex flex-wrap gap-1 px-1">
@@ -210,11 +202,12 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
                 return (
                   <button
                     key={type}
+                    type="button"
                     onClick={() => handleJobTypeToggle(type)}
-                    className={`px-2 py-1 text-[11px] font-mono rounded-md border transition-all cursor-pointer ${
+                    className={`px-2.5 py-1 text-[11px] font-mono rounded-md border transition-all cursor-pointer ${
                       selected
-                        ? "bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 border-neutral-950 dark:border-white font-semibold"
-                        : "border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                        ? "bg-[#0a0e19] text-white border-[#0a0e19] font-medium"
+                        : "border-[#e1e1e1] bg-[#f9f9f9] text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
                     }`}
                   >
                     {type}
@@ -226,7 +219,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
 
           {/* Experience Quick Filters */}
           <div className="space-y-1.5">
-            <span className="block text-[11px] font-mono text-neutral-500 px-2">
+            <span className="block text-[11px] font-mono text-[#636363] px-2">
               Min Experience:
             </span>
             <div className="grid grid-cols-2 gap-1 px-1">
@@ -235,11 +228,12 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
                 return (
                   <button
                     key={opt.label}
+                    type="button"
                     onClick={() => handleExpSelect(opt.val)}
                     className={`px-2 py-1 text-[11px] font-mono rounded-md border text-center transition-all cursor-pointer ${
                       selected
-                        ? "bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 border-neutral-950 dark:border-white font-semibold"
-                        : "border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                        ? "bg-[#0a0e19] text-white border-[#0a0e19] font-medium"
+                        : "border-[#e1e1e1] bg-[#f9f9f9] text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
                     }`}
                   >
                     {opt.label}
@@ -251,7 +245,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
 
           {/* Salary Filter Quick Select */}
           <div className="space-y-1.5">
-            <span className="block text-[11px] font-mono text-neutral-500 px-2">
+            <span className="block text-[11px] font-mono text-[#636363] px-2">
               Compensation Range:
             </span>
             <div className="space-y-1 px-1">
@@ -266,15 +260,16 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
                 return (
                   <button
                     key={opt.label}
+                    type="button"
                     onClick={() => handleSalaryRangeSelect(opt.min, opt.max)}
                     className={`w-full px-2.5 py-1 text-[11px] font-mono rounded-md border text-left flex items-center justify-between transition-all cursor-pointer ${
                       isSelected
-                        ? "bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 border-neutral-950 dark:border-white font-semibold"
-                        : "border-neutral-200 dark:border-neutral-800 text-neutral-600 dark:text-neutral-400 hover:bg-neutral-50 dark:hover:bg-neutral-800"
+                        ? "bg-[#0a0e19] text-white border-[#0a0e19] font-medium"
+                        : "border-[#e1e1e1] bg-[#f9f9f9] text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
                     }`}
                   >
                     <span>{opt.label}</span>
-                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />}
+                    {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#dbefdb]" />}
                   </button>
                 );
               })}
@@ -284,51 +279,52 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
           {/* Apply & Reset Buttons */}
           <div className="pt-2 space-y-1.5 px-1">
             <button
+              type="button"
               onClick={() => onApply(filters)}
-              className="hb-bracket w-full py-2 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer"
+              className="home-btn home-btn-fill w-full text-xs py-2 cursor-pointer"
             >
-              <span className="bracket">[ </span>
-              <span>Apply Filters</span>
-              <span className="bracket"> ]</span>
+              Apply Filters
             </button>
 
             <button
+              type="button"
               onClick={clearFilters}
-              className="w-full py-1.5 rounded-md border border-neutral-200 dark:border-neutral-800 text-[11px] font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors cursor-pointer"
+              className="home-btn home-btn-outline w-full text-xs py-1.5 cursor-pointer text-[#636363]"
             >
-              [ Clear Filter Rules ]
+              Clear Filter Rules
             </button>
           </div>
         </div>
       </div>
 
-      {/* Bottom Section: Candidate Identity Card & Quick Logout */}
-      <div className="p-4 border-t border-neutral-100 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950/50">
+      {/* Bottom Section: Candidate Identity Card */}
+      <div className="p-4 border-t border-[#e1e1e1] bg-[#f9f9f9]">
         <div className="flex items-center justify-between gap-2">
           <Link
             href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
             className="flex items-center gap-2.5 min-w-0 flex-1 hover:opacity-80 transition-opacity"
           >
             <div className="relative shrink-0">
-              <div className="w-8 h-8 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 flex items-center justify-center text-xs font-bold font-mono">
+              <div className="w-8 h-8 rounded-full bg-[#0a0e19] text-white flex items-center justify-center text-xs font-bold font-mono">
                 {candidateInitials}
               </div>
-              <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-emerald-500 border border-white dark:border-neutral-900" />
+              <span className="absolute bottom-0 right-0 w-2 h-2 rounded-full bg-[#397554] border border-white" />
             </div>
             <div className="min-w-0 flex-1">
-              <span className="font-semibold text-xs text-neutral-900 dark:text-white block truncate">
+              <span className="font-medium text-xs text-[#0a0e19] block truncate">
                 {completeUser?.name || "Candidate"}
               </span>
-              <span className="text-[10px] font-mono text-neutral-400 block truncate">
+              <span className="text-[10px] font-mono text-[#818181] block truncate">
                 {completeUser?.profession || "Verified Engineer"}
               </span>
             </div>
           </Link>
 
           <button
+            type="button"
             onClick={handleSignOut}
             title="Sign Out"
-            className="p-1.5 rounded-md text-neutral-400 hover:text-red-600 dark:hover:text-red-400 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+            className="p-1.5 rounded-md text-[#818181] hover:text-red-600 hover:bg-[#f2f2f2] transition-colors cursor-pointer"
           >
             <LogOut className="w-4 h-4" />
           </button>

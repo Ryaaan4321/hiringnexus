@@ -94,29 +94,29 @@ export default function EditUserDetails() {
   }
 
   return (
-    <div className="min-h-[calc(100vh-4rem)] bg-neutral-50/50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 py-10 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f9] text-[#0a0e19] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Navigation Breadcrumb */}
         <div className="flex items-center justify-between">
           <Link
             href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
-            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+            className="inline-flex items-center gap-2 text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
-            <span>[ Back to Profile ]</span>
+            <span>Back to Profile</span>
           </Link>
-          <span className="font-mono text-xs text-neutral-400">
-            [ PROFILE_CONFIGURATION // CANDIDATE ]
+          <span className="font-mono text-xs text-[#818181] uppercase tracking-wider">
+            Profile Configuration · Candidate
           </span>
         </div>
 
         {/* Main Configuration Card */}
-        <div className="rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900/90 shadow-sm p-6 sm:p-8">
-          <div className="border-b border-neutral-100 dark:border-neutral-800 pb-6 mb-6">
-            <h1 className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-white">
+        <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white shadow-xs p-6 sm:p-8">
+          <div className="border-b border-[#e1e1e1] pb-6 mb-6">
+            <h1 className="home-serif text-3xl font-normal tracking-tight text-[#0a0e19]">
               Edit Engineering Coordinates
             </h1>
-            <p className="text-xs font-mono text-neutral-500 mt-1">
+            <p className="text-sm text-[#636363] mt-1">
               Keep your technical skills, compensation parameters, and contact coordinates up to date.
             </p>
           </div>
@@ -124,14 +124,14 @@ export default function EditUserDetails() {
           {feedback && (
             <div
               role="alert"
-              className={`mb-6 p-3.5 rounded-lg border text-xs font-mono flex items-start gap-2.5 ${
+              className={`mb-6 p-4 rounded-xl border text-xs font-mono flex items-start gap-2.5 ${
                 feedback.type === "success"
-                  ? "bg-emerald-50 dark:bg-emerald-950/30 border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300"
-                  : "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-800 text-red-700 dark:text-red-300"
+                  ? "bg-[#dbefdb] border-[#b8dfb8] text-[#1e3c2c]"
+                  : "bg-red-50 border-red-200 text-red-700"
               }`}
             >
               {feedback.type === "success" ? (
-                <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+                <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#397554]" />
               ) : (
                 <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               )}
@@ -142,10 +142,10 @@ export default function EditUserDetails() {
           <form onSubmit={handleSubmit} className="space-y-6">
             {/* Primary Details Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="name"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Full Name
                 </label>
@@ -155,14 +155,14 @@ export default function EditUserDetails() {
                   value={formdata.name || ""}
                   onChange={(e) => handleFieldChange("name", e.target.value)}
                   placeholder="e.g. Alex Chen"
-                  className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="username"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Nexus Handle / Username
                 </label>
@@ -172,14 +172,14 @@ export default function EditUserDetails() {
                   value={formdata.username || ""}
                   onChange={(e) => handleFieldChange("username", e.target.value)}
                   placeholder="e.g. alexchen_dev"
-                  className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="profession"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Engineering Discipline
                 </label>
@@ -189,14 +189,14 @@ export default function EditUserDetails() {
                   value={formdata.profession || ""}
                   onChange={(e) => handleFieldChange("profession", e.target.value)}
                   placeholder="e.g. Systems Engineer / Backend"
-                  className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="phonenumber"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Contact Coordinate
                 </label>
@@ -206,14 +206,14 @@ export default function EditUserDetails() {
                   value={formdata.phonenumber || ""}
                   onChange={(e) => handleFieldChange("phonenumber", e.target.value)}
                   placeholder="e.g. +91 98765 43210"
-                  className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="ctc"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Target Compensation (LPA)
                 </label>
@@ -223,14 +223,14 @@ export default function EditUserDetails() {
                   value={formdata.ctc || ""}
                   onChange={(e) => handleFieldChange("ctc", e.target.value)}
                   placeholder="e.g. 18 LPA"
-                  className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
                 />
               </div>
 
-              <div className="space-y-1">
+              <div className="space-y-1.5">
                 <label
                   htmlFor="location"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Geographic Location / Base
                 </label>
@@ -240,21 +240,21 @@ export default function EditUserDetails() {
                   value={formdata.location || ""}
                   onChange={(e) => handleFieldChange("location", e.target.value)}
                   placeholder="e.g. Bengaluru, India (Remote Preferred)"
-                  className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                  className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
                 />
               </div>
             </div>
 
             {/* Technical Skills */}
-            <div className="space-y-2 pt-2 border-t border-neutral-100 dark:border-neutral-800">
+            <div className="space-y-2 pt-2 border-t border-[#e1e1e1]">
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="skills"
-                  className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                  className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
                 >
                   Core Verified Skills (Comma-Separated)
                 </label>
-                <span className="text-[11px] font-mono text-neutral-400">
+                <span className="text-[11px] font-mono text-[#818181]">
                   {formdata.skills?.length || 0} skills indexed
                 </span>
               </div>
@@ -264,14 +264,14 @@ export default function EditUserDetails() {
                 value={skillsInput}
                 onChange={(e) => handleSkillsChange(e.target.value)}
                 placeholder="e.g. TypeScript, Rust, Distributed Systems, PostgreSQL, Docker"
-                className="w-full h-10 px-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all"
+                className="w-full h-11 px-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all"
               />
               {formdata.skills && formdata.skills.length > 0 && (
                 <div className="flex flex-wrap gap-1.5 pt-1">
                   {formdata.skills.map((skill, i) => (
                     <span
                       key={i}
-                      className="text-xs font-mono px-2 py-0.5 rounded bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 border border-neutral-200 dark:border-neutral-700"
+                      className="text-xs font-mono px-3 py-1 rounded-full bg-[#dbefdb] text-[#1e3c2c] border border-[#b8dfb8]"
                     >
                       {skill}
                     </span>
@@ -281,10 +281,10 @@ export default function EditUserDetails() {
             </div>
 
             {/* Description / Manifesto */}
-            <div className="space-y-1.5 pt-2 border-t border-neutral-100 dark:border-neutral-800">
+            <div className="space-y-1.5 pt-2 border-t border-[#e1e1e1]">
               <label
                 htmlFor="descreption"
-                className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider"
+                className="block text-xs font-mono text-[#636363] uppercase tracking-wider"
               >
                 Technical Scope & Manifesto
               </label>
@@ -294,35 +294,33 @@ export default function EditUserDetails() {
                 value={formdata.descreption || ""}
                 onChange={(e) => handleFieldChange("descreption", e.target.value)}
                 placeholder="Describe your engineering focus, high-impact projects, or architectural specializations..."
-                className="w-full p-3.5 rounded-md border border-neutral-200 dark:border-neutral-800 bg-neutral-50/50 dark:bg-neutral-950 text-sm text-neutral-900 dark:text-white placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-neutral-900 dark:focus:ring-white transition-all resize-none leading-relaxed"
+                className="w-full p-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-sm text-[#0a0e19] placeholder:text-[#818181] focus:border-[#0a0e19] focus:bg-white focus:outline-none transition-all resize-none leading-relaxed"
               />
             </div>
 
             {/* Resume Upload Module */}
-            <div className="pt-2 border-t border-neutral-100 dark:border-neutral-800">
-              <span className="block text-xs font-mono text-neutral-500 dark:text-neutral-400 uppercase tracking-wider mb-2">
+            <div className="pt-2 border-t border-[#e1e1e1]">
+              <span className="block text-xs font-mono text-[#636363] uppercase tracking-wider mb-2">
                 Resume Artifact
               </span>
               <UploadResume />
             </div>
 
             {/* Submit Bar */}
-            <div className="pt-6 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between">
+            <div className="pt-6 border-t border-[#e1e1e1] flex items-center justify-between">
               <Link
                 href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
-                className="text-xs font-mono text-neutral-500 hover:text-neutral-900 dark:hover:text-white transition-colors"
+                className="text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
               >
-                [ Discard Changes ]
+                Discard Changes
               </Link>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="hb-bracket px-5 py-2.5 rounded-md bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-xs font-mono font-medium hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all cursor-pointer disabled:opacity-50"
+                className="home-btn home-btn-fill px-6 py-2.5 text-xs font-medium cursor-pointer disabled:opacity-50"
               >
-                <span className="bracket">[ </span>
                 <span>{isSubmitting ? "Synchronizing..." : "Save Profile Coordinates"}</span>
-                <span className="bracket"> ]</span>
               </button>
             </div>
           </form>
