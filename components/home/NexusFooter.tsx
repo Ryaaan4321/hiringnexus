@@ -91,12 +91,6 @@ export function NexusFooter() {
           <div className="mt-12 flex flex-wrap items-end justify-between gap-6 border-t border-[#f2f2f2] pt-6">
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs opacity-70 text-[#636363]">
               <span>© 2026 HiringNexus Inc.</span>
-              <span className="inline-flex items-center gap-1.5 rounded bg-[#f2f2f2] px-2 py-1 text-[11px] font-medium text-[#0a0e19]">
-                <span className="flex h-4 w-4 items-center justify-center rounded bg-[#fb651e] font-bold text-white text-[10px]">
-                  Y
-                </span>
-                Backed by Y Combinator
-              </span>
             </div>
             <div className="flex items-center gap-3 text-[#0a0e19]">
               <a
