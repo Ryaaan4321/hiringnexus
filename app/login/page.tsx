@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, ShieldCheck, AlertCircle, ArrowRight } from "lucide-react";
+import { Eye, EyeOff, ShieldCheck, AlertCircle } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
 
-export default function UnifiedLoginPage() {
+function LoginFormContent() {
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -178,5 +178,13 @@ export default function UnifiedLoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function UnifiedLoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-[#f9f9f9]" />}>
+      <LoginFormContent />
+    </Suspense>
   );
 }
