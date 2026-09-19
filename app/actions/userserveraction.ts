@@ -105,7 +105,6 @@ export async function getDetailsofUser(id: string | null | undefined): Promise<u
     }
 }
 export async function getidOfUser(): Promise<string | null> {
-    // console.log("get id of user got called");
     try {
         const cookiestore = cookies();
         const token = (await cookiestore).get("token")?.value;

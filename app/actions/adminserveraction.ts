@@ -54,7 +54,7 @@ export async function getidOfAdmin(): Promise<AdminPayload | null> {
     if (!process.env.SECRET_KEY) return null;
     const secret = new TextEncoder().encode(process.env.SECRET_KEY);
     const { payload } = await jwtVerify<AdminPayload>(token, secret);
-    if (!payload.id || payload.role !== "admin") return null;
+    if (!payload.id || String(payload.role || "").toLowerCase() !== "admin") return null;
     return {
       id: payload.id,
       role: payload.role,
@@ -74,8 +74,18 @@ export async function getDetailsOfAdmin(id: string | null | undefined): Promise<
         email: true,
         username: true
       }
-    })
-    return details;
+    });
+    if (details) return details;
+
+    const userAdmin = await client.user.findUnique({
+      where: { id },
+      select: {
+        id: true,
+        email: true,
+        username: true
+      }
+    });
+    return userAdmin;
   } catch (e: any) {
     return null;
   }
@@ -86,12 +96,15 @@ export async function deleteJob(jobId: string) {
     if (!admin) {
       return { success: false, msg: "you are not an admin!" }
     }
-    const dbadmin = await client.admin.findUnique({
+    const dbadmin = (await client.admin.findUnique({
       where: {
         id: admin.id,
-
       }
-    })
+    })) || (await client.user.findUnique({
+      where: {
+        id: admin.id,
+      }
+    }));
     if (!dbadmin || !dbadmin.canDeleteJob) {
       return { succes: false, msg: "permission denied,you cannot delete the jobs" }
     }

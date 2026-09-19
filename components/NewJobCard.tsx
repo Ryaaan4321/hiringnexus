@@ -46,7 +46,6 @@ export default function JobCards({
             key={item.id}
             className="home-card rounded-2xl p-5 hover:border-[#0a0e19] transition-all shadow-xs hover:shadow-md flex flex-col justify-between space-y-4"
           >
-            {/* Card Header: Company Monogram + Title */}
             <div>
               <div className="flex items-start justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3">
@@ -74,15 +73,11 @@ export default function JobCards({
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>
-
-              {/* Description Preview */}
               {item.descreption && (
                 <p className="text-xs text-[#636363] line-clamp-2 leading-relaxed mb-3">
                   {item.descreption}
                 </p>
               )}
-
-              {/* Modality Chips & Experience */}
               <div className="flex flex-wrap items-center gap-1.5 pt-1">
                 <span className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-[#f2f2f2] text-[#0a0e19] font-medium border border-[#e1e1e1]">
                   {item.experience === 0 ? "Fresher Friendly" : `${item.experience} yr${item.experience > 1 ? "s" : ""} exp`}
@@ -101,9 +96,7 @@ export default function JobCards({
                 )}
               </div>
             </div>
-
-            {/* Card Footer: Compensation + Direct Action */}
-            <div className="pt-3 border-t border-[#e1e1e1] flex items-center justify-between">
+            <div className="pt-3 border-t border-[#e1e1e1] flex flex-wrap items-center justify-between gap-2.5">
               <div>
                 <span className="block text-[10px] font-mono text-[#818181] uppercase tracking-wider">
                   Compensation
@@ -116,7 +109,7 @@ export default function JobCards({
               <div className="flex items-center gap-2">
                 <Link
                   href={`/user/job/${item.id}`}
-                  className="home-btn home-btn-outline text-xs px-2.5 py-1"
+                  className="home-btn home-btn-outline text-xs px-2.5 py-1.5 min-h-[32px] flex items-center justify-center"
                 >
                   Details
                 </Link>
@@ -126,7 +119,7 @@ export default function JobCards({
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={(e) => handleApplyClick(item.id, e)}
-                  className="home-btn home-btn-fill text-xs px-3 py-1 flex items-center gap-1 cursor-pointer"
+                  className="home-btn home-btn-fill text-xs px-3 py-1.5 min-h-[32px] flex items-center gap-1 cursor-pointer"
                 >
                   <span>{isVisiting ? "Opening..." : "Apply"}</span>
                   <ExternalLink className="w-3 h-3" />

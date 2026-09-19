@@ -24,7 +24,6 @@ export default function UserDashboard() {
   const [sortBy, setSortBy] = useState("latest");
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
-  // Debounced Redux filter fetch
   useEffect(() => {
     const timer = setTimeout(() => {
       dispatch(fetchFilteredJobs(filters));
@@ -33,10 +32,16 @@ export default function UserDashboard() {
     return () => clearTimeout(timer);
   }, [filters, dispatch]);
 
-  // Auth check
   useEffect(() => {
     if (!userloading && !completeUser && err) {
-      router.push("/user/login");
+      router.push("/login");
+    } else if (!userloading && completeUser) {
+      const role = String((completeUser as any).role || "").toUpperCase();
+      if (role === "RECRUITER") {
+        router.replace("/recruiter/dashboard");
+      } else if (role === "ADMIN") {
+        router.replace("/admin");
+      }
     }
   }, [userloading, completeUser, err, router]);
 
@@ -58,13 +63,11 @@ export default function UserDashboard() {
     setSearchQuery("");
   };
 
-  // Active filter rules count
   const activeFiltersCount =
     (filters.jobTypes?.length || 0) +
     (filters.minExperience !== undefined ? 1 : 0) +
     (filters.salaryRange !== undefined ? 1 : 0);
 
-  // Client-side search and sorting filter
   const displayedJobs = useMemo(() => {
     let result = [...rawJobs];
 
@@ -102,41 +105,46 @@ export default function UserDashboard() {
 
   return (
     <div className="flex min-h-screen bg-[#f9f9f9] text-[#0a0e19]">
-      {/* CRM Sidebar Navigation */}
-      <UserSidebar onApply={handleApplyFilters} />
 
-      {/* Main CRM Content Area */}
-      <main className="flex-1 min-w-0 px-4 sm:px-8 py-6 max-w-7xl mx-auto w-full">
-        {/* Integrated Top CRM Control Bar */}
+      <UserSidebar
+        onApply={(f) => {
+          handleApplyFilters(f);
+          setMobileSidebarOpen(false);
+        }}
+        isOpen={mobileSidebarOpen}
+        onClose={() => setMobileSidebarOpen(false)}
+      />
+
+      <main className="flex-1 min-w-0 px-3 sm:px-6 lg:px-8 py-4 sm:py-6 max-w-7xl mx-auto w-full">
         <UserCRMTopBar
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
           activeFilterCount={activeFiltersCount}
+          onToggleFilters={() => setMobileSidebarOpen(true)}
+          onToggleMobileMenu={() => setMobileSidebarOpen(true)}
           sortBy={sortBy}
           onSortChange={setSortBy}
         />
 
-        {/* CRM Overview Metrics Bar */}
         <UserDashboardMetrics
           totalJobs={rawJobs.length}
           activeFiltersCount={activeFiltersCount}
         />
 
-        {/* Board Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-6 border-b border-[#e1e1e1]">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className="font-mono text-[11px] uppercase tracking-wider text-[#636363]">
+              <span className="font-mono text-[10px] sm:text-[11px] uppercase tracking-wider text-[#636363]">
                 Opportunity Pipeline · Direct Posts
               </span>
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#397554]" />
             </div>
-            <h2 className="home-serif text-2xl sm:text-3xl font-normal tracking-tight text-[#0a0e19]">
+            <h2 className="home-serif text-xl sm:text-2xl md:text-3xl font-normal tracking-tight text-[#0a0e19]">
               Available Engineering Roles
             </h2>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             {(activeFiltersCount > 0 || searchQuery.trim()) && (
               <button
                 onClick={clearAllFilters}
@@ -145,13 +153,20 @@ export default function UserDashboard() {
                 Reset All Filters
               </button>
             )}
-            <span className="text-xs font-mono px-3 py-1 rounded-full border border-[#cecece] bg-white text-[#636363]">
+            <span className="text-[11px] sm:text-xs font-mono px-2.5 sm:px-3 py-1 rounded-full border border-[#cecece] bg-white text-[#636363]">
               Showing {displayedJobs.length} of {rawJobs.length} Roles
             </span>
+            <button
+              onClick={() => setMobileSidebarOpen(true)}
+              className="lg:hidden text-[11px] font-mono px-2.5 py-1 rounded-full border border-[#0a0e19] bg-[#0a0e19] text-white flex items-center gap-1 cursor-pointer"
+            >
+              <SlidersHorizontal className="w-3 h-3" />
+              <span>Filter</span>
+              {activeFiltersCount > 0 && <span>({activeFiltersCount})</span>}
+            </button>
           </div>
         </div>
 
-        {/* Roles Pipeline Content */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
             {[1, 2, 3, 4, 5, 6].map((i) => (

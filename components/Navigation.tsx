@@ -19,7 +19,7 @@ export default function Navigation() {
             })
             const data = await res.json()
             if (res.ok) {
-                router.push('/user/login')
+                router.push('/login')
                 setSignoutLoading(false);
             } else {
                 setSignoutLoading(false);
@@ -58,12 +58,12 @@ export default function Navigation() {
                             <Buttons onClick={handleSubmit} className="bg-red-800 cursor-pointer hover:bg-red-800">{signoutLoading ? "Signing you Out" : "Sign Out"}</Buttons>
                         </div> :
                         <div className="flex items-center space-x-4">
-                            <Link href='/user/login'>
+                            <Link href='/login'>
                                 <Buttons variant="ghost" className="text-slate-800 hover:bg-slate-100 cursor-pointer">
                                     Sign In
                                 </Buttons>
                             </Link>
-                            <Link href='/user/signup'>
+                            <Link href='/signup'>
                                 <Buttons className="bg-slate-800 hover:bg-slate-700 text-white cursor-pointer">Sign Up</Buttons>
                             </Link>
                         </div>}

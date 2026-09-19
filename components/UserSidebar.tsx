@@ -13,6 +13,7 @@ import {
   Edit3,
   SlidersHorizontal,
   LogOut,
+  X,
 } from "lucide-react";
 
 interface UserSidebarProps {
@@ -21,7 +22,7 @@ interface UserSidebarProps {
   onClose?: () => void;
 }
 
-export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProps) {
+export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { completeUser } = useUserDetails();
@@ -41,6 +42,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
     };
     setFilters(cleared);
     onApply(cleared);
+    if (onClose) onClose();
   };
 
   const handleJobTypeToggle = (type: JobType) => {
@@ -71,23 +73,28 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
     setFilters(newFilters);
   };
 
+  const handleApply = () => {
+    onApply(filters);
+    if (onClose) onClose();
+  };
+
   const handleSignOut = async () => {
     try {
       await fetch("/api/logout", { method: "POST", cache: "no-store" });
       await userLogout();
-      window.location.href = "/user/login";
+      window.location.href = "/login";
     } catch (e) {
-      window.location.href = "/user/login";
+      window.location.href = "/login";
     }
   };
 
   const candidateInitials = completeUser?.name
     ? completeUser.name
-        .split(" ")
-        .map((n) => n[0])
-        .slice(0, 2)
-        .join("")
-        .toUpperCase()
+      .split(" ")
+      .map((n) => n[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase()
     : "U";
 
   const navigationItems = [
@@ -133,13 +140,17 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
     { label: "5+ Yrs", val: 5 },
   ];
 
-  return (
-    <aside className="w-64 shrink-0 border-r border-[#e1e1e1] bg-white flex flex-col justify-between min-h-screen sticky top-0 z-30 transition-all select-none">
-      {/* Top Section: Brand & Primary Navigation */}
+  const sidebarContent = (
+    <div className="flex flex-col justify-between h-full">
+      
       <div className="p-5 space-y-6 overflow-y-auto">
-        {/* Brand Header */}
+        
         <div className="flex items-center justify-between pb-4 border-b border-[#e1e1e1]">
-          <Link href="/user/dashboard" className="flex items-center gap-2.5 group">
+          <Link
+            href="/user/dashboard"
+            onClick={onClose}
+            className="flex items-center gap-2.5 group"
+          >
             <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M2 26L2 12C2 12 6 12 9 16C12 20 14 26 14 26H2Z" fill="#0a0e19" opacity="0.9" />
               <path d="M30 26L30 8C30 8 26 8 22 14C18 20 18 26 18 26H30Z" fill="#0a0e19" />
@@ -155,7 +166,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
           </Link>
         </div>
 
-        {/* Navigation Links */}
+        
         <div className="space-y-1">
           <span className="block text-[10px] font-mono text-[#818181] uppercase tracking-wider px-2 mb-1.5">
             Workspace
@@ -166,11 +177,11 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
               <Link
                 key={item.title}
                 href={item.href}
-                className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
-                  item.active
+                onClick={onClose}
+                className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${item.active
                     ? "bg-[#0a0e19] text-white font-semibold shadow-xs"
                     : "text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
-                }`}
+                  }`}
               >
                 <div className="flex items-center gap-2.5">
                   <Icon className="w-4 h-4" />
@@ -182,7 +193,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
           })}
         </div>
 
-        {/* Quick Filters */}
+        
         <div className="space-y-4 pt-4 border-t border-[#e1e1e1]">
           <div className="flex items-center justify-between px-2">
             <span className="text-[10px] font-mono text-[#818181] uppercase tracking-wider">
@@ -191,7 +202,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
             <SlidersHorizontal className="w-3.5 h-3.5 text-[#818181]" />
           </div>
 
-          {/* Modality Chips */}
+          
           <div className="space-y-1.5">
             <span className="block text-[11px] font-mono text-[#636363] px-2">
               Modality:
@@ -204,11 +215,10 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
                     key={type}
                     type="button"
                     onClick={() => handleJobTypeToggle(type)}
-                    className={`px-2.5 py-1 text-[11px] font-mono rounded-md border transition-all cursor-pointer ${
-                      selected
+                    className={`px-2.5 py-1 text-[11px] font-mono rounded-md border transition-all cursor-pointer ${selected
                         ? "bg-[#0a0e19] text-white border-[#0a0e19] font-medium"
                         : "border-[#e1e1e1] bg-[#f9f9f9] text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
-                    }`}
+                      }`}
                   >
                     {type}
                   </button>
@@ -217,7 +227,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
             </div>
           </div>
 
-          {/* Experience Quick Filters */}
+          
           <div className="space-y-1.5">
             <span className="block text-[11px] font-mono text-[#636363] px-2">
               Min Experience:
@@ -230,11 +240,10 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
                     key={opt.label}
                     type="button"
                     onClick={() => handleExpSelect(opt.val)}
-                    className={`px-2 py-1 text-[11px] font-mono rounded-md border text-center transition-all cursor-pointer ${
-                      selected
+                    className={`px-2 py-1 text-[11px] font-mono rounded-md border text-center transition-all cursor-pointer ${selected
                         ? "bg-[#0a0e19] text-white border-[#0a0e19] font-medium"
                         : "border-[#e1e1e1] bg-[#f9f9f9] text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
-                    }`}
+                      }`}
                   >
                     {opt.label}
                   </button>
@@ -243,7 +252,7 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
             </div>
           </div>
 
-          {/* Salary Filter Quick Select */}
+          
           <div className="space-y-1.5">
             <span className="block text-[11px] font-mono text-[#636363] px-2">
               Compensation Range:
@@ -254,19 +263,18 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
                   opt.min === null
                     ? filters.salaryRange === null
                     : filters.salaryRange &&
-                      filters.salaryRange[0] === opt.min &&
-                      filters.salaryRange[1] === opt.max;
+                    filters.salaryRange[0] === opt.min &&
+                    filters.salaryRange[1] === opt.max;
 
                 return (
                   <button
                     key={opt.label}
                     type="button"
                     onClick={() => handleSalaryRangeSelect(opt.min, opt.max)}
-                    className={`w-full px-2.5 py-1 text-[11px] font-mono rounded-md border text-left flex items-center justify-between transition-all cursor-pointer ${
-                      isSelected
+                    className={`w-full px-2.5 py-1 text-[11px] font-mono rounded-md border text-left flex items-center justify-between transition-all cursor-pointer ${isSelected
                         ? "bg-[#0a0e19] text-white border-[#0a0e19] font-medium"
                         : "border-[#e1e1e1] bg-[#f9f9f9] text-[#636363] hover:bg-[#f2f2f2] hover:text-[#0a0e19]"
-                    }`}
+                      }`}
                   >
                     <span>{opt.label}</span>
                     {isSelected && <span className="w-1.5 h-1.5 rounded-full bg-[#dbefdb]" />}
@@ -275,12 +283,10 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
               })}
             </div>
           </div>
-
-          {/* Apply & Reset Buttons */}
           <div className="pt-2 space-y-1.5 px-1">
             <button
               type="button"
-              onClick={() => onApply(filters)}
+              onClick={handleApply}
               className="home-btn home-btn-fill w-full text-xs py-2 cursor-pointer"
             >
               Apply Filters
@@ -296,12 +302,11 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
           </div>
         </div>
       </div>
-
-      {/* Bottom Section: Candidate Identity Card */}
       <div className="p-4 border-t border-[#e1e1e1] bg-[#f9f9f9]">
         <div className="flex items-center justify-between gap-2">
           <Link
             href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
+            onClick={onClose}
             className="flex items-center gap-2.5 min-w-0 flex-1 hover:opacity-80 transition-opacity"
           >
             <div className="relative shrink-0">
@@ -330,6 +335,46 @@ export function UserSidebar({ onApply, isOpen = true, onClose }: UserSidebarProp
           </button>
         </div>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      <aside className="hidden lg:flex w-64 shrink-0 border-r border-[#e1e1e1] bg-white flex-col justify-between min-h-screen sticky top-0 z-30 select-none">
+        {sidebarContent}
+      </aside>
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 backdrop-blur-xs z-50 lg:hidden transition-opacity"
+          onClick={onClose}
+          aria-hidden="true"
+        />
+      )}
+      <aside
+        className={`fixed inset-y-0 left-0 w-72 max-w-[85vw] bg-white z-50 shadow-2xl flex flex-col justify-between lg:hidden transition-transform duration-300 ease-in-out select-none ${isOpen ? "translate-x-0" : "-translate-x-full pointer-events-none"
+          }`}
+      >
+        <div className="flex items-center justify-between px-4 py-3 border-b border-[#e1e1e1] bg-[#fcfcfc] shrink-0">
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-xs text-[#0a0e19]">HiringNexus</span>
+            <span className="text-[10px] font-mono text-[#818181] uppercase tracking-wider">
+              Filters & Nav
+            </span>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            className="p-1 rounded-md text-[#636363] hover:text-[#0a0e19] hover:bg-[#f2f2f2] transition-colors cursor-pointer"
+            aria-label="Close Sidebar"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto">
+          {sidebarContent}
+        </div>
+      </aside>
+    </>
   );
 }

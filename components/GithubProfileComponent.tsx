@@ -60,8 +60,6 @@ export function RenderGithubProfile({ profile }: { profile: any }) {
           <ExternalLink className="w-3.5 h-3.5" />
         </a>
       </div>
-
-      {/* GitHub Telemetry Stats Grid */}
       <div className="grid grid-cols-3 gap-3 pt-5">
         <div className="p-3.5 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] text-center">
           <div className="home-serif text-2xl font-normal text-[#0a0e19]">

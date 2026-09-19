@@ -3,7 +3,7 @@ import client from '@/app/db'
 import { jwtVerify, JWTPayload } from "jose";
 
 interface AdminPayload extends JWTPayload {
-    id: string;  // to extract the admin id from here 
+    id: string; 
     email: string;
 }
 export async function POST(req: NextRequest) {

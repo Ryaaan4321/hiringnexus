@@ -96,8 +96,7 @@ export default function EditUserDetails() {
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f9] text-[#0a0e19] py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto space-y-6">
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-wrap items-center justify-between gap-2">
           <Link
             href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
             className="inline-flex items-center gap-2 text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
@@ -105,12 +104,11 @@ export default function EditUserDetails() {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Profile</span>
           </Link>
-          <span className="font-mono text-xs text-[#818181] uppercase tracking-wider">
+          <span className="font-mono text-[11px] sm:text-xs text-[#818181] uppercase tracking-wider">
             Profile Configuration · Candidate
           </span>
         </div>
 
-        {/* Main Configuration Card */}
         <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white shadow-xs p-6 sm:p-8">
           <div className="border-b border-[#e1e1e1] pb-6 mb-6">
             <h1 className="home-serif text-3xl font-normal tracking-tight text-[#0a0e19]">
@@ -124,11 +122,10 @@ export default function EditUserDetails() {
           {feedback && (
             <div
               role="alert"
-              className={`mb-6 p-4 rounded-xl border text-xs font-mono flex items-start gap-2.5 ${
-                feedback.type === "success"
+              className={`mb-6 p-4 rounded-xl border text-xs font-mono flex items-start gap-2.5 ${feedback.type === "success"
                   ? "bg-[#dbefdb] border-[#b8dfb8] text-[#1e3c2c]"
                   : "bg-red-50 border-red-200 text-red-700"
-              }`}
+                }`}
             >
               {feedback.type === "success" ? (
                 <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#397554]" />
@@ -140,7 +137,6 @@ export default function EditUserDetails() {
           )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Primary Details Grid */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
                 <label
@@ -244,8 +240,6 @@ export default function EditUserDetails() {
                 />
               </div>
             </div>
-
-            {/* Technical Skills */}
             <div className="space-y-2 pt-2 border-t border-[#e1e1e1]">
               <div className="flex items-center justify-between">
                 <label
@@ -279,8 +273,6 @@ export default function EditUserDetails() {
                 </div>
               )}
             </div>
-
-            {/* Description / Manifesto */}
             <div className="space-y-1.5 pt-2 border-t border-[#e1e1e1]">
               <label
                 htmlFor="descreption"
@@ -298,19 +290,16 @@ export default function EditUserDetails() {
               />
             </div>
 
-            {/* Resume Upload Module */}
             <div className="pt-2 border-t border-[#e1e1e1]">
               <span className="block text-xs font-mono text-[#636363] uppercase tracking-wider mb-2">
                 Resume Artifact
               </span>
               <UploadResume />
             </div>
-
-            {/* Submit Bar */}
-            <div className="pt-6 border-t border-[#e1e1e1] flex items-center justify-between">
+            <div className="pt-6 border-t border-[#e1e1e1] flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-4">
               <Link
                 href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
-                className="text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
+                className="text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors text-center sm:text-left py-2"
               >
                 Discard Changes
               </Link>
@@ -318,7 +307,7 @@ export default function EditUserDetails() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="home-btn home-btn-fill px-6 py-2.5 text-xs font-medium cursor-pointer disabled:opacity-50"
+                className="home-btn home-btn-fill px-6 py-2.5 text-xs font-medium cursor-pointer disabled:opacity-50 w-full sm:w-auto min-h-[42px]"
               >
                 <span>{isSubmitting ? "Synchronizing..." : "Save Profile Coordinates"}</span>
               </button>

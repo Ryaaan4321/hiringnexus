@@ -50,8 +50,8 @@ export default function SingleJob({ job }: { job: jobinterface }) {
   return (
     <div className="min-h-[calc(100vh-4rem)] bg-[#f9f9f9] text-[#0a0e19] py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-6">
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center justify-between">
+        
+        <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
           <Link
             href="/user/dashboard"
             className="inline-flex items-center gap-2 text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
@@ -59,12 +59,12 @@ export default function SingleJob({ job }: { job: jobinterface }) {
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Opportunities</span>
           </Link>
-          <span className="text-xs font-mono text-[#818181] uppercase tracking-wider">
+          <span className="text-[11px] sm:text-xs font-mono text-[#818181] uppercase tracking-wider">
             Role Specification · {job.id.slice(0, 8)}
           </span>
         </div>
 
-        {/* Hero Role Card */}
+        
         <div className="home-card rounded-2xl border border-[#e1e1e1] bg-white shadow-xs p-6 sm:p-8 space-y-6">
           <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 border-b border-[#e1e1e1] pb-6">
             <div className="space-y-2">
@@ -97,7 +97,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
               </div>
             </div>
 
-            {/* Quick Actions */}
+            
             <div className="flex sm:flex-col items-center sm:items-end gap-2 shrink-0">
               <button
                 onClick={handleCopyLink}
@@ -118,7 +118,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
             </div>
           </div>
 
-          {/* Key Engineering Telemetry Grid */}
+          
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
             <div className="p-4 rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] space-y-1">
               <span className="font-mono text-[10px] text-[#818181] uppercase tracking-wider block">
@@ -170,7 +170,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
             </div>
           </div>
 
-          {/* Description Section */}
+          
           <div className="space-y-3 pt-2">
             <span className="font-mono text-xs text-[#636363] uppercase tracking-wider block">
               Role Mandate · Technical Scope
@@ -182,7 +182,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
             </div>
           </div>
 
-          {/* Primary Action CTA Footer */}
+          
           <div className="pt-4 border-t border-[#e1e1e1] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div className="flex items-center gap-2 text-xs font-mono text-[#636363]">
               <ShieldCheck className="w-4 h-4 text-[#397554] shrink-0" />
@@ -194,7 +194,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleApplyClick}
-              className="home-btn home-btn-fill px-7 py-3 text-sm font-medium inline-flex items-center justify-center gap-2 text-center"
+              className="home-btn home-btn-fill px-7 py-3 text-sm font-medium inline-flex items-center justify-center gap-2 text-center w-full sm:w-auto min-h-[44px]"
             >
               <span>{hasApplied ? "Open Application Portal Again" : "Apply on Official Portal"}</span>
               <ExternalLink className="w-4 h-4" />

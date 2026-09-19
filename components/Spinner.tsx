@@ -1,7 +1,7 @@
 import React from "react";
 
 type Props = {
-  size?: number; // px
+  size?: number;
   className?: string;
 };
 
@@ -9,7 +9,6 @@ export default function ChatGPTSpinner({ size = 24, className = "" }: Props) {
   const dotSize = Math.max(3, Math.round(size / 4));
   const radius = Math.max(6, Math.round(size / 2.5));
   const styleVars = {
-    // styled-jsx will pick these up as inline styles
     "--size": `${size}px`,
     "--dot-size": `${dotSize}px`,
     "--radius": `${radius}px`,
@@ -28,7 +27,7 @@ export default function ChatGPTSpinner({ size = 24, className = "" }: Props) {
           width: var(--size);
           height: var(--size);
           display: inline-block;
-          color: currentColor; /* inherit color from parent */
+          color: currentColor; 
         }
 
         .orbit {
@@ -46,7 +45,7 @@ export default function ChatGPTSpinner({ size = 24, className = "" }: Props) {
           height: var(--dot-size);
           margin: calc(var(--dot-size) / -2) 0 0 calc(var(--dot-size) / -2);
           border-radius: 50%;
-          /* place each dot at a different angle on the circle */
+          
         }
 
         .d1 { transform: rotate(0deg) translate(0, calc(-1 * var(--radius))); }

@@ -13,7 +13,6 @@ export default function UserDashboardMetrics({
 }: DashboardMetricsProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 my-6">
-      {/* Metric 1: Verified Pipeline Openings */}
       <div className="home-card rounded-2xl p-5 flex flex-col justify-between space-y-3 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[11px] text-[#818181] uppercase tracking-wider">
@@ -30,8 +29,6 @@ export default function UserDashboardMetrics({
             Active Verified Engineering Roles
           </p>
         </div>
-
-        {/* Mini Decorative Activity Bars */}
         <div className="flex items-end gap-1.5 h-6 pt-1">
           {[40, 65, 30, 85, 55, 95, 70].map((height, i) => (
             <div
@@ -42,8 +39,6 @@ export default function UserDashboardMetrics({
           ))}
         </div>
       </div>
-
-      {/* Metric 2: Direct Employer Verification Gauge */}
       <div className="home-card rounded-2xl p-5 flex flex-col justify-between space-y-3 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[11px] text-[#818181] uppercase tracking-wider">
@@ -64,14 +59,10 @@ export default function UserDashboardMetrics({
         <p className="text-xs text-[#636363] leading-relaxed">
           Applications link directly to hiring leads and engineering teams.
         </p>
-
-        {/* Mini Progress Bar */}
         <div className="w-full bg-[#f2f2f2] rounded-full h-1.5 overflow-hidden">
           <div className="bg-[#397554] h-full rounded-full w-full" />
         </div>
       </div>
-
-      {/* Metric 3: Compensation Benchmark */}
       <div className="home-card rounded-2xl p-5 flex flex-col justify-between space-y-3 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[11px] text-[#818181] uppercase tracking-wider">
@@ -95,8 +86,6 @@ export default function UserDashboardMetrics({
           <span className="text-[#0a0e19] font-medium">Max: ₹45+ LPA</span>
         </div>
       </div>
-
-      {/* Metric 4: Proof-of-Work Verification Telemetry */}
       <div className="home-card rounded-2xl p-5 flex flex-col justify-between space-y-3 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[11px] text-[#818181] uppercase tracking-wider">

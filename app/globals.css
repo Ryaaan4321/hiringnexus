@@ -334,11 +334,6 @@ td {
 .dark .hb-dashed-border {
   background-image: repeating-linear-gradient(to bottom, #27272a 0, #27272a 6px, transparent 6px, transparent 12px);
 }
-
-/* ==========================================================================
-   Editorial Design System (Inspired by TryGlen)
-   ========================================================================== */
-
 :root {
   --home-page: #f9f9f9;
   --home-white: #ffffff;

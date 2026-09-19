@@ -23,8 +23,6 @@ export default function AdminSidebar() {
     <Sidebar className="sticky top-8 h-screen w-64 border-r bg-white">
       <SidebarContent>
         <SidebarMenu>
-
-          {/* Primary Action: Create Job */}
           <SidebarMenuItem>
             <Link
               href="/admin/jobpost"
@@ -34,8 +32,6 @@ export default function AdminSidebar() {
               <span>Create Job</span>
             </Link>
           </SidebarMenuItem>
-
-          {/* Grouped Admin Navigation */}
           <SidebarGroup>
             <SidebarGroupLabel className="text-xs uppercase tracking-wide text-gray-500">
               Admin Panel

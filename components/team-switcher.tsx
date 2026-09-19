@@ -46,7 +46,7 @@ export function TeamSwitcher({
         cache: 'no-store'
       });
       await userLogout();
-      router.push('/user/login');
+      router.push('/login');
       router.refresh();
     } catch (e: any) {
       console.error("Logout error:", e);

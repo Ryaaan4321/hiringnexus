@@ -17,7 +17,6 @@ export function ProductPreviewTabs() {
   return (
     <section id="preview" className="py-16 sm:py-24 border-b border-neutral-200/80 dark:border-neutral-800/80 bg-neutral-50/50 dark:bg-neutral-950/50">
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
-        {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
             <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
@@ -31,50 +30,41 @@ export function ProductPreviewTabs() {
             Explore how HiringNexus turns repository metadata, code depth, and compensation parameters into actionable talent signals.
           </p>
         </div>
-
-        {/* Tab switcher bar (humanbehavior.co style) */}
         <div className="flex items-center gap-1 sm:gap-2 border-b border-neutral-200 dark:border-neutral-800 pb-2 overflow-x-auto no-scrollbar">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`px-3 py-1.5 rounded-md font-mono text-xs sm:text-[13px] tracking-tight whitespace-nowrap transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 ${
-                activeTab === tab.id
-                  ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 font-medium shadow-xs"
-                  : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
-              }`}
+              className={`px-3 py-1.5 rounded-md font-mono text-xs sm:text-[13px] tracking-tight whitespace-nowrap transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900 ${activeTab === tab.id
+                ? "bg-neutral-900 text-white dark:bg-neutral-100 dark:text-neutral-900 font-medium shadow-xs"
+                : "text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-white hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50"
+                }`}
             >
               [ {tab.label} ]
             </button>
           ))}
         </div>
-
-        {/* Preview Frame */}
         <div className="mt-6 rounded-xl border border-neutral-200 dark:border-neutral-800 bg-white dark:bg-neutral-900 shadow-sm overflow-hidden">
-          {/* Top terminal-style window chrome */}
           <div className="h-10 px-4 border-b border-neutral-200 dark:border-neutral-800 bg-neutral-100/70 dark:bg-neutral-950 flex items-center justify-between text-xs font-mono text-neutral-500">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
               <span className="w-2.5 h-2.5 rounded-full bg-neutral-300 dark:bg-neutral-700" />
               <span className="ml-2 text-neutral-700 dark:text-neutral-300 font-sans font-medium text-[13px]">
-                {activeTab === "telemetry" && "telemetry-analyzer // dev_aryan_nexus"}
-                {activeTab === "matrix" && "skill-verification // typescript-rust-distributed"}
-                {activeTab === "pipeline" && "candidate-pipeline // live-interviews"}
-                {activeTab === "compensation" && "lpa-index // market-transparency"}
+                {activeTab === "telemetry" && "telemetry-analyzer - dev_aryan_nexus"}
+                {activeTab === "matrix" && "skill-verification - typescript-rust-distributed"}
+                {activeTab === "pipeline" && "candidate-pipeline - live-interviews"}
+                {activeTab === "compensation" && "lpa-index - market-transparency"}
               </span>
             </div>
             <span className="hidden sm:inline-block text-[11px] uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Verified Pipeline Active
             </span>
           </div>
-
-          {/* Dynamic Tab Body */}
           <div className="p-6 sm:p-8 min-h-[380px] flex flex-col justify-center">
             {activeTab === "telemetry" && (
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Profile Card */}
                 <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-5 bg-neutral-50/50 dark:bg-neutral-950/50">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-12 h-12 rounded-full bg-neutral-900 dark:bg-neutral-100 text-white dark:text-neutral-900 flex items-center justify-center font-bold text-lg font-mono">
@@ -100,8 +90,6 @@ export function ProductPreviewTabs() {
                     </div>
                   </div>
                 </div>
-
-                {/* Repositories Breakdown */}
                 <div className="lg:col-span-2 space-y-3">
                   <div className="border border-neutral-200 dark:border-neutral-800 rounded-lg p-4 bg-white dark:bg-neutral-900 hover:border-neutral-400 transition-colors">
                     <div className="flex items-center justify-between">

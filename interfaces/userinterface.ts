@@ -10,7 +10,9 @@ export default interface userinterface {
   username: string,
   email: string,
   phonenumber: string,
-  profession: string
+  profession: string,
+  location?: string | null,
+  role?: string | null
 }
 export interface usersemail {
   email: string;
@@ -23,10 +25,10 @@ export interface userDetail {
   profession: string | null;
   phonenumber: string | null;
   descreption: string | null;
-  location:string |null;
-  ctc:string|null;
-  skills:string[]|[]
-  resumeURL:string|null;
+  location: string | null;
+  ctc: string | null;
+  skills: string[] | []
+  resumeURL: string | null;
   githubprofile: {
     id: string;
     username: string;
@@ -45,9 +47,9 @@ export interface userDetail {
     id: string;
     title: string;
     descreption: string;
-    companyname:string;
+    companyname: string;
     joblink: string;
-    postedbyId: string;
+    postedbyId?: string | null;
     timestamps: Date;
   }[];
 }
@@ -55,11 +57,11 @@ export type safeuserupdateinput = {
   name?: string;
   username?: string;
   phonenumber?: string;
-  descreption ?: string;
+  descreption?: string;
   profession?: string;
-  ctc?:string;
-  location?:string
-  skills?:string[]
+  ctc?: string;
+  location?: string
+  skills?: string[]
 };
 
 

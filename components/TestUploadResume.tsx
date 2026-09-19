@@ -104,8 +104,6 @@ export default function UploadResume() {
         formData.append("timestamp", sigData.timestamp)
         formData.append("signature", sigData.signature)
         formData.append("public_id", sigData.publicId)
-
-        // Note: fetch does not give native upload progress. We simulate progress for UX.
         const progressTimer = setInterval(() => {
             setProgress((p) => {
                 if (p >= 85) return p
@@ -320,7 +318,7 @@ export default function UploadResume() {
                 {!userId && (
                     <div className="rounded-xl border border-[#e1e1e1] bg-[#fcfcfc] p-4 text-xs font-mono text-[#636363]">
                         Please{" "}
-                        <Link href="/user/login" className="text-[#0a0e19] font-medium underline underline-offset-2">
+                        <Link href="/login" className="text-[#0a0e19] font-medium underline underline-offset-2">
                             sign in
                         </Link>{" "}
                         to upload your resume.

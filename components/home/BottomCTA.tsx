@@ -12,7 +12,6 @@ export function BottomCTA() {
     >
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6">
         <div className="rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-neutral-900 text-white p-8 sm:p-14 text-center max-w-4xl mx-auto shadow-sm relative overflow-hidden">
-          {/* Subtle architectural background line */}
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 opacity-10"
@@ -40,7 +39,7 @@ export function BottomCTA() {
 
             <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
               <MagneticButton
-                href="/user/signup"
+                href="/signup"
                 variant="primary"
                 size="lg"
                 className="bg-white text-neutral-900 hover:bg-neutral-100 border-white"
@@ -50,7 +49,7 @@ export function BottomCTA() {
               </MagneticButton>
 
               <MagneticButton
-                href="/auth/admin/signin"
+                href="/login"
                 variant="outline"
                 size="lg"
                 className="text-white border-neutral-700 hover:border-neutral-500 hover:bg-neutral-800"

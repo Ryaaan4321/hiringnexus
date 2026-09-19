@@ -33,8 +33,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
   const isOwner = userId === user.id;
 
   return (
-    <div className="home-card rounded-2xl p-6 space-y-6 sticky top-20 shadow-xs">
-      {/* Profile Header */}
+    <div className="home-card rounded-2xl p-5 sm:p-6 space-y-6 lg:sticky lg:top-20 shadow-xs">
       <div className="flex flex-col items-center text-center pb-6 border-b border-[#e1e1e1]">
         <div className="relative mb-4">
           <div className="w-20 h-20 rounded-full bg-[#0a0e19] text-white flex items-center justify-center text-2xl font-normal home-serif shadow-sm">
@@ -70,8 +69,6 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
           </div>
         )}
       </div>
-
-      {/* About / Manifesto */}
       {user.descreption && (
         <div className="space-y-2 pb-4 border-b border-[#e1e1e1]">
           <span className="block font-mono text-[10px] text-[#818181] uppercase tracking-wider">
@@ -83,7 +80,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
         </div>
       )}
 
-      {/* Core Verified Skills */}
+      
       <div className="space-y-2 pb-4 border-b border-[#e1e1e1]">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[10px] text-[#818181] uppercase tracking-wider">
@@ -112,7 +109,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
         </div>
       </div>
 
-      {/* Resume Artifact */}
+      
       {user.resumeURL && (
         <div className="space-y-2 pb-4 border-b border-[#e1e1e1]">
           <span className="block font-mono text-[10px] text-[#818181] uppercase tracking-wider">
@@ -135,7 +132,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
         </div>
       )}
 
-      {/* Compensation & Location */}
+      
       <div className="space-y-2.5 pb-4 border-b border-[#e1e1e1] text-xs font-mono">
         <span className="block text-[10px] text-[#818181] uppercase tracking-wider">
           Parameters
@@ -178,7 +175,7 @@ export default function UserProfileSidebar({ user }: { user: userDetail | null }
         )}
       </div>
 
-      {/* Recent Viewed Roles */}
+      
       {user.alreadyapplied && user.alreadyapplied.length > 0 && (
         <div className="space-y-2">
           <span className="block font-mono text-[10px] text-[#818181] uppercase tracking-wider">

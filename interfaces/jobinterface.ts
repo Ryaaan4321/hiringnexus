@@ -16,10 +16,13 @@ export interface jobinterface {
   title: string,
   descreption: string,
   joblink: string,
-  postedbyId: string,
-  postedby: {
+  postedbyId?: string | null,
+  postedby?: {
     name: string
-  },
+  } | null,
+  postedbyUser?: {
+    name: string
+  } | null,
   companyname: string,
   experience: number,
   salary: number,

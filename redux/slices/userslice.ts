@@ -29,14 +29,16 @@ export const fetchUser = createAsyncThunk(
             }
             const safeDetails = {
                 ...details,
-                alreadyapplied: details.alreadyapplied.map((app: any) => ({
-                    ...app,
-                    timestamps: app.timestamps instanceof Date
-                        ? app.timestamps.toISOString()
-                        : app.timestamps,
-                }))
-            }
-            return { id, details:safeDetails };
+                alreadyapplied: Array.isArray(details.alreadyapplied)
+                    ? details.alreadyapplied.map((app: any) => ({
+                        ...app,
+                        timestamps: app.timestamps instanceof Date
+                            ? app.timestamps.toISOString()
+                            : app.timestamps,
+                    }))
+                    : [],
+            };
+            return { id, details: safeDetails };
         } catch (err: any) {
             return thunkAPI.rejectWithValue(err.message || "sorry we are not able to fetch user");
         }

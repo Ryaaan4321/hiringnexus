@@ -24,7 +24,7 @@ const candidate = await NexusEngine.verify({
   inspectDepth: "production_commits",
   weights: { systemsArchitecture: 0.45, codeCleanliness: 0.35 }
 });
-console.log(candidate.signalLevel); // "Top 2% Systems Craft"`,
+console.log(candidate.signalLevel);`,
     },
     {
       index: "002",
@@ -84,15 +84,12 @@ const connection = await DirectPipeline.dispatch({
             Engineered for high-performing software teams.
           </h2>
         </div>
-
-        {/* 3 Pillar Stack with HumanBehavior.co style dividing hairlines */}
         <div className="divide-y divide-neutral-200 dark:divide-neutral-800 border-t border-b border-neutral-200 dark:border-neutral-800">
           {pillars.map((pillar) => (
             <div
               key={pillar.index}
               className="py-12 sm:py-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start relative"
             >
-              {/* Left Column: Index and Narrative */}
               <div className="lg:col-span-6 space-y-4">
                 <div className="font-mono text-xs text-neutral-500 flex items-center gap-2">
                   <span className="text-neutral-400 font-semibold">[</span>
@@ -130,14 +127,12 @@ const connection = await DirectPipeline.dispatch({
                   </Link>
                 </div>
               </div>
-
-              {/* Right Column: Code/Telemetry Visual Terminal */}
               <div className="lg:col-span-6">
                 <div className="rounded-lg border border-neutral-200 dark:border-neutral-800 bg-neutral-950 text-neutral-200 shadow-sm overflow-hidden font-mono text-xs">
                   <div className="px-4 py-2.5 bg-neutral-900/90 border-b border-neutral-800 flex items-center justify-between text-[11px] text-neutral-400">
                     <span className="flex items-center gap-2">
                       <span className="w-2 h-2 rounded-full bg-emerald-500" />
-                      nexus_runtime // verification_node
+                      nexus_runtime - verification_node
                     </span>
                     <span className="text-neutral-600">utf-8</span>
                   </div>

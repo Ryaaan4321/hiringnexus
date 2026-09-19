@@ -7,6 +7,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  CANDIDATE
+  RECRUITER
+  ADMIN
+}
+
 model User {
   id             String         @id @default(uuid())
   name           String
@@ -14,6 +20,11 @@ model User {
   email          String         @unique
   password       String
   phonenumber    String?        @default("")
+  role           Role           @default(CANDIDATE)
+  canDeleteJob   Boolean?       @default(false)
+  canPostJob     Boolean?       @default(false)
+  companyName    String?
+  companyWebsite String?
   profession     String?        @default("")
   descreption    String?        @default("One Liner! Bt for HR this Time")
   ctc            String?
@@ -22,9 +33,11 @@ model User {
   githubprofile  GitHubProfile?
   resumeURL      String?
   alreadyapplied jobschema[]    @relation("UserTojobschema")
+  postedjobs     jobschema[]    @relation("UserPostedJobs")
   Applications   Applications[]
 
   @@index([username, email])
+  @@index([role])
 }
 
 model GitHubProfile {
@@ -87,7 +100,7 @@ model jobschema {
   title               String
   descreption         String
   joblink             String
-  postedbyId          String
+  postedbyId          String?
   companyname         String
   experience          Int
   salary              Int
@@ -95,7 +108,9 @@ model jobschema {
   jobTypes            JobType[]
   languageRequirement String[]       @default([])
   createdAt           DateTime?      @default(now())
-  postedby            Admin          @relation(fields: [postedbyId], references: [id])
+  postedby            Admin?         @relation(fields: [postedbyId], references: [id])
+  postedbyUser        User?          @relation("UserPostedJobs", fields: [postedbyUserId], references: [id])
+  postedbyUserId      String?
   appliedusers        User[]         @relation("UserTojobschema")
   location            String?        @default("")
   Applications        Applications[]

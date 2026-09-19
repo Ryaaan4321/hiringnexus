@@ -1,7 +1,5 @@
-"use client"
+import { redirect } from "next/navigation";
 
-export default function Page(){
-    return (
-        <div>hmlo hmlo fromt the hr page </div>
-    )
+export default function AdminHRRedirectPage() {
+  redirect("/recruiter/dashboard");
 }

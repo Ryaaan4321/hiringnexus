@@ -71,7 +71,6 @@ export default function Filters({
             <SidebarMenu>
                 <div className='space-y-2'>
                     <div>
-                        {/* if you fuck up in the job filter than this is the place son */}
                         <h3 className="text-base font-medium mb-2 ">Job Type</h3>
                         <div className="space-y-1 text-base">
                             {Object.values(JobType).map(type => (

@@ -15,6 +15,7 @@ import {
   ExternalLink,
   ShieldCheck,
   Check,
+  Menu,
 } from "lucide-react";
 
 interface UserCRMTopBarProps {
@@ -22,6 +23,7 @@ interface UserCRMTopBarProps {
   onSearchChange: (q: string) => void;
   activeFilterCount: number;
   onToggleFilters?: () => void;
+  onToggleMobileMenu?: () => void;
   sortBy: string;
   onSortChange: (sort: string) => void;
 }
@@ -31,21 +33,18 @@ export default function UserCRMTopBar({
   onSearchChange,
   activeFilterCount,
   onToggleFilters,
+  onToggleMobileMenu,
   sortBy,
   onSortChange,
 }: UserCRMTopBarProps) {
   const router = useRouter();
   const { completeUser } = useUserDetails();
   const { userId } = useUserId();
-
   const [isAvatarOpen, setIsAvatarOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
   const [isSigningOut, setIsSigningOut] = useState(false);
-
   const avatarRef = useRef<HTMLDivElement>(null);
   const sortRef = useRef<HTMLDivElement>(null);
-
-  // Close dropdowns on outside click
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
@@ -64,10 +63,10 @@ export default function UserCRMTopBar({
       setIsSigningOut(true);
       await fetch("/api/logout", { method: "POST", cache: "no-store" });
       await userLogout();
-      window.location.href = "/user/login";
+      window.location.href = "/login";
     } catch (err) {
       console.error("Sign out error:", err);
-      window.location.href = "/user/login";
+      window.location.href = "/login";
     }
   };
 
@@ -79,37 +78,53 @@ export default function UserCRMTopBar({
 
   const candidateInitials = completeUser?.name
     ? completeUser.name
-        .split(" ")
-        .map((n) => n[0])
-        .slice(0, 2)
-        .join("")
-        .toUpperCase()
+      .split(" ")
+      .map((n) => n[0])
+      .slice(0, 2)
+      .join("")
+      .toUpperCase()
     : "U";
 
   return (
-    <div className="w-full pb-6 pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3.5 border-b border-[#e1e1e1]">
-      {/* Search Input Bar */}
-      <div className="relative flex-1 max-w-lg">
-        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#818181]">
-          <Search className="w-4 h-4" />
-        </div>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search roles, engineering domains, companies..."
-          className="w-full h-10 pl-10 pr-12 rounded-lg border border-[#cecece] bg-white text-xs sm:text-sm text-[#0a0e19] placeholder:text-[#818181] focus:outline-2 focus:outline-[#0a0e19] transition-all shadow-xs"
-        />
-        <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-          <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-[#818181] border border-[#cecece] rounded bg-[#f2f2f2]">
-            ⌘K
-          </kbd>
+    <div className="w-full pb-5 pt-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#e1e1e1]">
+      <div className="flex items-center gap-2 flex-1 w-full max-w-xl">
+        {onToggleMobileMenu && (
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            className="lg:hidden h-10 px-3 rounded-lg border border-[#cecece] bg-white text-[#0a0e19] hover:bg-[#f2f2f2] transition-colors cursor-pointer shadow-xs flex items-center justify-center shrink-0 gap-1.5"
+            aria-label="Open Navigation and Filters"
+            title="Open Navigation and Filters"
+          >
+            <Menu className="w-4 h-4" />
+            <span className="text-xs font-mono hidden xs:inline">Filters</span>
+            {activeFilterCount > 0 && (
+              <span className="w-4 h-4 rounded-full bg-[#0a0e19] text-white text-[10px] font-bold flex items-center justify-center font-mono">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
+        )}
+
+        <div className="relative flex-1">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#818181]">
+            <Search className="w-4 h-4" />
+          </div>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search roles, tech, companies..."
+            className="w-full h-10 pl-10 pr-12 rounded-lg border border-[#cecece] bg-white text-xs sm:text-sm text-[#0a0e19] placeholder:text-[#818181] focus:outline-2 focus:outline-[#0a0e19] transition-all shadow-xs"
+          />
+          <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+            <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-[#818181] border border-[#cecece] rounded bg-[#f2f2f2]">
+              ⌘K
+            </kbd>
+          </div>
         </div>
       </div>
-
-      {/* Right Controls: Sort, Filters & Avatar */}
-      <div className="flex items-center gap-2.5 sm:gap-3 self-end sm:self-auto">
-        {/* Sort Trigger */}
+      <div className="flex items-center justify-between sm:justify-end gap-2 sm:gap-3 w-full sm:w-auto">
         <div className="relative" ref={sortRef}>
           <button
             type="button"
@@ -133,11 +148,10 @@ export default function UserCRMTopBar({
                     onSortChange(opt.value);
                     setIsSortOpen(false);
                   }}
-                  className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-[#f2f2f2] transition-colors cursor-pointer ${
-                    sortBy === opt.value
+                  className={`w-full px-3 py-2 text-left flex items-center justify-between hover:bg-[#f2f2f2] transition-colors cursor-pointer ${sortBy === opt.value
                       ? "text-[#0a0e19] font-bold"
                       : "text-[#636363]"
-                  }`}
+                    }`}
                 >
                   <span>{opt.label}</span>
                   {sortBy === opt.value && <Check className="w-3.5 h-3.5 text-[#397554]" />}
@@ -146,8 +160,6 @@ export default function UserCRMTopBar({
             </div>
           )}
         </div>
-
-        {/* Filters Toggle Button */}
         {onToggleFilters && (
           <button
             type="button"
@@ -155,7 +167,7 @@ export default function UserCRMTopBar({
             className="home-btn home-btn-glass text-xs flex items-center gap-1.5 cursor-pointer shadow-xs"
           >
             <SlidersHorizontal className="w-3.5 h-3.5 text-[#818181]" />
-            <span>Filters</span>
+            <span className="hidden sm:inline">Filters</span>
             {activeFilterCount > 0 && (
               <span className="w-4 h-4 rounded-full bg-[#0a0e19] text-white text-[10px] font-bold flex items-center justify-center">
                 {activeFilterCount}
@@ -164,7 +176,6 @@ export default function UserCRMTopBar({
           </button>
         )}
 
-        {/* Interactive Avatar Dropdown */}
         <div className="relative" ref={avatarRef}>
           <button
             type="button"
@@ -185,10 +196,8 @@ export default function UserCRMTopBar({
             </div>
           </button>
 
-          {/* Dropdown Modal */}
           {isAvatarOpen && (
-            <div className="home-card absolute right-0 mt-2 w-72 rounded-2xl shadow-xl p-4 z-40 space-y-3.5 border-[#e1e1e1]">
-              {/* User Identity Header */}
+            <div className="home-card absolute right-0 mt-2 w-72 max-w-[calc(100vw-2rem)] rounded-2xl shadow-xl p-4 z-40 space-y-3.5 border-[#e1e1e1]">
               <div className="flex items-center gap-3 pb-3 border-b border-[#e1e1e1]">
                 <div className="w-10 h-10 rounded-full bg-[#0a0e19] text-white flex items-center justify-center text-sm font-bold font-mono shrink-0">
                   {candidateInitials}
@@ -205,8 +214,6 @@ export default function UserCRMTopBar({
                   </span>
                 </div>
               </div>
-
-              {/* Coordinates Details */}
               <div className="p-2.5 rounded-lg border border-[#e1e1e1] bg-[#f9f9f9] space-y-1.5 text-xs font-mono">
                 <div className="flex items-center justify-between text-[#636363]">
                   <span>Discipline:</span>
@@ -231,8 +238,6 @@ export default function UserCRMTopBar({
                   </div>
                 )}
               </div>
-
-              {/* Navigation Actions */}
               <div className="space-y-1 text-xs font-medium">
                 <Link
                   href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
@@ -258,8 +263,6 @@ export default function UserCRMTopBar({
                   <span className="text-[10px] font-mono text-[#818181]">EDIT</span>
                 </Link>
               </div>
-
-              {/* Logout Trigger */}
               <div className="pt-2 border-t border-[#e1e1e1]">
                 <button
                   type="button"

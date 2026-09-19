@@ -89,7 +89,7 @@ export default function Cards({ job }: { job: jobinterface[] }) {
                         </div>
                         <div className="flex space-x-1 items-center">
                             <span className="text-zinc-800 text-sm">Posted By:</span>
-                            <span className="text-sm font-medium text-gray-600">{item.postedby.name}</span>
+                            <span className="text-sm font-medium text-gray-600">{item.postedby?.name || item.postedbyUser?.name || "Direct Employer"}</span>
                         </div>
                         <div className="flex space-x-1 items-center">
                             <span className="text-zinc-800 text-sm">Experience:</span>
@@ -124,6 +124,3 @@ export default function Cards({ job }: { job: jobinterface[] }) {
         </div>
     );
 }
-
-// lets suppose user is not logged in than render the diffent component so that
-// he only visits the page

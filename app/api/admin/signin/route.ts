@@ -13,12 +13,6 @@ export async function POST(req: NextRequest) {
             where: {
                 email: body.email
             },
-            // select:{
-            //     id:true,
-            //     email:true,
-            //     canDeleteJob:true,
-            //     password: true,
-            // }
         })
         if (!isadmin) {
             return NextResponse.json({ msg: "admin is not found with this email" }, { status: 401 });

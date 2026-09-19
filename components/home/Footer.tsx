@@ -13,7 +13,6 @@ export function Footer() {
     >
       <div className="mx-auto max-w-[1240px] px-4 sm:px-6 py-14 sm:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10 sm:gap-12">
-          {/* Brand and Short Statement */}
           <div className="md:col-span-4 space-y-4">
             <Link
               href="/"
@@ -34,17 +33,12 @@ export function Footer() {
             <p className="text-neutral-400 text-xs sm:text-[13px] leading-relaxed max-w-sm">
               A human-centered engineering talent platform evaluating candidates through verified GitHub telemetry, systems architecture, and compensation transparency.
             </p>
-
-            {/* Live operational status pill */}
             <div className="pt-2 flex items-center gap-2 font-mono text-[11px] text-neutral-400">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span>SYSTEMS OPERATIONAL · ALL SERVICES HEALTHY</span>
             </div>
           </div>
-
-          {/* Navigation Columns */}
           <div className="md:col-span-8 grid grid-cols-2 sm:grid-cols-4 gap-8">
-            {/* For Candidates */}
             <div className="space-y-3">
               <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-200 font-semibold">
                 [ Talent ]
@@ -56,12 +50,12 @@ export function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/user/signup" className="hover:text-white transition-colors">
+                  <Link href="/signup" className="hover:text-white transition-colors">
                     Create Verified Profile
                   </Link>
                 </li>
                 <li>
-                  <Link href="/user/login" className="hover:text-white transition-colors">
+                  <Link href="/login" className="hover:text-white transition-colors">
                     Candidate Sign In
                   </Link>
                 </li>
@@ -72,20 +66,18 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-
-            {/* For Employers */}
             <div className="space-y-3">
               <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-200 font-semibold">
                 [ Employers ]
               </h4>
               <ul className="space-y-2 text-xs">
                 <li>
-                  <Link href="/auth/admin/signin" className="hover:text-white transition-colors">
+                  <Link href="/login" className="hover:text-white transition-colors">
                     Employer Sign In
                   </Link>
                 </li>
                 <li>
-                  <Link href="/auth/admin/signup" className="hover:text-white transition-colors">
+                  <Link href="/signup" className="hover:text-white transition-colors">
                     Create Recruiter Account
                   </Link>
                 </li>
@@ -101,8 +93,6 @@ export function Footer() {
                 </li>
               </ul>
             </div>
-
-            {/* Platform */}
             <div className="space-y-3">
               <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-200 font-semibold">
                 [ Platform ]
@@ -136,7 +126,7 @@ export function Footer() {
               </ul>
             </div>
 
-            {/* Legal */}
+            
             <div className="space-y-3">
               <h4 className="font-mono text-xs uppercase tracking-widest text-neutral-200 font-semibold">
                 [ Legal ]
@@ -166,8 +156,6 @@ export function Footer() {
             </div>
           </div>
         </div>
-
-        {/* Bottom Bar: Copyright & Legal */}
         <div className="mt-12 pt-8 border-t border-neutral-900 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-neutral-500">
           <p>© {currentYear} HiringNexus Inc. All rights reserved.</p>
           <div className="flex items-center space-x-6">

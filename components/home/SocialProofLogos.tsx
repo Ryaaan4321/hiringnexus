@@ -23,8 +23,6 @@ export function SocialProofLogos() {
             [ Verified Engineering Teams Worldwide ]
           </p>
         </div>
-
-        {/* Clean monochrome wordmarks */}
         <div className="flex flex-wrap items-center justify-center gap-x-10 sm:gap-x-16 gap-y-6 opacity-75 dark:opacity-60 hover:opacity-100 transition-opacity">
           {logos.map((logo) => (
             <div
