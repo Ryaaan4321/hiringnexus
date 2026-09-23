@@ -45,7 +45,7 @@ export function Footer() {
               </h4>
               <ul className="space-y-2 text-xs">
                 <li>
-                  <Link href="/user/dashboard" className="hover:text-white transition-colors">
+                  <Link href="/user" className="hover:text-white transition-colors">
                     Explore Open Roles
                   </Link>
                 </li>

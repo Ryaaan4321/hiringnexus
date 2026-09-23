@@ -21,9 +21,9 @@ export default function UserBasicInfo({ user }: { user: userDetail | null }) {
                 <InfoItem label="PHONE" value={user.phonenumber ? user.phonenumber : ""} />
                 <InfoItem label="EMAIL" value={user.email} />
             </div>
-            <Link href={`/user/dashboard`}>
+            <Link href={`/user`}>
                 <div className="flex justify-end text-blue-900">
-                    DashBoard
+                    Opportunities
                 </div>
             </Link>
         </div>

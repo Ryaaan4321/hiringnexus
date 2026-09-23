@@ -31,7 +31,7 @@ export async function middleware(req: NextRequest) {
           ? "/admin"
           : userRole === "RECRUITER"
             ? "/recruiter/dashboard"
-            : "/user/dashboard";
+            : "/user";
       return NextResponse.redirect(new URL(homeDashboard, req.url));
     }
     if (pathname.startsWith("/admin") || pathname.startsWith("/api/admin")) {
@@ -42,7 +42,7 @@ export async function middleware(req: NextRequest) {
         if (userRole === "RECRUITER") {
           return NextResponse.redirect(new URL("/recruiter/dashboard", req.url));
         }
-        return NextResponse.redirect(new URL("/user/dashboard", req.url));
+        return NextResponse.redirect(new URL("/user", req.url));
       }
     }
     if (pathname.startsWith("/recruiter")) {
@@ -50,7 +50,7 @@ export async function middleware(req: NextRequest) {
         if (isApiRoute) {
           return NextResponse.json({ msg: "Forbidden: Recruiter privileges required" }, { status: 403 });
         }
-        return NextResponse.redirect(new URL("/user/dashboard", req.url));
+        return NextResponse.redirect(new URL("/user", req.url));
       }
     }
     if (pathname.startsWith("/user")) {

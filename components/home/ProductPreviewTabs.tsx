@@ -196,8 +196,8 @@ export function ProductPreviewTabs() {
                     <h4 className="font-semibold text-neutral-900 dark:text-white">Live Candidate Ingestion Pipeline</h4>
                     <p className="text-xs text-neutral-500">Direct hiring manager dispatch without agency middle-men</p>
                   </div>
-                  <Link href="/user/dashboard" className="text-xs font-mono flex items-center gap-1 hover:underline">
-                    View Live Dashboard <ArrowRight className="w-3 h-3" />
+                  <Link href="/user" className="text-xs font-mono flex items-center gap-1 hover:underline">
+                    View Live Pipeline <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

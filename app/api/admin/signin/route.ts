@@ -19,14 +19,20 @@ export async function POST(req: NextRequest) {
         }
         const isvaliduser = await bcrypt.compare(body.password, isadmin.password);
         if (!isvaliduser) {
-            return NextResponse.json({ msg: "bkl admin" }, { status: 401 });
+            return NextResponse.json({ msg: "Invalid admin password." }, { status: 401 });
         }
         if (!process.env.SECRET_KEY) throw new Error("secret key is not defined");
         const { password, ...adminwithoutpassword } = isadmin;
         const token = jwt.sign(
-            { id: isadmin.id, email: isadmin.email, role: "admin",canDeleteJob:isadmin.canDeleteJob },
+            {
+                id: isadmin.id,
+                email: isadmin.email,
+                role: "ADMIN",
+                canDeleteJob: isadmin.canDeleteJob ?? true,
+                canPostJob: isadmin.canPostJob ?? true,
+            },
             process.env.SECRET_KEY,
-            { expiresIn: "1h" }
+            { expiresIn: "7d" }
         );
         cookiestore.set("token", token, {
             httpOnly: true,

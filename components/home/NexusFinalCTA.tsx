@@ -18,7 +18,7 @@ export function NexusFinalCTA() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-2">
             <Link
-              href="/user/dashboard"
+              href="/user"
               className="home-btn home-btn-fill cursor-pointer"
             >
               Explore Verified Talent

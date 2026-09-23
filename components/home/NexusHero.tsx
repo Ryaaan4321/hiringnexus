@@ -33,7 +33,7 @@ export function NexusHero() {
               Create Student & Developer Profile
             </Link>
             <Link
-              href="/user/dashboard"
+              href="/user"
               className="home-btn home-btn-outline cursor-pointer text-sm"
             >
               Browse Live Roles

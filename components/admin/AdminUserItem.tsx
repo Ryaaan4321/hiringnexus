@@ -59,7 +59,7 @@ export default function AdminUserItem({ user }: AdminUserItemProps) {
       </td>
       <td className="px-5 py-4 text-right">
         <Link
-          href={`/user/test-profile/${user.id}`}
+          href={`/user/profile/${user.id}`}
           className="inline-flex items-center gap-1 text-xs font-mono text-[#0a0e19] hover:underline"
         >
           <span>View Coordinates</span>

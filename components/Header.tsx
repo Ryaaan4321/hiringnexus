@@ -10,7 +10,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="w-full flex h-16 items-center justify-between px-4">
         <div>
-          <Link href="/user/dashboard" className="flex items-center space-x-0">
+          <Link href="/user" className="flex items-center space-x-0">
             <Asterisk className="h-10 w-10" />
             <span className="font-bold text-xl">HiringNexus</span>
           </Link>

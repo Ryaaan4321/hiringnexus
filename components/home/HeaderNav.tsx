@@ -48,7 +48,7 @@ export function HeaderNav() {
             <span className="hb-bracket">Methodology</span>
           </Link>
           <Link
-            href="/user/dashboard"
+            href="/user"
             className="px-3 py-1.5 text-[14px] text-neutral-600 dark:text-neutral-400 hover:text-neutral-950 dark:hover:text-white transition-colors rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-900"
           >
             <span className="hb-bracket">Live Jobs</span>
@@ -115,7 +115,7 @@ export function HeaderNav() {
             Methodology & Pillars
           </Link>
           <Link
-            href="/user/dashboard"
+            href="/user"
             onClick={() => setMobileMenuOpen(false)}
             className="py-2 text-[15px] font-medium text-neutral-800 dark:text-neutral-200"
           >

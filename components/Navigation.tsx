@@ -39,7 +39,7 @@ export default function Navigation() {
                         <span className="text-2xl font-bold text-slate-800">HiringNexus</span>
                     </Link>
                     <div className="hidden md:flex items-center space-x-8">
-                        <Link href="/user/dashboard" className="text-gray-700 hover:text-slate-800 font-medium">
+                        <Link href="/user" className="text-gray-700 hover:text-slate-800 font-medium">
                             Jobs
                         </Link>
                         <Link href="/" className="text-gray-700 hover:text-slate-800 font-medium">
@@ -52,7 +52,7 @@ export default function Navigation() {
 
                     {completeUser ?
                         <div className="flex items-center space-x-4">
-                            <Link href={`/user/test-profile/${userId}`}>
+                            <Link href={`/user/profile/${userId}`}>
                                 <Buttons className="cursor-pointer bg-slate-800">Profile</Buttons>
                             </Link>
                             <Buttons onClick={handleSubmit} className="bg-red-800 cursor-pointer hover:bg-red-800">{signoutLoading ? "Signing you Out" : "Sign Out"}</Buttons>

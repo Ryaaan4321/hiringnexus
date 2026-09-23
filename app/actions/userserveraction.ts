@@ -135,7 +135,7 @@ export async function updateUserDetails(id: string, fieldstoupdate: Partial<safe
             where: { id: callerId },
             data: fieldstoupdate
         });
-        revalidatePath(`/user/test-profile/${callerId}`);
+        revalidatePath(`/user/profile/${callerId}`);
         return updated;
     } catch (e: any) {
         return null;

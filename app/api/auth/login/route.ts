@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
           ? "/admin"
           : role === "RECRUITER"
             ? "/recruiter/dashboard"
-            : "/user/dashboard";
+            : "/user";
 
       return NextResponse.json(
         {

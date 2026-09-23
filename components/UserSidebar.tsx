@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useUserDetails, useUserId } from "@/hooks/user";
@@ -20,19 +20,30 @@ interface UserSidebarProps {
   onApply: (filters: FilterState) => void;
   isOpen?: boolean;
   onClose?: () => void;
+  currentFilters?: FilterState;
 }
 
-export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarProps) {
+export function UserSidebar({ onApply, isOpen = false, onClose, currentFilters }: UserSidebarProps) {
   const pathname = usePathname();
   const router = useRouter();
   const { completeUser } = useUserDetails();
   const { userId } = useUserId();
 
   const [filters, setFilters] = useState<FilterState>({
-    jobTypes: [],
-    minExperience: null,
-    salaryRange: null,
+    jobTypes: currentFilters?.jobTypes || [],
+    minExperience: currentFilters?.minExperience ?? null,
+    salaryRange: currentFilters?.salaryRange ?? null,
   });
+
+  useEffect(() => {
+    if (currentFilters) {
+      setFilters({
+        jobTypes: currentFilters.jobTypes || [],
+        minExperience: currentFilters.minExperience ?? null,
+        salaryRange: currentFilters.salaryRange ?? null,
+      });
+    }
+  }, [currentFilters]);
 
   const clearFilters = () => {
     const cleared = {
@@ -51,6 +62,7 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
       : [...filters.jobTypes, type];
     const newFilters = { ...filters, jobTypes: updated };
     setFilters(newFilters);
+    onApply(newFilters);
   };
 
   const handleExpSelect = (years: number | null) => {
@@ -59,6 +71,7 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
       minExperience: filters.minExperience === years ? null : years,
     };
     setFilters(newFilters);
+    onApply(newFilters);
   };
 
   const handleSalaryRangeSelect = (min: number | null, max: number | null) => {
@@ -71,6 +84,7 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
       salaryRange: isSame || min === null ? null : ([min, max] as [number, number]),
     };
     setFilters(newFilters);
+    onApply(newFilters);
   };
 
   const handleApply = () => {
@@ -100,15 +114,15 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
   const navigationItems = [
     {
       title: "Live Opportunities",
-      href: "/user/dashboard",
+      href: "/user",
       icon: LayoutDashboard,
-      active: pathname === "/user/dashboard",
+      active: pathname === "/user",
     },
     {
       title: "Candidate Profile",
-      href: userId ? `/user/test-profile/${userId}` : "/user/dashboard",
+      href: userId ? `/user/profile/${userId}` : "/user",
       icon: User,
-      active: pathname.startsWith("/user/test-profile"),
+      active: pathname.startsWith("/user/profile"),
     },
     {
       title: "Edit Profile",
@@ -127,9 +141,10 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
 
   const salaryOptions = [
     { label: "All Salaries", min: null, max: null },
-    { label: "₹6 - ₹12 LPA", min: 600000, max: 1200000 },
-    { label: "₹12 - ₹25 LPA", min: 1200000, max: 2500000 },
-    { label: "₹25+ LPA", min: 2500000, max: 10000000 },
+    { label: "₹4 - ₹8 LPA", min: 4, max: 8 },
+    { label: "₹8 - ₹15 LPA", min: 8, max: 15 },
+    { label: "₹15 - ₹25 LPA", min: 15, max: 25 },
+    { label: "₹25+ LPA", min: 25, max: 150 },
   ];
 
   const expOptions = [
@@ -147,7 +162,7 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
         
         <div className="flex items-center justify-between pb-4 border-b border-[#e1e1e1]">
           <Link
-            href="/user/dashboard"
+            href="/user"
             onClick={onClose}
             className="flex items-center gap-2.5 group"
           >
@@ -305,7 +320,7 @@ export function UserSidebar({ onApply, isOpen = false, onClose }: UserSidebarPro
       <div className="p-4 border-t border-[#e1e1e1] bg-[#f9f9f9]">
         <div className="flex items-center justify-between gap-2">
           <Link
-            href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
+            href={userId ? `/user/profile/${userId}` : "/user"}
             onClick={onClose}
             className="flex items-center gap-2.5 min-w-0 flex-1 hover:opacity-80 transition-opacity"
           >

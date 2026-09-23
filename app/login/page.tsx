@@ -34,7 +34,7 @@ export default function UnifiedLoginPage() {
         localStorage.setItem("token", result.token);
       }
 
-      const destination = callbackUrl || result.redirectTo || "/user/dashboard";
+      const destination = callbackUrl || result.redirectTo || "/user";
       window.location.href = destination;
     } catch (err: any) {
       setIsLoading(false);

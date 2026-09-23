@@ -56,7 +56,7 @@ export function NexusFooter() {
                   </h3>
                   <ul className="space-y-2 text-xs xl:text-base text-[#636363]">
                     <li>
-                      <Link href="/user/dashboard" className="home-footer-link hover:text-[#0a0e19]">
+                      <Link href="/user" className="home-footer-link hover:text-[#0a0e19]">
                         Candidate Directory
                       </Link>
                     </li>

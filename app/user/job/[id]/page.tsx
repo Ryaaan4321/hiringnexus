@@ -26,7 +26,7 @@ export default async function JobDetailPage({
           </p>
           <div className="pt-2">
             <Link
-              href="/user/dashboard"
+              href="/user"
               className="home-btn home-btn-fill text-xs inline-flex items-center gap-2"
             >
               <ArrowLeft className="w-3.5 h-3.5" />

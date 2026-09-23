@@ -45,6 +45,8 @@ export default function UserCRMTopBar({
   const [isSigningOut, setIsSigningOut] = useState(false);
   const avatarRef = useRef<HTMLDivElement>(null);
   const sortRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (avatarRef.current && !avatarRef.current.contains(event.target as Node)) {
@@ -56,6 +58,18 @@ export default function UserCRMTopBar({
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  useEffect(() => {
+    function handleKeyDown(event: KeyboardEvent) {
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === "k") {
+        event.preventDefault();
+        searchInputRef.current?.focus();
+        searchInputRef.current?.select();
+      }
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   const handleSignOut = async () => {
@@ -111,15 +125,16 @@ export default function UserCRMTopBar({
             <Search className="w-4 h-4" />
           </div>
           <input
+            ref={searchInputRef}
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search roles, tech, companies..."
-            className="w-full h-10 pl-10 pr-12 rounded-lg border border-[#cecece] bg-white text-xs sm:text-sm text-[#0a0e19] placeholder:text-[#818181] focus:outline-2 focus:outline-[#0a0e19] transition-all shadow-xs"
+            className="w-full h-10 pl-10 pr-16 rounded-lg border border-[#cecece] bg-white text-xs sm:text-sm text-[#0a0e19] placeholder:text-[#818181] focus:outline-2 focus:outline-[#0a0e19] transition-all shadow-xs"
           />
           <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
             <kbd className="hidden sm:inline-block px-1.5 py-0.5 text-[10px] font-mono text-[#818181] border border-[#cecece] rounded bg-[#f2f2f2]">
-              ⌘K
+              Ctrl+K
             </kbd>
           </div>
         </div>
@@ -240,7 +255,7 @@ export default function UserCRMTopBar({
               </div>
               <div className="space-y-1 text-xs font-medium">
                 <Link
-                  href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
+                  href={userId ? `/user/profile/${userId}` : "/user"}
                   onClick={() => setIsAvatarOpen(false)}
                   className="w-full flex items-center justify-between px-3 py-2 rounded-lg hover:bg-[#f2f2f2] text-[#0a0e19] transition-colors"
                 >

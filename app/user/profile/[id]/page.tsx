@@ -70,7 +70,7 @@ export default function ProfilePreview() {
       <div className="max-w-6xl mx-auto space-y-6">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-[#e1e1e1]">
           <Link
-            href="/user/dashboard"
+            href="/user"
             className="home-arrow-link text-xs font-medium text-[#636363] hover:text-[#0a0e19] transition-colors self-start"
           >
             <span className="home-arrow">←</span> Back to Opportunities

@@ -222,7 +222,7 @@ export function NexusAudienceSection({ onOpenWaitlist }: NexusAudienceSectionPro
                       picture.
                     </p>
                     <Link
-                      href="/user/dashboard"
+                      href="/user"
                       className="home-arrow-link mt-5 cursor-pointer"
                     >
                       Explore telemetry signals <span className="home-arrow">→</span>
@@ -285,7 +285,7 @@ export function NexusAudienceSection({ onOpenWaitlist }: NexusAudienceSectionPro
                       interviews with zero agency overhead.
                     </p>
                     <Link
-                      href="/user/dashboard"
+                      href="/user"
                       className="home-arrow-link mt-5 cursor-pointer"
                     >
                       Direct team collaboration <span className="home-arrow">→</span>

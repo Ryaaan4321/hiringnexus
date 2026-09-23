@@ -53,7 +53,7 @@ export default function SingleJob({ job }: { job: jobinterface }) {
         
         <div className="flex flex-wrap items-center justify-between gap-2 pb-2">
           <Link
-            href="/user/dashboard"
+            href="/user"
             className="inline-flex items-center gap-2 text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />

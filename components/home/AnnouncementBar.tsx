@@ -22,7 +22,7 @@ export function AnnouncementBar() {
         </div>
         <div className="flex items-center mx-auto sm:mx-0">
           <Link
-            href="/user/dashboard"
+            href="/user"
             className="group flex items-center gap-2 hover:text-white transition-colors"
           >
             <span className="font-sans text-neutral-300 font-medium tracking-tight">

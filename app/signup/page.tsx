@@ -50,7 +50,7 @@ export default function UnifiedSignupPage() {
         localStorage.setItem("token", result.token);
       }
 
-      const destination = result.redirectTo || (role === "RECRUITER" ? "/recruiter/dashboard" : "/user/dashboard");
+      const destination = result.redirectTo || (role === "RECRUITER" ? "/recruiter/dashboard" : "/user");
       window.location.href = destination;
     } catch (err: any) {
       setIsLoading(false);

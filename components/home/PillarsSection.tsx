@@ -119,7 +119,7 @@ const connection = await DirectPipeline.dispatch({
 
                 <div className="pt-4">
                   <Link
-                    href="/user/dashboard"
+                    href="/user"
                     className="inline-flex items-center gap-2 text-sm font-medium text-neutral-900 dark:text-white hover:underline group"
                   >
                     <span>Inspect live methodology</span>

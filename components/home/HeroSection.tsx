@@ -54,7 +54,7 @@ export function HeroSection() {
             </MagneticButton>
 
             <MagneticButton
-              href="/user/dashboard"
+              href="/user"
               variant="secondary"
               size="lg"
               className="w-full sm:w-auto min-w-[180px]"

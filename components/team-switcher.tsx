@@ -86,7 +86,7 @@ export function TeamSwitcher({
                 key={team.name}
                 className="gap-2 p-2 cursor-pointer"
               >
-                <Link href={`/user/test-profile/${userId}`}>
+                <Link href={`/user/profile/${userId}`}>
                   <div className='flex items-center space-x-1.5'>
                     <div className="flex size-6 items-center justify-center rounded-md border">
                       <team.logo className="size-3.5 shrink-0" />

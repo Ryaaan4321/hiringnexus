@@ -83,7 +83,7 @@ export default function EditUserDetails() {
       } else {
         setFeedback({ type: "success", msg: "Profile coordinates successfully synchronized." });
         setTimeout(() => {
-          window.location.href = `/user/test-profile/${userId}`;
+          window.location.href = `/user/profile/${userId}`;
         }, 800);
       }
     } catch (e: any) {
@@ -98,7 +98,7 @@ export default function EditUserDetails() {
       <div className="max-w-3xl mx-auto space-y-6">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <Link
-            href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
+            href={userId ? `/user/profile/${userId}` : "/user"}
             className="inline-flex items-center gap-2 text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
@@ -298,7 +298,7 @@ export default function EditUserDetails() {
             </div>
             <div className="pt-6 border-t border-[#e1e1e1] flex flex-col-reverse sm:flex-row sm:items-center justify-between gap-4">
               <Link
-                href={userId ? `/user/test-profile/${userId}` : "/user/dashboard"}
+                href={userId ? `/user/profile/${userId}` : "/user"}
                 className="text-xs font-mono text-[#636363] hover:text-[#0a0e19] transition-colors text-center sm:text-left py-2"
               >
                 Discard Changes

@@ -82,7 +82,7 @@ export async function POST(req: NextRequest) {
 
     const { password: _, ...safeUser } = newUser;
     const redirectTo =
-      assignedRole === "RECRUITER" ? "/recruiter/dashboard" : "/user/dashboard";
+      assignedRole === "RECRUITER" ? "/recruiter/dashboard" : "/user";
     return NextResponse.json(
       {
         success: true,

@@ -40,10 +40,18 @@ export default function AdminCreateJobForm() {
     };
 
     try {
+      const headers: Record<string, string> = { "Content-Type": "application/json" };
+      if (typeof window !== "undefined") {
+        const token = localStorage.getItem("token");
+        if (token) {
+          headers["Authorization"] = `Bearer ${token}`;
+        }
+      }
+
       const response = await fetch("/api/admin/jobpost", {
         method: "POST",
         body: JSON.stringify(payload),
-        headers: { "Content-Type": "application/json" },
+        headers,
         credentials: "include",
       });
 
